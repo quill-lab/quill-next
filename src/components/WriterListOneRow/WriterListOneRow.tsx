@@ -5,7 +5,7 @@ import { updateWriterState } from '@/fetch/put';
 import { GetWriterListAdmin } from '@/shared';
 import { useMutationWrap } from '@/hooks/reactQeuryWrapper';
 
-import { dateChanger } from '../../../util/dateChange';
+import { dateChanger } from '@/shared/utils/dateChange';
 import st from './WriterListOneRow.module.scss';
 
 const joninStatus = {

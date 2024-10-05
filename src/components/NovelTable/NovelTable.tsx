@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React from 'react';
-import { dateChanger } from 'util/dateChange';
+import { dateChanger } from '@/shared/utils/dateChange';
 
 import { NovelPost } from '@/shared';
 

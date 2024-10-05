@@ -1,4 +1,4 @@
-import callApi from 'util/fetchWrapper';
+import callApi from '@/shared/utils/fetchWrapper';
 
 import { config } from '@/config/config';
 

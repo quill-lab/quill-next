@@ -1,4 +1,4 @@
-import { envApiConfig } from 'util/envConfig';
+import { envApiConfig } from '@/shared/utils/envConfig';
 
 import { GetChatHistoryRequest } from '@/shared';
 
@@ -35,7 +35,7 @@ export const config = {
     // 소설공방에 참여중인 작가 리스트
     novelJoinWriterList: '/writer',
 
-    // 소설상세 페에지의 회차정보
+    // 소설상세 페에지의 회차정보`117
     novelChapterList: '/chapter',
 
     // (공방주인용) 작가관리 리스트

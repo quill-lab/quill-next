@@ -13,7 +13,7 @@ import EyeIcon from '@/images/eye.svg';
 import HeartRed from '@/images/heart-red.svg';
 
 import styles from './recruit-post.module.scss';
-import { dateChanger } from '../../../../util/dateChange';
+import { dateChanger } from '@/shared/utils/dateChange';
 import { GetWriterPostDetail } from '@/shared';
 
 const RecruitPost = () => {

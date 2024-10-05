@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { io } from 'socket.io-client';
-import eventBus from 'util/eventBus';
-import LocalStorage from 'util/LocalStorage';
+import eventBus from '@/shared/utils/eventBus';
+import LocalStorage from '@/shared/utils/LocalStorage';
 
 import { config } from '@/config/config';
 import { storageKey } from '@/constants';
