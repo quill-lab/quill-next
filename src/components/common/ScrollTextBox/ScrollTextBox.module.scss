@@ -1,0 +1,72 @@
+@import '../../../styles/value';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: $s16px $s32px $s16px $s32px;
+    border-radius: $s10px;
+    background: rgba(255, 255, 255, 0.50);
+
+    &.on {
+        background-color: $white-1;
+
+        .container_texts {
+            .container_date {
+                color: $gray-7;
+            }
+        }
+
+    }
+
+    .container_texts {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+
+        justify-content: space-between;
+
+        .container_title {
+            color: $back-1;
+            font-size: $s14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+
+        .container_date {
+            color: $blue-1;
+            text-align: center;
+            font-size: $s8px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+    }
+
+
+    .container_textarea {
+        resize: none;
+        border: none;
+
+        color: $back-1;
+        font-size: $s14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px;
+
+        outline: none;
+
+        background-color: transparent;
+
+        height: 100%;
+
+        &:disabled {
+            border: none;
+            color: $back-1;
+            font-size: $s14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 20px;
+        }
+    }
+}

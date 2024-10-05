@@ -1,0 +1,29 @@
+@import '../../styles/value.scss';
+
+
+.main {
+    display: flex;
+    flex-direction: column;
+
+    .main_title {
+        color: $blue-2;
+        font-size: $s24px;
+        font-style: normal;
+        font-weight: 400;
+
+        margin-top: $s44px;
+
+        .main_title_point {
+            font-weight: 700;
+        }
+    }
+
+
+    .main_novelList {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        margin-top: $s16px;
+    }
+}

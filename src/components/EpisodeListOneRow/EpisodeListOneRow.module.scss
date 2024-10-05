@@ -1,0 +1,80 @@
+@import '../../styles/value.scss';
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+
+    background-color: transparent;
+
+    .main_list_episode,
+    .main_list_title,
+    .main_list_finalRetouchDate,
+    .main_list_status,
+    .main_list_serialApprovalDate,
+    .main_list_views,
+    .main_list_commnents,
+    .main_list_likes {
+        display: flex;
+        height: $s48px;
+        align-items: center;
+        justify-content: center;
+
+        color: $back-1;
+        text-align: center;
+        font-size: $s14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+
+    .main_list_title,
+    .main_list_finalRetouchDate,
+    .main_list_status,
+    .main_list_serialApprovalDate,
+    .main_list_views,
+    .main_list_commnents,
+    .main_list_likes {
+        margin-left: $s12px;
+    }
+
+    .main_list_episode {
+        width: $s48px;
+        margin-left: $s84px;
+    }
+
+    .main_list_title {
+        width: $s160px;
+    }
+
+    .main_list_finalRetouchDate {
+        width: $s120px;
+    }
+
+    .main_list_status {
+        width: $s118px;
+    }
+
+    .main_list_serialApprovalDate {
+        width: $s118px;
+    }
+
+    .main_list_views {
+        width: $s60px;
+    }
+
+    .main_list_commnents {
+        width: $s60px;
+    }
+
+    .main_list_likes {
+        width: $s60px;
+    }
+
+    &:hover>p {
+        color: $blue-1;
+    }
+}

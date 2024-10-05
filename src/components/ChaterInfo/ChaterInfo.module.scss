@@ -1,0 +1,121 @@
+@import '../../styles/value.scss';
+
+.main {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+
+    margin-top: $s8px;
+
+
+    .main_list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border-radius: 0px 0px 10px 10px;
+        background-color: rgba(255, 255, 255, 0.50);
+
+        .main_list_selectBar {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            .main_list_goPost {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: none;
+
+                width: $s216px;
+                height: $s36px;
+                border-radius: $s200px;
+                background-color: $white-1;
+
+                margin: $s13px $s24px 0px auto;
+
+                cursor: pointer;
+
+                color: $blue-3;
+                font-size: $s12px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+
+            }
+        }
+
+        .main_list_columnName {
+            display: flex;
+            width: 100%;
+            height: $s48px;
+            flex-direction: row;
+            align-items: center;
+
+            .main_list_episode,
+            .main_list_title,
+            .main_list_finalRetouchDate,
+            .main_list_status,
+            .main_list_serialApprovalDate,
+            .main_list_views,
+            .main_list_commnents,
+            .main_list_likes {
+                display: flex;
+                height: $s48px;
+                align-items: center;
+                justify-content: center;
+
+                color: $back-1;
+                text-align: center;
+                font-size: $s14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+            }
+
+            .main_list_title,
+            .main_list_finalRetouchDate,
+            .main_list_status,
+            .main_list_serialApprovalDate,
+            .main_list_views,
+            .main_list_commnents,
+            .main_list_likes {
+                margin-left: $s12px;
+            }
+
+            .main_list_episode {
+                width: $s48px;
+                margin-left: $s84px;
+            }
+
+            .main_list_title {
+                width: $s160px;
+            }
+
+            .main_list_finalRetouchDate {
+                width: $s120px;
+            }
+
+            .main_list_status {
+                width: $s118px;
+            }
+
+            .main_list_serialApprovalDate {
+                width: $s118px;
+            }
+
+            .main_list_views {
+                width: $s60px;
+            }
+
+            .main_list_commnents {
+                width: $s60px;
+            }
+
+            .main_list_likes {
+                width: $s60px;
+            }
+        }
+
+    }
+}

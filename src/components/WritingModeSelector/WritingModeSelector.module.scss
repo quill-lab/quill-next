@@ -1,0 +1,33 @@
+@import '../../styles/value.scss';
+
+.container {
+    display: flex;
+    width: $s384px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding-top:16px;
+    padding-bottom:16px;
+
+    input[type=radio] {
+        width: $s18px;
+        height: $s18px;
+        accent-color: $blue-1;
+    }
+
+    .inputBox {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        color: $gray-2;
+        font-size: $s14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+}
+
+.ml8{
+    margin-left: $s8px;
+}

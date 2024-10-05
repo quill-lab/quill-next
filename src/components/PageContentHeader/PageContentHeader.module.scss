@@ -1,0 +1,44 @@
+@import '../../styles/value.scss';
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    height: 21.5rem;
+
+
+    .contentBox {
+        display: flex;
+        width: 75rem;
+        height: 14rem;
+        flex-direction: row;
+
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+
+        .textContent {
+            display: flex;
+            flex-direction: column;
+
+            .pageName,
+            .summary1,
+            .summary2 {
+                color: #FFF;
+                font-style: normal;
+                font-weight: 400;
+            }
+
+            .pageName {
+                font-size: 1.5rem;
+            }
+
+            .summary1,
+            .summary2 {
+                font-size: 2.5rem;
+            }
+        }
+    }
+}

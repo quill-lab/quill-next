@@ -1,0 +1,156 @@
+@import '../../../styles/value.scss';
+
+.mt92 {
+  margin-top: $s92px;
+}
+
+.mt8 {
+  margin-top: $s8px;
+}
+
+.mt28 {
+  margin-top: $s28px;
+}
+
+.mt18 {
+  margin-top: $s18px;
+}
+
+.mt21 {
+  margin-top: $s21px;
+}
+
+.mt32 {
+  margin-top: $s32px;
+}
+
+.mt12 {
+  margin-top: $s12px;
+}
+
+@mixin linx($link, $visit, $hover, $active) {
+  a {
+    color: $link;
+    text-decoration: none;
+
+    &:visited {
+      color: $visit;
+    }
+
+    &:hover {
+      color: $hover;
+    }
+
+    &:active {
+      color: $active;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 7.9rem;
+
+  .inputContainer {
+    display: flex;
+    width: $s384px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .text1 {
+    color: $blue-1;
+    text-align: center;
+    font-size: $s20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .text2 {
+    color: $gray-2;
+    text-align: center;
+    font-size: $s16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .loginBtn {
+    width: 100%; 
+    max-width: $s200px;  
+    height: $s46px;
+    cursor: pointer;
+    border: none;
+    border-radius: $s62px;
+    background-color: $blue-1;
+    color: $white-1;
+    font-size: $s14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: $s28px; 
+  }
+
+  .linkContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:12px;
+
+    a {
+        text-decoration: none;
+        color: $blue-1;
+    }
+  }
+
+  p:nth-of-type(2) {
+    @include linx($blue-1, $blue-1, $blue-1, $blue-1);
+  }
+
+  p:nth-of-type(3) {
+    @include linx($back-1, $back-1, $back-1, $back-1);
+  }
+}
+
+.formWapper{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  input {
+    width: $s384px;
+    border: solid 0.5px $gray-1;
+    background-color: $white-1;
+    border-radius: $s10px;
+    height: $s48px;
+    padding: $s15px;
+
+    &::-webkit-input-placeholder {
+      color: $gray-2;
+      font-size: $s14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+
+  p {
+    color: $red-2;
+    font-size: $s12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: $s5px;
+
+  }
+}

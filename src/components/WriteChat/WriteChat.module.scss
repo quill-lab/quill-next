@@ -1,0 +1,48 @@
+@import '../../styles/value.scss';
+
+.chat {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-left: $s32px;
+    padding-right: $s32px;
+
+    white-space: pre-line;
+
+    .chat_bar {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+
+        .chat_status,
+        .chat_nick {
+            font-size: $s18px;
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .chat_date {
+            font-size: $s14px;
+            font-style: normal;
+            font-weight: 400;
+            margin-left: $s8px;
+        }
+
+        button {
+            border: none;
+            outline: none;
+            background-color: transparent;
+
+            margin-left: $s8px;
+
+            cursor: pointer;
+        }
+
+        .chat_content {
+            color: $back-1;
+            font-size: $s16px;
+            font-style: normal;
+            font-weight: 400;
+        }
+    }
+}

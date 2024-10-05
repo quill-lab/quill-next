@@ -1,0 +1,96 @@
+@import '../../styles/value.scss';
+
+.row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    cursor: pointer;
+
+    border: none;
+    background-color: transparent;
+
+    &:hover {
+        .row_top {
+            .row_title {
+                text-decoration: underline;
+            }
+        }
+    }
+
+
+    .row_top {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        width: 100%;
+
+
+        .row_scope {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            margin-left: auto;
+
+            &>div {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                p {
+                    color: $back-1;
+                    text-align: center;
+                    font-size: $s14px;
+                    font-style: normal;
+                    font-weight: 400;
+                }
+            }
+
+            &>div:nth-child(2) {
+                margin-left: $s24px;
+            }
+
+            &>div:nth-child(3) {
+                margin-left: $s24px;
+            }
+        }
+
+        .row_number {
+            display: flex;
+            width: $s78px;
+            height: $s36px;
+            align-items: center;
+            justify-content: center;
+
+            color: $back-1;
+            text-align: center;
+            font-size: $s16px;
+            font-style: normal;
+            font-weight: 500;
+        }
+
+        .row_title {
+            display: flex;
+            width: $s384px;
+            height: $s36px;
+            flex-direction: row;
+            align-items: center;
+
+            color: $back-1;
+            font-size: $s16px;
+            font-style: normal;
+            font-weight: 500;
+        }
+    }
+
+    .row_date {
+        display: flex;
+        margin-left: auto;
+        color: $gray-10;
+        font-size: $s14px;
+        font-style: normal;
+        font-weight: 400;
+    }
+}

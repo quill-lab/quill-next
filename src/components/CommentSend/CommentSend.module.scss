@@ -1,0 +1,95 @@
+@import '../../styles/value.scss';
+
+.box {
+    display: flex;
+    flex-direction: column;
+    width: $s996px;
+    border: solid $s05px $white-1;
+    border-radius: $s10px;
+
+    min-height: $s200px;
+
+    margin-top: $s16px;
+
+    .box_user {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border: solid $s05px $white-1;
+        border-width: 0px 0px $s05px 0px;
+
+        padding: $s12px $s16px $s12px $s16px;
+
+        .box_thumbnail {
+            width: $s36px;
+            height: $s36px;
+            border-radius: 100px;
+            background-color: red;
+        }
+
+        .box_nickName {
+            color: $white-1;
+            font-size: $s14px;
+            font-style: normal;
+            font-weight: 500;
+
+            margin-left: $s16px;
+        }
+    }
+
+    .box_text {
+        display: flex;
+        flex-direction: row;
+
+        textarea {
+            width: $s792px;
+            margin: $s8px 0px $s8px $s16px;
+            min-height: $s117px;
+
+            background-color: transparent;
+            border: none;
+            resize: none;
+            outline: none;
+
+            color: $white-1;
+            font-size: $s14px;
+            font-style: normal;
+            font-weight: 400;
+
+            &::placeholder {
+                color: $white-1;
+                font-size: $s14px;
+                font-style: normal;
+                font-weight: 400;
+            }
+        }
+
+        button {
+            display: flex;
+            width: $s100px;
+            height: $s48px;
+
+            border-radius: $s10px;
+            background: $white-1;
+
+            align-items: center;
+            justify-content: center;
+
+            color: $blue-2;
+            text-align: center;
+            font-size: $s14px;
+            font-style: normal;
+            font-weight: 400;
+
+            border: none;
+            cursor: pointer;
+
+
+            margin: auto $s16px $s16px auto;
+
+            &:hover {
+                font-size: $s16px;
+            }
+        }
+    }
+}

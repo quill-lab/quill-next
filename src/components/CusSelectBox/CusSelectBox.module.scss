@@ -1,0 +1,88 @@
+@import '../../styles/value.scss';
+
+.selectBox {
+    display: flex;
+    min-width: $s90px;
+    height: $s30px;
+
+    border-radius: $s100px;
+    background: rgba(255, 255, 255, 0.50);
+    align-items: center;
+    justify-content: center;
+
+    padding-left: $s12px;
+    padding-right: $s12px;
+
+    border: none;
+
+    margin-top: $s16px;
+    margin-left: $s24px;
+
+    flex-direction: row;
+
+    overflow: visible;
+
+    position: relative;
+
+    color: $blue-1;
+    text-align: center;
+    font-size: $s12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    cursor: pointer;
+
+    img {
+        margin-left: $s4px;
+    }
+
+    .selectBox_list {
+        display: flex;
+        flex-direction: column;
+        min-width: $s100px;
+
+        position: absolute;
+
+        top: $s40px;
+        left: 0px;
+
+        border-radius: $s10px;
+        border: 0.5px solid $gray-1;
+        background: $white-1;
+        box-shadow: 0px $s4px $s4px 0px rgba(0, 0, 0, 0.25);
+
+        padding: $s8px 0px $s24px 0px;
+
+        align-items: center;
+
+        &.hidden {
+            display: none;
+        }
+
+
+
+        button {
+            display: flex;
+            background-color: transparent;
+            border: none;
+            width: max-content;
+
+            align-items: center;
+            justify-content: center;
+
+            color: $blue-1;
+            text-align: center;
+            font-size: $s14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+
+            margin-top: $s16px;
+
+            padding: 0px $s16px 0px $s16px;
+
+            cursor: pointer;
+        }
+    }
+}

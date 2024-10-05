@@ -1,0 +1,24 @@
+@import '../../styles/value.scss';
+
+.background {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(37, 37, 37, 0.80);
+
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: 999;
+
+    .centerBox {
+        min-width: $s384px;
+        min-height: $s240px;
+        background-color: $white-1;
+        border: none;
+        border-radius: $s8px;
+    }
+}

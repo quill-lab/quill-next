@@ -1,0 +1,90 @@
+@import '../../styles/value.scss';
+
+.header {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 7.875rem;
+    font-size: $s16px;
+    color: $blue-1;
+
+    transition-property: background-color;
+    /* 어떤 css 프로퍼티를 transition할지 지정 */
+    transition-duration: 0.3s;
+    /* width와 bg-color가 2초동안 변화 */
+
+    .outline {
+        width: 87.5rem;
+        height: 4.375rem;
+
+        border-radius: 6.25rem;
+        border: 0.6px solid $blue-1;
+        background: rgba(246, 248, 248, 0.50);
+
+        a {
+            text-decoration: none;
+            color: $blue-1;
+        }
+
+        &.white {
+            color: $white-1;
+
+            a {
+                text-decoration: none;
+
+                &:visited,
+                &:active {
+                    color: $white-1;
+                }
+            }
+        }
+    }
+
+}
+
+.recruitmentSearchWrapOriginal {
+    position: relative;
+    display: inline-block;
+    margin: 0 106px;
+    width: auto;
+    height: auto;
+
+    button {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    input {
+        padding: 16px 46px 16px 16px;
+        width: 488px;
+        height: 46px;
+        font-size: $s13px;
+        color: $blue-1;
+        background-color: transparent;
+        border-radius: 10px;
+        border: 0.5px solid $blue-1;
+
+        &::placeholder {
+            color: $blue-1 ;
+        }
+
+        &:focus,
+        &:focus-visible {
+            border: 1px solid $blue-2;
+            outline: none;
+        }
+    }
+}

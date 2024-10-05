@@ -1,0 +1,59 @@
+@import '../../../styles/value';
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    width: max-content;
+
+    .catetoryInfos {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: relative;
+        padding: $s8px;
+
+        &>p {
+            text-align: center;
+            font-size: $s16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+
+        .speechBubbleContainer {
+            text-align: center;
+            width: $s256px;
+            min-height: $s40px;
+            border: solid $s05px $back-1;
+            border-radius: $s20px $s20px 0px $s20px;
+            background-color: $white-2;
+
+            color: $blue-2;
+            font-size: $s12px;
+            font-weight: 500;
+            padding: $s16px;
+            position: absolute;
+            bottom: 90%;
+            right: 10%;
+        }
+    }
+
+    .childComponent {
+        width: $s384px;
+        height: $s50px;
+    }
+}
+
+.redColor {
+    color: $red-1;
+}
+
+.grayColor {
+    color: $gray-3;
+}
+
+.ml4 {
+    margin-left: $s4px;
+}

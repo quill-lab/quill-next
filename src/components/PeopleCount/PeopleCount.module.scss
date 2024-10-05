@@ -1,0 +1,39 @@
+@import '../../styles/value.scss';
+
+.container{
+    display: flex;
+    width: $s384px;
+    flex-direction: column;
+    padding: $s26px $s60px $s26px $s60px;
+
+    border: solid $s05px $gray-1;
+    border-radius: $s10px;
+    background-color: $white-1;
+
+    input[type=radio]{
+        width: $s18px;
+        height: $s18px;
+        accent-color: $blue-1;
+    }
+
+    .rowBox{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .inputBox{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+.mt32{
+    margin-top: $s32px;
+}
+
+.ml16{
+    margin-left: $s16px;
+}

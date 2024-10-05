@@ -1,0 +1,67 @@
+@import '../../styles/value.scss';
+
+.tagArea {
+    display: flex;
+    flex-direction: column;
+
+    .tagArea_errorText {
+        color: $red-1;
+        font-size: $s12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+}
+
+.tagContainer {
+    display: flex;
+    width: $s384px;
+    // min-height: $s50px;
+    padding: $s12px $s21px 0rem $s21px;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    border: solid $s05px $gray-1;
+    border-radius: $s10px;
+    background-color: $white-1;
+
+    .tagContainer_input {
+        display: flex;
+        width: $s200px;
+        height: $s26px;
+        border: none;
+        margin-bottom: $s12px;
+
+        &::placeholder {
+            color: $gray-2;
+            font-size: $s14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+    }
+
+    .tagContainer_tag {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: $s4px;
+        border-radius: $s5px;
+        background-color: $gray-4;
+
+        margin-right: $s16px;
+        margin-bottom: $s12px;
+
+        .tagContainer_tag_delete {
+            margin-left: $s4px;
+        }
+
+        &>p {
+            color: $gray-2;
+            font-size: $s14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+    }
+}

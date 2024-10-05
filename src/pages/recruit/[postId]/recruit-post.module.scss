@@ -1,0 +1,123 @@
+@import '../../../styles/value.scss';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 0;
+
+    padding-top: 11.245rem;
+
+    .header {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 32px;
+        width: 558px;
+
+        .headerTools {
+            display: flex;
+            gap: 10px;
+
+            .headerTool {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 4px;
+                font-size: $s14px;
+            }
+        }
+    }
+
+    .main {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        width: 558px;
+
+        .novelList {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            list-style: none;
+
+            .novelItem {
+                span {
+                    &:first-child {
+                        font-weight: 500;
+                    }
+
+                    &:last-child {
+                        margin-left: 16px;
+                        color: $gray-2;
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+
+        .novelDescription {
+            p {
+                &:first-child {
+                    font-weight: 500;
+                }
+
+                &:last-child {
+                    margin-top: 8px;
+                    color: $gray-2;
+                    font-weight: 400;
+                }
+            }
+        }
+
+        .novelOpenChat {
+            p {
+                &:first-child {
+                    font-weight: 500;
+                }
+
+                &:last-child {
+                    margin-top: 8px;
+                    color: $gray-2;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+
+    .footer {
+        display: flex;
+        gap: 16px;
+        margin-top: 60px;
+
+        .button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            height: 46px;
+            color: $white-1;
+            background-color: $blue-3;
+            border: none;
+            border-radius: 62px;
+            cursor: pointer;
+            transition: .2s all ease-in-out;
+
+            &:disabled {
+                background-color: $gray-1;
+                cursor: not-allowed;
+            }
+            &:enabled:hover {
+                background-color: $blue-2;
+            }
+
+            &:first-child {
+                width: 70px;
+            }
+
+            &:last-child {
+                width: 200px;
+            }
+        }
+    }
+}

@@ -1,0 +1,34 @@
+@import '../../styles/value.scss';
+
+.item {
+    display: flex;
+    width: 100%;
+    height: $s24px;
+
+    margin-top: $s12px;
+    margin-bottom: $s12px;
+
+    flex-direction: row;
+    align-items: center;
+
+    padding: 0px 0px 0px $s36px;
+
+    cursor: pointer;
+
+    &.moving {
+        opacity: 0.4;
+    }
+
+    .item_name {
+        color: $back-1;
+        font-size: $s14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin-left: $s16px;
+    }
+
+    .moveIcon {
+        margin-left: auto;
+    }
+}

@@ -1,0 +1,43 @@
+@import '../../styles/value.scss';
+
+.selectContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    width: 90px;
+    height: 30px;
+    font-size: 12px;
+    font-weight: 500;
+    color: $back-1;
+    background-color: $gray-4;
+    border-radius: 100px;
+    cursor: pointer;
+    .selectItem {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        span:last-child {
+            transition: transform .3s ease-in-out;
+        }
+        &.active {
+            span:last-child {
+                transform: rotate(180deg);
+            }
+        }
+    }
+    .selectDropdown {
+        position: absolute;
+        left: 0;
+        top: 40px;
+        padding: 0 15px;
+        width: 90px;
+        list-style: none;
+        background-color: $gray-4;
+        .selectDropdownItem {
+            display: flex;
+            align-items: center;
+            height: 20px;
+        }
+    }
+}

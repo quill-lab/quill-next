@@ -1,0 +1,36 @@
+@import '../../../styles/value.scss';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .inputBox {
+        display: flex;
+        width: $s384px;
+        height: $s100px;
+
+        border: solid $s05px $gray-1;
+        border-radius: $s10px;
+
+        resize:none;
+        color: $back-1;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        padding: $s16px;
+
+        &::placeholder {
+            color: $gray-1;
+        }
+    }
+
+    p {
+        color: $red-1;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+}

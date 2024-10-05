@@ -1,0 +1,67 @@
+@import '../../styles/value.scss';
+
+
+
+.comment {
+    display: flex;
+    width: $s996px;
+
+    margin-top: $s16px;
+    padding: 0px $s16px 0px $s16px;
+
+    .comment_thumbnail {
+        width: $s36px;
+        height: $s36px;
+
+        border-radius: 100px;
+        background-color: red;
+    }
+
+    .commnet_user {
+        display: flex;
+        flex-direction: column;
+
+        width: $s100px;
+
+        margin-left: $s16px;
+
+
+        p:nth-child(1) {
+            color: $white-1;
+            font-size: $s14px;
+            font-style: normal;
+            font-weight: 500;
+        }
+
+        p:nth-child(2) {
+            color: $white-1;
+            font-size: $s12px;
+            font-style: normal;
+            font-weight: 400;
+
+            margin-top: $s4px;
+        }
+    }
+
+    .comment_text {
+        color: $white-1;
+        font-size: $s14px;
+        font-style: normal;
+        font-weight: 400;
+    }
+
+    .comment_otherBtn {
+        display: flex;
+        flex-direction: row;
+        margin-left: auto;
+
+        img {
+            cursor: pointer;
+
+        }
+
+        img:nth-child(2) {
+            margin-left: $s8px;
+        }
+    }
+}

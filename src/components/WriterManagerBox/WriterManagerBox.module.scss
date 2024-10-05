@@ -1,0 +1,131 @@
+@import '../../styles/value.scss';
+
+.box {
+    display: flex;
+    flex-direction: column;
+    width: $s264px;
+    height: $s462px;
+    align-items: center;
+
+    border-radius: $s20px;
+    background: $white-1;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+    .scrollBox {
+        display: block;
+        overflow-y: auto;
+        width: 100%;
+    }
+
+    .box_title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: $s52px;
+
+        color: $back-1;
+        font-size: $s16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    .box_button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: auto;
+        width: 100%;
+        height: $s56px;
+        border-radius: 0px 0px 20px 20px;
+        background: #F8F8F8;
+
+        border: none;
+
+        color: $blue-1;
+        text-align: center;
+        font-size: $s14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+
+        cursor: pointer;
+    }
+
+    .box_btns {
+        display: flex;
+        justify-content: space-between;
+        margin-top: auto;
+        width: 100%;
+        height: $s56px;
+        border-radius: 0px 0px $s20px $s20px;
+        background: transparent;
+
+        border: none;
+
+        button {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: center;
+
+            border: none;
+            outline: none;
+
+            cursor: pointer;
+
+            text-align: center;
+            font-size: $s14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+
+        button:nth-child(1) {
+            background-color: $blue-1;
+            border-bottom-left-radius: $s20px;
+            color: $white-1;
+        }
+
+        button:nth-child(2) {
+            background-color: $white-1;
+            border-bottom-right-radius: $s20px;
+            border: solid $s05px $gray-1 !important;
+
+            color: $gray-6;
+        }
+    }
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: $s72px;
+
+    .column_btn {
+        display: flex;
+        width: $s200px;
+        height: $s48px;
+        border-radius: $s100px;
+        background: $blue-1;
+
+        align-items: center;
+        justify-content: center;
+        border: none;
+
+        color: $white-1;
+        text-align: center;
+        font-size: $s14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+
+        margin-top: $s32px;
+
+        cursor: pointer;
+
+    }
+}

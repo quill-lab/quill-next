@@ -1,0 +1,29 @@
+import React, { ReactElement } from 'react';
+
+import CusSelectBoxGreen from '@/components/CusSelectBoxGreen/CusSelectBoxGreen';
+
+import styles from './NovelTabsGreenAndSelect.module.scss';
+import { NovelTabsGreenAndSelectProps } from './type';
+
+export default function NovelTabsGreenAndSelect({
+  tabs,
+  currentTab,
+  handleCurrentTab,
+  data,
+}: NovelTabsGreenAndSelectProps): ReactElement {
+  return (
+    <div className={styles.novelTabs}>
+      {tabs.map(tab => (
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+        <div
+          key={tab}
+          onClick={() => handleCurrentTab(tab)}
+          className={`${styles.novelTab} ${currentTab === tab ? styles.active : ''}`}
+        >
+          {tab}
+        </div>
+      ))}
+      <CusSelectBoxGreen data={data} />
+    </div>
+  );
+}

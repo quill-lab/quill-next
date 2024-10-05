@@ -1,0 +1,103 @@
+@import '../../styles/value.scss';
+
+.writerRow {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: row;
+
+    background: rgba(255, 255, 255, 0.70);
+
+    &:nth-child(even) {
+        background: rgba(255, 255, 255, 0.50);
+    }
+
+    .main_writerlist_Number,
+    .main_writerlist_nickName,
+    .main_writerlist_textAmount,
+    .main_writerlist_dateForParticipation,
+    .main_writerlist_approvalStatus,
+    .main_writerlist_exitDate,
+    .main_writerlist_participationStatus {
+        display: flex;
+        height: $s48px;
+
+        align-items: center;
+        justify-content: center;
+
+        color: $back-1;
+        text-align: center;
+        font-size: $s14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+
+    .main_writerlist_Number {
+        width: $s48px;
+        margin-left: $s40px;
+    }
+
+    .main_writerlist_nickName {
+        width: $s160px;
+    }
+
+    .main_writerlist_textAmount {
+        width: $s120px;
+    }
+
+    .main_writerlist_dateForParticipation {
+        width: $s96px;
+    }
+
+    .main_writerlist_approvalStatus {
+        width: $s118px;
+    }
+
+    .main_writerlist_exitDate {
+        width: $s118px;
+    }
+
+    .main_writerlist_participationStatus {
+        width: $s80px;
+    }
+
+    .row_btns {
+        display: flex;
+        flex: 1 0 auto;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: $s56px;
+            height: $s32px;
+
+            border-radius: 10px;
+            background: $white-1;
+            border: none;
+            cursor: pointer;
+
+            text-align: center;
+            font-size: $s12px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+
+        .resolve {
+            background-color: $blue-1;
+            color: $white-1;
+            margin-right: $s8px;
+        }
+
+        .reject {
+            background-color: $white-1;
+            color: $back-1;
+        }
+    }
+}

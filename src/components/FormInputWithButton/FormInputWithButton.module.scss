@@ -1,0 +1,26 @@
+$colorPrimary: #059EAF;
+$colorRed: #EE3C3C;
+$colorWhite: #ffffff;
+$colorGray: #4c4949;
+$f12: 12px;
+$f14: 14px;
+
+.inputButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 110px;
+  height: 48px;
+  font-size: $f14;
+  color: $colorWhite;
+  background-color: $colorPrimary;
+  border-radius: 10px;
+  border: unset;
+  cursor: pointer;
+  &:disabled {
+    opacity: .3;
+    cursor: not-allowed;
+    background-color: $colorGray;
+  }
+}
+

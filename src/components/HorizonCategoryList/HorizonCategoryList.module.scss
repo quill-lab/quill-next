@@ -1,0 +1,34 @@
+@import '../../styles/value.scss';
+
+.list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding: $s16px;
+
+    button {
+        color: $back-1;
+        text-align: center;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+
+        background-color: transparent;
+        border: none;
+
+        cursor: pointer;
+
+        &:hover:not(.active) {
+            text-decoration: underline;
+        }
+
+        &.active {
+            color: $blue-2;
+        }
+    }
+
+    button:nth-child(n + 2) {
+        margin-left: $s36px;
+    }
+}

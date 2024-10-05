@@ -1,0 +1,20 @@
+@import '../../styles/value.scss';
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .headerLogo {
+        margin-bottom: 10px;
+        width: 150px;
+    }
+    .headerTitle {
+        margin-bottom: 0;
+        font-size: $s28px;
+        color: $blue-1;
+    }
+    .headerDescription {
+        font-size: $s16px;
+        color: $blue-1;
+    }
+}

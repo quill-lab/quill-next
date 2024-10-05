@@ -1,0 +1,84 @@
+$f14: 14px;
+$f24: 24px;
+$colorPrimary: #059EAF;
+$colorWhite: #ffffff;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 0 60px 0;
+  color: #2D2D2D;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.title {
+  margin: 0;
+  font-size: $f24;
+  font-weight: 500;
+}
+
+.subTitle {
+  font-size: $f14;
+}
+
+.description {
+  font-size: $f14;
+  color: #959595;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 383px;
+}
+
+.certificationNumberWrap {
+  position: relative;
+
+  .certificationNumberTimer {
+    position: absolute;
+    top: 56px;
+    left: 215px;
+    font-size: 12px;
+    color: #EE3C3C;
+  }
+}
+
+.formContents {
+  display: flex;
+  flex-direction: column;
+  grid-area: 12px;
+  width: 100%;
+}
+
+.formContentsMore {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 42px;
+}
+
+.submitButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+  width: 200px;
+  height: 46px;
+  font-size: $f14;
+  color: $colorWhite;
+  background-color: $colorPrimary;
+  border-radius: 62px;
+  border: unset;
+  cursor: pointer;
+  &.disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+}

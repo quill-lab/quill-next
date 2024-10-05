@@ -1,0 +1,111 @@
+@import '../../styles/value.scss';
+
+.main {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+
+    margin-top: $s8px;
+
+    .main_list_selectBar {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .main_list_goPost {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+
+            width: $s216px;
+            height: $s36px;
+            border-radius: $s200px;
+            background-color: $white-1;
+
+            margin: $s13px $s24px 0px auto;
+
+            cursor: pointer;
+
+            color: $blue-3;
+            font-size: $s12px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+
+        }
+    }
+
+    .main_list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border-radius: 0px 0px 10px 10px;
+        background-color: rgba(255, 255, 255, 0.50);
+
+
+        .main_writerlist_columnName {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.50);
+
+            &.mt8 {
+                margin-top: $s8px;
+            }
+
+            .main_writerlist_Number,
+            .main_writerlist_nickName,
+            .main_writerlist_textAmount,
+            .main_writerlist_dateForParticipation,
+            .main_writerlist_approvalStatus,
+            .main_writerlist_exitDate,
+            .main_writerlist_participationStatus {
+                display: flex;
+                height: $s48px;
+
+                align-items: center;
+                justify-content: center;
+
+                color: $back-1;
+                text-align: center;
+                font-size: $s14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+            }
+
+            .main_writerlist_Number {
+                width: $s48px;
+                margin-left: $s40px;
+            }
+
+            .main_writerlist_nickName {
+                width: $s160px;
+            }
+
+            .main_writerlist_textAmount {
+                width: $s120px;
+            }
+
+            .main_writerlist_dateForParticipation {
+                width: $s96px;
+            }
+
+            .main_writerlist_approvalStatus {
+                width: $s118px;
+            }
+
+            .main_writerlist_exitDate {
+                width: $s118px;
+            }
+
+            .main_writerlist_participationStatus {
+                width: $s80px;
+            }
+        }
+
+    }
+}

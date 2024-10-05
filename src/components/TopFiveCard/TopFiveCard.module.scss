@@ -1,0 +1,122 @@
+@import '../../styles/value.scss';
+
+.card {
+    display: flex;
+    flex-direction: column;
+
+    width: $s180px;
+
+    cursor: pointer;
+
+    &:hover {
+        .card_img {
+            transform: scale(110%);
+            transition: all 0.1s linear;
+        }
+
+    }
+
+    .card_img {
+        width: $s180px;
+        height: $s256px;
+
+        background-color: #00ff0099;
+
+        box-shadow: 8px 10px 12px 0px rgba(65, 65, 65, 0.25);
+
+
+    }
+
+    .card_scope {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        margin-top: $s16px;
+
+        .card_scope_row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            p {
+                color: $back-1;
+                font-size: $s14px;
+                font-style: normal;
+                font-weight: 400;
+
+                margin-left: $s4px;
+            }
+        }
+
+        .card_scope_row:nth-child(2) {
+            margin-left: $s16px;
+        }
+    }
+
+    .card_status,
+    .card_title,
+    .card_writer {
+        font-style: normal;
+    }
+
+    .card_status {
+        color: $blue-2;
+        font-size: $s14px;
+        font-weight: 500;
+
+        margin-top: $s24px;
+    }
+
+    .card_title {
+        color: $back-1;
+        font-size: $s24px;
+        font-weight: 700;
+
+        margin-top: $s4px;
+    }
+
+
+    .card_writer {
+        color: $gray-6;
+        font-size: $s14px;
+        font-weight: 500;
+
+        margin-top: $s4px;
+    }
+
+    &.gray {
+        .card_img {
+            background-color: #cccccc;
+        }
+
+        .card_status,
+        .card_title,
+        .card_writer {
+            display: flex;
+            background-color: #e3e3e3;
+        }
+
+        .card_status {
+            width: 39px;
+            height: 18px;
+        }
+
+        .card_title {
+            width: 160px;
+            height: 30px;
+        }
+
+
+        .card_writer {
+            width: 89px;
+            height: 18px;
+        }
+
+        .card_scope {
+            width: 100px;
+            height: 18px;
+            background-color: #e3e3e3;
+        }
+    }
+}
