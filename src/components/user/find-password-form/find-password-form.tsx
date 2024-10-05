@@ -38,7 +38,7 @@ export const FindPasswordForm = ({ setModal }: { setModal: Dispatch<SetStateActi
   };
 
   return (
-    <div className={'flex flex-col content-center items-center'}>
+    <div className={'flex flex-col content-center items-center mt-[7.9rem]'}>
       <p className={'text-xl font-medium text-blue1 pb-2'}>비밀번호 찾기</p>
       <span className={'text-sm whitespace-pre-wrap text-center text-gray6 pb-11'}>
         {`회원 가입 시 사용한 이메일과 입력하신 이메일이\n동일하여야 인증번호를 받으실 수 있습니다.`}
