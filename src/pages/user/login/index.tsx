@@ -9,10 +9,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { loginApi } from '@/fetch/post';
 import useLoginData from '@/stores/useLoginData.zst';
 
-import LoginLogo from '../../../images/login-logo.svg';
+import LoginLogo from '@/images/login-logo.svg';
 import st from './login.module.scss';
 import { storageKey } from '@/constants';
-import { loginSchema } from '../../../shared/utils/validation-schemas';
+import { loginSchema } from '@/shared/utils/validation-schemas';
 
 interface IFormInput {
   email?: string;
@@ -71,7 +71,9 @@ export default function Login() {
               placeholder="이메일을 입력해 주세요."
               {...register('email')}
             />
-            {errors.email && <p className={st.errorMessage}>{errors.email.message}</p>}
+            {errors.email && (
+              <span className={'text-error text-xs pt-1'}>{errors.email.message}</span>
+            )}
           </div>
           <div className={`${st.mt18} ${st.inputWrapper}`}>
             <input
@@ -80,7 +82,9 @@ export default function Login() {
               placeholder="비밀번호를 입력해 주세요."
               {...register('password')}
             />
-            {errors.password && <p className={st.errorMessage}>{errors.password.message}</p>}
+            {errors.password && (
+              <span className={'text-error text-xs pt-1'}>{errors.password.message}</span>
+            )}
           </div>
           <button
             type="submit"
