@@ -1,4 +1,4 @@
-const NovelChatHeader = ({ title, onEdit }: { title: string; onEdit: () => void }) => {
+export const NovelChatHeader = ({ title, onEdit }: { title: string; onEdit: () => void }) => {
   return (
     <div className="flex flex-row items-center justify-between w-full rounded-[10px] bg-white shadow-[0_4px_4px_rgba(0,0,0,0.25)] py-4 px-8">
       <div className="flex flex-row items-center">
