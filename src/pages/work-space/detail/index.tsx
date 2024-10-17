@@ -1,11 +1,11 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import ChaterInfo from '@/components/ChaterInfo/ChaterInfo';
 import GenreBtn from '@/components/GenreBtn/GenreBtn';
 import { NovelDefaultInfo, NovelChatManager } from '@/components';
 import NovelJoinUserManager from '@/components/NovelJoinUserManager/NovelJoinUserManager';
 import { NovelTabsGray } from '@/components/NovelTabsGray/NovelTabsGray';
-import WriterManagerBox from '@/components/WriterManagerBox/WriterManagerBox';
+import { WriterOrderManager } from '@/components';
 import { config } from '@/config/config';
 import { getNovelChapterList, novelRoomInfo } from '@/fetch/get';
 import useOnWheelHandle from '@/hooks/onWheelHandle';
@@ -92,7 +92,7 @@ const WorkSpaceDetail = () => {
       <NovelPublish />
       <NovelChapterTitle />
       <div className={st.mainBody_content}>
-        <WriterManagerBox />
+        <WriterOrderManager />
         <div className={st.mainBody_content_column}>
           <div className={`${st.mainBody_content_title} ${editMode ? st.on : ''}`}>
             <div className={st.content_row}>
