@@ -55,7 +55,7 @@ export const SignUpForm = () => {
   //   placeholderData: keepPreviousData,
   // });
   const { mutate, status, isError } = useMutation({
-    mutationKey: ['api/signUp'],
+    mutationKey: ['auth/joinUser'],
     mutationFn: signUp,
     onSuccess: (data: { data: { accessToken: string } }) => {
       localStorage.setItem(storageKey, `${data.data.accessToken}`);
@@ -166,7 +166,7 @@ export const SignUpForm = () => {
             // validate={() => handleDuplicateValidateNickname()}
           />
         </div>
-        <button className={styles.submitButton} type="button" disabled={!isDirty || !isValid}>
+        <button className={styles.submitButton} type="submit" disabled={!isDirty || !isValid}>
           시작하기
         </button>
       </form>
