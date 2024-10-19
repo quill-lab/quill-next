@@ -50,11 +50,30 @@ export const NovelChatManager = ({ isShow = false }: { isShow: boolean }) => {
     },
   });
 
+  const { mutate: getUpdateChatDetail } = useMutationWrap({
+    mutationFn: getOneNovelText,
+    onSuccess(res) {
+      const text = allText.find(text => text.id === res.data.id);
+      setAllText(prevState =>
+        prevState.map(text => (text.id === res.data.id ? { ...text, ...res.data } : text))
+      );
+    },
+  });
+
   const handleNewMessage = (res: any) => {
-    console.log('new message', res);
     const { textId } = readJsonData(res);
     getNewChatDetail(textId);
   };
+
+  const handleUpdateMessage = (res: any) => {
+    const { textId } = readJsonData(res);
+    getUpdateChatDetail(textId);
+  };
+
+  useEffect(() => {
+    eventBus.on(config.socketEventNM.updateChat, handleUpdateMessage);
+    return () => eventBus.off(config.socketEventNM.updateChat, handleUpdateMessage);
+  }, [handleUpdateMessage, roomId]);
 
   useEffect(() => {
     eventBus.on(config.socketEventNM.newChat, handleNewMessage);

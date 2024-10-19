@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 
 import { config } from '@/config/config';
 import { chatComplete } from '@/fetch/put';
@@ -20,16 +20,18 @@ export default function WriteChat({
   createdAt,
   id,
   status,
+  createdBy,
   updatedAt,
 }: GetOneNovelText): ReactElement {
   const chatCmp = useMutationWrap({
     mutationKey: [config.apiUrl.chatComplete(id)],
     mutationFn: chatComplete,
   });
+  // const [textStatus, setTextStatus] = useState<boolean>(status ? status === 'complete' : false);
   return (
     <div className={st.chat}>
       <div className={st.chat_bar}>
-        <p className={st.chat_nick}>닉네임</p>
+        <p className={st.chat_nick}>{createdBy.nickname}</p>
         <p className={st.chat_status}>[{chatStatus[status]}]</p>
         <p className={st.chat_date}>{updatedAt}</p>
         <button

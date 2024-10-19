@@ -121,6 +121,7 @@ export interface GetOneNovelText {
   createdAt: string;
   updatedAt: string;
   id: number;
+  createdBy: Pick<UserList, 'id' | 'nickname'>;
   status: ChatStatus;
   content: string;
   chapterId: number;
