@@ -11,5 +11,5 @@ export const envWsConfig = () => {
   if (envConfig === 'development') {
     return 'http://localhost:3001';
   }
-  return '/';
+  return 'https://port-0-garden-of-writer-server-71t02clq3bpxzf.sel4.cloudtype.app';
 };
