@@ -25,9 +25,9 @@ export default function useSocketIO({
       console.warn('Socket URL is undefined or invalid.');
       return null;
     }
-
+    console.log(url);
     return io(url, {
-      autoConnect: false,
+      // autoConnect: false,
       auth: {
         accessToken: `${LocalStorage.getItem(storageKey)}`,
       },
@@ -42,6 +42,8 @@ export default function useSocketIO({
   };
 
   const updateChat = (res: any) => {
+    console.log('여기로 수신하나요 ?');
+    console.log('res ', res);
     eventBus.emit(config.socketEventNM.updateChat, res);
     onUpdateChat?.(res);
   };

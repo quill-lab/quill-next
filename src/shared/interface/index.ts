@@ -100,6 +100,7 @@ export interface GetWriterWantedList {
   category: Categorys;
   currentAttendCnt: number;
   roomType: RoomType;
+  host: string;
 }
 
 export interface GetWriterPostDetail {
@@ -121,6 +122,7 @@ export interface GetOneNovelText {
   createdAt: string;
   updatedAt: string;
   id: number;
+  createdBy: Pick<UserList, 'id' | 'nickname'>;
   status: ChatStatus;
   content: string;
   chapterId: number;

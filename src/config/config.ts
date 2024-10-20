@@ -1,9 +1,9 @@
-import { envApiConfig } from '@/shared/utils/envConfig';
+import { envApiConfig, envWsConfig } from '@/shared/utils/envConfig';
 
 import { GetChatHistoryRequest } from '@/shared';
 
 export const config = {
-  wsLink: envApiConfig(),
+  wsLink: envWsConfig(),
 
   apiLink: envApiConfig(),
 
