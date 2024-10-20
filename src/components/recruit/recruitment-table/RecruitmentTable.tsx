@@ -21,6 +21,7 @@ const Card = ({
   roomType,
   viewCount,
   roomId,
+  host,
 }: GetWriterWantedList) => {
   const router = useRouter();
   return (
@@ -51,7 +52,7 @@ const Card = ({
       <div className={st.otherInfo}>
         <div>
           <Image src={UserIcon} alt="유저 썸네일" />
-          <p>용진</p>
+          <p>{host}</p>
         </div>
 
         <div>

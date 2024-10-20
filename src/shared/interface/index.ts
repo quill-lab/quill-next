@@ -100,6 +100,7 @@ export interface GetWriterWantedList {
   category: Categorys;
   currentAttendCnt: number;
   roomType: RoomType;
+  host: string;
 }
 
 export interface GetWriterPostDetail {
