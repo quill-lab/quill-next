@@ -17,7 +17,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { useEffect, useId, useState } from 'react';
-
+import eventBus from '@/shared/utils/eventBus';
 import { config } from '@/config/config';
 import { novelJoinWriteList } from '@/fetch/get';
 import { novelWriterSequence } from '@/fetch/put';
@@ -26,6 +26,7 @@ import { useMutationWrap, useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
 
 import DndItem from '../../DndItem/DndItem';
+import readJsonData from '@/shared/utils/readJsonData';
 
 export const WriterOrderManager = () => {
   const roomId = useUrlDatas<number>('room');
@@ -82,6 +83,15 @@ export const WriterOrderManager = () => {
   };
 
   const handleDragStart = (event: DragStartEvent) => setActiveId(event?.active?.id ?? null);
+
+  const handleUpdateWriterSeq = (res: any) => {
+    refetch();
+  };
+
+  useEffect(() => {
+    eventBus.on(config.socketEventNM.changeWriterSeq, handleUpdateWriterSeq);
+    return () => eventBus.off(config.socketEventNM.changeWriterSeq, handleUpdateWriterSeq);
+  }, [handleUpdateWriterSeq, roomId]);
 
   const handleDragEnd = (event: DragEndEvent) => {
     setActiveId(null);

@@ -35,7 +35,7 @@ export const NovelChatManager = ({ isShow = false }: { isShow: boolean }) => {
     queryFn: ({ pageParam = 1 }) =>
       getChatHistory({
         chapterId: novelRoom.lastChapterId,
-        chunkSize: config.pageSize,
+        chunkSize: 10, //config.pageSize,
         pageNo: pageParam,
       }),
     initialPageParam: 1,
