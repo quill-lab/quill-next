@@ -18,8 +18,6 @@ import { GetWriterPostDetail } from '@/shared';
 
 const RecruitPost = () => {
   const router = useRouter();
-  const { post } = router.query;
-
   const postId = useUrlDatas<number>('postId');
   const [isLikeClick, setIsLikeClick] = useState(false);
   const [isJoinDisabled, setIsJoinDisabled] = useState(false);
@@ -52,17 +50,32 @@ const RecruitPost = () => {
       }
     },
   });
+
   const handleJoinMessage = (
     data: GetWriterPostDetail | undefined
   ): { isDisable: boolean; message: string } => {
-    if (data === undefined) return { isDisable: true, message: '' };
-    if (data.isAttend) {
-      return { isDisable: true, message: '참여 신청한 공방입니다.' };
-    }
-    if (data.currentAttendCnt === data.type) {
+    if (!data) return { isDisable: true, message: '' };
+    if (data.isAttend) return { isDisable: true, message: '참여 신청한 공방입니다.' };
+    if (data.currentAttendCnt === data.type)
       return { isDisable: true, message: '정원이 마감된 공방입니다.' };
-    }
     return { isDisable: false, message: '참여하기' };
+  };
+
+  const handleLikeClick = () => {
+    novelLike.mutate({ novelRoomId: postId });
+  };
+
+  const handleModalOpen = () => {
+    setIsModal(true);
+  };
+
+  const handleModalCancel = () => {
+    setIsModal(false);
+  };
+
+  const handleModalNextStep = () => {
+    novelJoin.mutate({ novelRoomId: postId });
+    setIsModal(false);
   };
 
   return (
@@ -78,10 +91,9 @@ const RecruitPost = () => {
             <span>{data?.data.hasLike}</span>
           </div>
         </div>
-        {/* !!!!!! */}
         <h2>{data?.data.boardTitle}</h2>
       </header>
-      {/* {post} */}
+
       <main className={styles.main}>
         <ul className={styles.novelList}>
           <li className={styles.novelItem}>
@@ -120,9 +132,7 @@ const RecruitPost = () => {
           type="button"
           className={styles.button}
           disabled={data?.data.hasLike || isLikeClick}
-          onClick={() => {
-            novelLike.mutate({ novelRoomId: postId });
-          }}
+          onClick={handleLikeClick}
         >
           <Image src={HeartRed} alt="HeartRed" />
           <span>{isLikeClick ? Number(data?.data.likeCount) + 1 : data?.data.likeCount}</span>
@@ -130,22 +140,14 @@ const RecruitPost = () => {
         <button
           type="button"
           className={styles.button}
-          onClick={() => setIsModal(true)}
+          onClick={handleModalOpen}
           disabled={handleJoinMessage(data?.data).isDisable || isJoinDisabled}
         >
           {handleJoinMessage(data?.data).message}
         </button>
       </footer>
-      {isModal && (
-        <WriteJoin
-          cancel={() => {
-            setIsModal(false);
-          }}
-          nextStep={() => {
-            novelJoin.mutate({ novelRoomId: postId });
-          }}
-        />
-      )}
+
+      {isModal && <WriteJoin cancel={handleModalCancel} nextStep={handleModalNextStep} />}
     </div>
   );
 };
