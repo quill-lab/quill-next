@@ -40,7 +40,9 @@ export function useQueryWrap<
   TData = TQueryFnData,
   TQueryKey extends QueryKey = QueryKey
 >(
-  options: UndefinedInitialDataOptions<TQueryFnData, TError, TData, TQueryKey>
+  options: UndefinedInitialDataOptions<TQueryFnData, TError, TData, TQueryKey> & {
+    cacheTime?: number;
+  }
 ): UseQueryResult<TData, TError> {
   const querys = useQuery<TQueryFnData, TError, TData, TQueryKey>(options);
 

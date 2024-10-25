@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { enqueueSnackbar } from 'notistack';
 import React, { useState } from 'react';
 
@@ -16,23 +15,35 @@ import styles from './recruit-post.module.scss';
 import { dateChanger } from '@/shared/utils/dateChange';
 import { GetWriterPostDetail } from '@/shared';
 
-const RecruitPost = () => {
-  const router = useRouter();
-  const postId = useUrlDatas<number>('postId');
-  const [isLikeClick, setIsLikeClick] = useState(false);
-  const [isJoinDisabled, setIsJoinDisabled] = useState(false);
-  const [isModal, setIsModal] = useState(false);
+const handleJoinMessage = (data?: GetWriterPostDetail) => {
+  if (!data) return { isDisable: true, message: '' };
 
-  const { data, isSuccess } = useQueryWrap({
+  const { isAttend, currentAttendCnt, type } = data;
+
+  if (isAttend) return { isDisable: true, message: '참여 신청한 공방입니다.' };
+  if (currentAttendCnt === type) return { isDisable: true, message: '정원이 마감된 공방입니다.' };
+
+  return { isDisable: false, message: '참여하기' };
+};
+
+const RecruitPost = () => {
+  const postId = useUrlDatas<number>('postId');
+  const [isLikeClicked, setIsLikeClicked] = useState(false);
+  const [isJoinDisabled, setIsJoinDisabled] = useState(false);
+  const [isOpenModal, setOpenModal] = useState(false);
+
+  const { data } = useQueryWrap({
     queryKey: [config.apiUrl.getWriterPostDetail(postId)],
     queryFn: () => getWriterPostDetail({ roomId: postId }),
+    enabled: !!postId,
+    cacheTime: 0,
   });
 
   const novelLike = useMutationWrap({
     mutationKey: [config.apiUrl.setboardLike],
     mutationFn: setBoardLike,
     onSuccess() {
-      setIsLikeClick(true);
+      setIsLikeClicked(true);
     },
   });
 
@@ -41,7 +52,7 @@ const RecruitPost = () => {
     mutationFn: writerJoinReqest,
     onSuccess() {
       enqueueSnackbar('참여신청을 완료했습니다');
-      setIsModal(false);
+      setOpenModal(false);
       setIsJoinDisabled(true);
     },
     onError(err: number) {
@@ -51,31 +62,21 @@ const RecruitPost = () => {
     },
   });
 
-  const handleJoinMessage = (
-    data: GetWriterPostDetail | undefined
-  ): { isDisable: boolean; message: string } => {
-    if (!data) return { isDisable: true, message: '' };
-    if (data.isAttend) return { isDisable: true, message: '참여 신청한 공방입니다.' };
-    if (data.currentAttendCnt === data.type)
-      return { isDisable: true, message: '정원이 마감된 공방입니다.' };
-    return { isDisable: false, message: '참여하기' };
-  };
-
   const handleLikeClick = () => {
     novelLike.mutate({ novelRoomId: postId });
   };
 
   const handleModalOpen = () => {
-    setIsModal(true);
+    setOpenModal(true);
   };
 
   const handleModalCancel = () => {
-    setIsModal(false);
+    setOpenModal(false);
   };
 
   const handleModalNextStep = () => {
     novelJoin.mutate({ novelRoomId: postId });
-    setIsModal(false);
+    setOpenModal(false);
   };
 
   return (
@@ -131,11 +132,11 @@ const RecruitPost = () => {
         <button
           type="button"
           className={styles.button}
-          disabled={data?.data.hasLike || isLikeClick}
+          disabled={data?.data.hasLike || isLikeClicked}
           onClick={handleLikeClick}
         >
           <Image src={HeartRed} alt="HeartRed" />
-          <span>{isLikeClick ? Number(data?.data.likeCount) + 1 : data?.data.likeCount}</span>
+          <span>{isLikeClicked ? Number(data?.data.likeCount) + 1 : data?.data.likeCount}</span>
         </button>
         <button
           type="button"
@@ -147,7 +148,7 @@ const RecruitPost = () => {
         </button>
       </footer>
 
-      {isModal && <WriteJoin cancel={handleModalCancel} nextStep={handleModalNextStep} />}
+      {isOpenModal && <WriteJoin cancel={handleModalCancel} nextStep={handleModalNextStep} />}
     </div>
   );
 };
