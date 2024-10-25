@@ -85,28 +85,32 @@ export const NovelDefaultInfo = ({
       </div>
 
       <DescriptionContainer content={novelInfo.data.summary} isEditable={editMode} title="줄거리" />
-      {/*{isCurrentUserHost && (*/}
-      <>
-        {editMode ? (
-          <div className="flex justify-center mt-8 gap-[2.87rem]">
-            <button onClick={handleClickEditComplete} className="blue-btn w-48 py-4" type="button">
-              수정완료
+      {isCurrentUserHost && (
+        <>
+          {editMode ? (
+            <div className="flex justify-center mt-8 gap-[2.87rem]">
+              <button
+                onClick={handleClickEditComplete}
+                className="blue-btn w-48 py-4"
+                type="button"
+              >
+                수정완료
+              </button>
+              <button onClick={offEditMode} className="white-btn w-48 py-4" type="button">
+                취소
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={toggleEditMode}
+              type="button"
+              className="white-btn px-14 py-4 self-center mt-4 outline-0"
+            >
+              기본정보 수정
             </button>
-            <button onClick={offEditMode} className="white-btn w-48 py-4" type="button">
-              취소
-            </button>
-          </div>
-        ) : (
-          <button
-            onClick={toggleEditMode}
-            type="button"
-            className="white-btn px-14 py-4 self-center mt-4 outline-0"
-          >
-            기본정보 수정
-          </button>
-        )}
-      </>
-      {/*)}*/}
+          )}
+        </>
+      )}
     </div>
   );
 };
