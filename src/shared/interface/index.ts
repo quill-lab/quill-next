@@ -68,6 +68,11 @@ export interface NovelJoinWriteList {
   nickname: string;
   category: WriterType;
   isLoginUser: boolean;
+  user: {
+    id: number;
+    nickname: string;
+    email: string;
+  };
 }
 
 export interface NovelChapter {

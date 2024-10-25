@@ -112,7 +112,7 @@ const WorkSpaceDetail = () => {
   });
 
   const isCurrentUserHost = writerList?.data.writers.some(
-    writer => writer.id === loginUser?.data.id && writer.category === 'host'
+    writer => writer.isLoginUser && writer.category === 'host'
   );
 
   if (!novelInfo) return <div>로딩 중...</div>;
