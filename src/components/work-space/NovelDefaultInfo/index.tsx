@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { config } from '@/config/config';
 import { novelRoomInfo } from '@/fetch/get';
@@ -30,8 +30,19 @@ export const NovelDefaultInfo = ({
     return <div>loading...</div>;
   }
 
+  useEffect(() => {
+    return () => {
+      setEditMode(false);
+    };
+  }, []);
+
   const toggleEditMode = () => setEditMode(prev => !prev);
   const offEditMode = () => setEditMode(false);
+
+  const handleClickEditComplete = () => {
+    offEditMode();
+    //TODO: 수정 api 호출
+  };
 
   return (
     <div
@@ -41,9 +52,9 @@ export const NovelDefaultInfo = ({
       <div className="flex gap-2">
         <Image
           className="rounded-[10px]"
-          width={270}
-          height={202}
-          src={novelInfo?.data?.bookCover ?? '/images/book-cover-2.png'}
+          width={210}
+          height={297}
+          src={novelInfo.data.bookCover ?? '/images/default-book-cover.svg'}
           alt="북커버"
         />
         <div className="flex flex-col w-full gap-2">
@@ -78,10 +89,10 @@ export const NovelDefaultInfo = ({
       <>
         {editMode ? (
           <div className="flex justify-center mt-8 gap-[2.87rem]">
-            <button onClick={offEditMode} className="blue-btn w-48 h-12" type="button">
+            <button onClick={handleClickEditComplete} className="blue-btn w-48 py-4" type="button">
               수정완료
             </button>
-            <button onClick={offEditMode} className="white-btn w-48 h-12" type="button">
+            <button onClick={offEditMode} className="white-btn w-48 py-4" type="button">
               취소
             </button>
           </div>
