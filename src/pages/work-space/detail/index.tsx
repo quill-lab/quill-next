@@ -65,6 +65,7 @@ const WorkSpaceDetail = () => {
     queryKey: [config.apiUrl.getUser],
     queryFn: () => getUser(),
   });
+
   const { setUser } = useLoginUser();
 
   useEffect(() => {
@@ -72,7 +73,7 @@ const WorkSpaceDetail = () => {
       setUser({
         id: loginUser.data.id,
         email: loginUser.data.email,
-        nickanem: loginUser.data.nickname,
+        nickname: loginUser.data.nickname,
       });
     }
   }, [isSuccess, loginUser?.data.id]);

@@ -1,21 +1,21 @@
 import { create } from 'zustand';
 
-interface initialzeApp {
+interface initializeApp {
   id: number;
   email: string;
   nickname: string;
-  setUser: (data: { id: number; email: string; nickanem: string }) => void;
+  setUser: (data: { id: number; email: string; nickname: string }) => void;
 }
 
-export const useLoginUser = create<initialzeApp>()((set, get) => ({
+export const useLoginUser = create<initializeApp>()((set, get) => ({
   id: 0,
   email: '',
   nickname: '',
-  setUser: (data: { id: number; email: string; nickanem: string }) => {
+  setUser: (data: { id: number; email: string; nickname: string }) => {
     set({
       id: data.id,
       email: data.email,
-      nickname: data.nickanem,
+      nickname: data.nickname,
     });
   },
 }));
