@@ -12,11 +12,7 @@ export const DescriptionContainer = ({
   date,
 }: DescriptionContainerProps) => {
   return (
-    <div
-      className={
-        'bg-white-opacity-50 rounded-[10px] py-4 px-8 relative min-h-[138px] overflow-y-auto max-h-[186px]'
-      }
-    >
+    <div className={'bg-white-opacity-50 rounded-[10px] py-4 px-8 relative h-full overflow-y-auto'}>
       <div className={`pb-2 ${date ? 'flex justify-around items-center' : ''}`}>
         <p className={'text-sm text-black1'}>{title}</p>
         {date && <p className={'text-[8px] text-blue1'}>{date}</p>}

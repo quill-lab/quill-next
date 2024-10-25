@@ -38,7 +38,7 @@ export const NovelDefaultInfo = ({
       className={`flex-col w-full mt-2 ${isShow ? 'flex' : 'hidden'} gap-2`}
       aria-hidden={!isShow}
     >
-      <div className="flex flex-row">
+      <div className="flex gap-2">
         <Image
           className="rounded-[10px]"
           width={270}
@@ -46,28 +46,33 @@ export const NovelDefaultInfo = ({
           src={novelInfo?.data?.bookCover ?? '/images/book-cover-2.png'}
           alt="북커버"
         />
-        <div className="flex flex-col ml-2 ">
-          <DescriptionContainer
-            isEditable={editMode}
-            title="한줄소개"
-            content={novelInfo.data.subTitle}
-          />
-          <div
-            className={`flex flex-row justify-between items-center w-[718px] h-14 mt-2 px-8 py-3 rounded-lg bg-white/50 ${
-              editMode ? 'bg-white' : ''
-            } rounded-[10px]`}
-          >
-            <div className="flex items-center justify-center px-4 py-1 bg-white rounded-lg mr-2 text-xs font-normal text-black2">
-              #{novelInfo?.data.category.name}
-            </div>
+        <div className="flex flex-col w-full gap-2">
+          <div>
+            <DescriptionContainer
+              isEditable={editMode}
+              title="한줄소개"
+              content={novelInfo.data.subTitle}
+            />
+          </div>
+          <div className={'flex-1'}>
+            <DescriptionContainer
+              content={novelInfo.data.character}
+              isEditable={editMode}
+              title="등장인물"
+            />
           </div>
         </div>
       </div>
-      <DescriptionContainer
-        content={novelInfo.data.character}
-        isEditable={editMode}
-        title="등장인물"
-      />
+      <div
+        className={`flex flex-row justify-between items-center w-full] h-14 px-8 py-3 rounded-[10px] bg-white/50 ${
+          editMode ? 'bg-white' : ''
+        } rounded-[10px]`}
+      >
+        <div className="flex items-center justify-center px-4 py-1 bg-white rounded-lg mr-2 text-xs font-normal text-black2">
+          #{novelInfo?.data.category.name}
+        </div>
+      </div>
+
       <DescriptionContainer content={novelInfo.data.summary} isEditable={editMode} title="줄거리" />
       {/*{isCurrentUserHost && (*/}
       <>
@@ -84,7 +89,7 @@ export const NovelDefaultInfo = ({
           <button
             onClick={toggleEditMode}
             type="button"
-            className="white-btn w-48 h-12 self-center mt-8"
+            className="white-btn px-14 py-4 self-center mt-4 outline-0"
           >
             기본정보 수정
           </button>
