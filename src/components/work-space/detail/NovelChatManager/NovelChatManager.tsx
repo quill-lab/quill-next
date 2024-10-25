@@ -13,6 +13,7 @@ import { ChatList } from '@/components/work-space/detail/ChatList';
 import { ChatInputBox } from '@/components/work-space/detail/ChatInpuitBox';
 import { NovelActionButtons } from '@/components/work-space/detail/NovelActionButtons';
 import { NovelChatHeader } from '../NovelChatHeader';
+import { useNovelWriterListStore } from '@/stores/useWriterList';
 
 export const NovelChatManager = ({ isShow = false }: { isShow: boolean }) => {
   const [allText, setAllText] = useState<GetOneNovelText[]>([]);

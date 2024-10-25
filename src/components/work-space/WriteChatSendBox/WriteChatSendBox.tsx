@@ -10,16 +10,18 @@ import st from './WriteChatSendBox.module.scss';
 
 interface WriteChatSendBoxProps {
   lastNovelNo: number;
+  isWritable: boolean | undefined | null;
 }
 
-export const WriteChatSendBox = ({ lastNovelNo }: WriteChatSendBoxProps) => {
+export const WriteChatSendBox = ({ lastNovelNo, isWritable }: WriteChatSendBoxProps) => {
   const { mutate: sendNewChat } = useMutationWrap({
     mutationKey: [config.apiUrl.newNovelText],
     mutationFn: newNovelText,
   });
 
   const [text, setText] = useState('');
-  const isSending = useRef(false);
+
+  const isSending = useRef(isWritable ?? false);
 
   const handleSendText = () => {
     if (lastNovelNo === 0 || text.trim() === '' || isSending.current) return; // 챕터 번호가 0이면 전송하지 않음
@@ -52,11 +54,13 @@ export const WriteChatSendBox = ({ lastNovelNo }: WriteChatSendBoxProps) => {
         onKeyDown={handleKeyDown}
         onChange={event => setText(event.target.value)}
         className="flex-1 resize-none rounded-l-[10px] border-none outline-none p-[16px_32px]"
+        disabled={!isWritable}
+        defaultValue={!isWritable ? '현재 작성 순서가 아닙니다.' : ''}
       />
       <button
         type="button"
         onClick={handleSendText}
-        disabled={isSending.current}
+        disabled={isSending?.current}
         className="flex items-center justify-center w-[84px] h-full bg-blue-500 rounded-r-[10px] border-none outline-none cursor-pointer hover:scale-110 transition-transform"
       >
         <Image src={chatSendPlane} alt="작성한 소설 채팅 보내기 버튼" />

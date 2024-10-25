@@ -17,6 +17,9 @@ export const config = {
     // 임시비밀번호
     tempPassword: '/auth/temp-password',
 
+    // 유저 정보
+    getUser: '/auth/user',
+
     // 회원 목록
     user: '/user',
 

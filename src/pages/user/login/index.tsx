@@ -13,6 +13,7 @@ import LoginLogo from '@/images/login-logo.svg';
 import st from './login.module.scss';
 import { storageKey } from '@/constants';
 import { loginSchema } from '@/shared/utils/validation-schemas';
+import { useLoginUser } from '@/stores/ussLoginUser';
 
 interface IFormInput {
   email?: string;
@@ -22,7 +23,7 @@ interface IFormInput {
 export default function Login() {
   const route = useRouter();
   const { email, password } = useLoginData();
-
+  const { setUser } = useLoginUser();
   const {
     register,
     handleSubmit,
@@ -41,6 +42,8 @@ export default function Login() {
     mutationFn: loginApi,
     onSuccess(data) {
       localStorage.setItem(storageKey, `${data.data.accessToken}`);
+      const user = data.data.user;
+      setUser({ id: user.id, nickanem: user.nickname, email: user.email });
       route.replace('/work-space');
     },
     onError(err) {
