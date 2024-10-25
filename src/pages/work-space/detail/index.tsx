@@ -18,6 +18,7 @@ import NovelChapterTitle from '@/components/modals/NovelChapterTitle/NovelChapte
 import { useNovelChapter } from '@/stores/useChapter';
 import { getNovelRoomStatus } from '@/shared/utils/get-enum-value';
 import { useLoginUser } from '@/stores';
+import { Categorys, NovelRoomStatus } from '@/shared';
 
 const PAGE_1 = '기본정보';
 const PAGE_2 = '회차정보';
@@ -127,19 +128,12 @@ const WorkSpaceDetail = () => {
       <div className="flex flex-row w-[1300px] mt-[7.9rem]">
         <WriterOrderManager isCurrentUserHost={isCurrentUserHost ?? false} />
         <div className="flex flex-col w-[996px] ml-10">
-          <div
-            className={`flex w-full min-h-[56px] rounded-[10px] ${
-              editMode ? 'bg-white' : 'bg-white/50'
-            } flex-row items-center justify-between p-4`}
-          >
-            <div className="flex flex-row items-end">
-              <p className="text-gray-900 text-[18px] font-medium mr-6">{novelInfo.data.title}</p>
-              <GenreBtn disabled={!editMode} category={novelInfo.data.category} />
-            </div>
-            <p className="text-gray-900 text-center text-[16px] font-medium">
-              {getNovelRoomStatus(novelInfo.data.status || 'prepare')}
-            </p>
-          </div>
+          <NovelTitle
+            title={novelInfo.data.title}
+            status={novelInfo.data.status}
+            category={novelInfo.data.category}
+            editMode={editMode}
+          />
           <div className="mt-4">
             {/*TODO: tab component refactoring*/}
             <NovelTabsGray
@@ -159,3 +153,32 @@ const WorkSpaceDetail = () => {
 };
 
 export default WorkSpaceDetail;
+
+export const NovelTitle = ({
+  title,
+  status,
+  category,
+  editMode,
+}: {
+  title: string;
+  status: NovelRoomStatus;
+  category: Categorys | undefined;
+  editMode: boolean;
+}) => {
+  return (
+    <div
+      className={`flex w-full h-14 rounded-[10px] ${
+        editMode ? 'bg-white' : 'bg-white/50'
+      } flex-row items-center justify-between py-4 px-8 rounded-[10px]`}
+    >
+      <div className="flex gap-3 items-baseline">
+        <p className="text-lg font-medium text-black1">{title}</p>
+        <p className={'text-xs  font-medium text-black1'}>{category?.name || ''}</p>
+        {/*<GenreBtn disabled={!editMode} category={category} />*/}
+      </div>
+      <p className="text-gray-900 text-center text-[16px] font-medium">
+        {getNovelRoomStatus(status || 'prepare')}
+      </p>
+    </div>
+  );
+};
