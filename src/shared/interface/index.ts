@@ -211,6 +211,7 @@ export interface NovelJoinWriteListResponse {
   data: {
     writers: NovelJoinWriteList[];
     nextWriter: string;
+    isHost: boolean;
   };
 }
 

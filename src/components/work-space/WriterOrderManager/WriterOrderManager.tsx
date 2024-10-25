@@ -26,17 +26,16 @@ import { useMutationWrap, useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
 
 import DndItem from '../../DndItem/DndItem';
-import readJsonData from '@/shared/utils/readJsonData';
 import { useNovelWriterListStore } from '@/stores/useWriterList';
 
-export const WriterOrderManager = () => {
+export const WriterOrderManager = ({ isCurrentUserHost }: { isCurrentUserHost: boolean }) => {
   const roomId = useUrlDatas<number>('room');
   const id: string = useId();
 
   const [modifyMode, setModifyMode] = useState(false);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [writers, setWriters] = useState<NovelJoinWriteList[]>([]);
-  const { setWriterList } = useNovelWriterListStore()
+  const { setWriterList } = useNovelWriterListStore();
   const {
     data: writerList,
     isSuccess,
@@ -123,16 +122,16 @@ export const WriterOrderManager = () => {
           <div className="w-full overflow-y-auto">
             <SortableContext
               disabled={!modifyMode}
-              items={writers ?? []}
+              items={writers}
               strategy={verticalListSortingStrategy}
             >
-              {writers.map(item => (
+              {writers.map(writer => (
                 <DndItem
-                  {...item}
+                  {...writer}
                   overlayMode={false}
                   disabled={!modifyMode}
-                  id={item.id}
-                  key={item.id}
+                  id={writer.id}
+                  key={writer.id}
                 />
               ))}
             </SortableContext>
@@ -141,39 +140,40 @@ export const WriterOrderManager = () => {
           <DragOverlay dropAnimation={null}>
             {activeId && writers.length > 0 && (
               <DndItem
-                overlayMode={false}
+                overlayMode={true}
                 disabled={!modifyMode}
-                {...writers.find(item => item.id === activeId)}
+                {...writers.find(writer => writer.id === activeId)}
               />
             )}
           </DragOverlay>
 
-          {modifyMode ? (
-            <div className="flex justify-between w-full h-[56px] mt-auto">
+          {isCurrentUserHost &&
+            (modifyMode ? (
+              <div className="flex justify-between w-full h-[56px] mt-auto">
+                <button
+                  type="button"
+                  onClick={handleComplete}
+                  className="flex flex-1 items-center justify-center bg-blue1 rounded-bl-[20px] text-white text-[14px] font-medium cursor-pointer"
+                >
+                  완료
+                </button>
+                <button
+                  onClick={cancelModification}
+                  type="button"
+                  className="flex flex-1 items-center justify-center bg-white rounded-br-[20px] border-[0.5px] border-gray-1 text-gray6 text-[14px] font-medium cursor-pointer"
+                >
+                  취소
+                </button>
+              </div>
+            ) : (
               <button
+                onClick={startModification}
+                className="flex items-center justify-center w-full h-[56px] mt-auto rounded-b-[20px] text-blue-500 text-[14px] font-medium cursor-pointer text-blue2 bg-neutral"
                 type="button"
-                onClick={handleComplete}
-                className="flex flex-1 items-center justify-center bg-blue1 rounded-bl-[20px] text-white text-[14px] font-medium cursor-pointer"
               >
-                완료
+                작가 순서 관리
               </button>
-              <button
-                onClick={cancelModification}
-                type="button"
-                className="flex flex-1 items-center justify-center bg-white rounded-br-[20px] border-[0.5px] border-gray-1 text-gray6 text-[14px] font-medium cursor-pointer"
-              >
-                취소
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={startModification}
-              className="flex items-center justify-center w-full h-[56px] mt-auto rounded-b-[20px] text-blue-500 text-[14px] font-medium cursor-pointer text-blue2 bg-neutral"
-              type="button"
-            >
-              작가 순서 관리
-            </button>
-          )}
+            ))}
         </div>
       </div>
     </DndContext>

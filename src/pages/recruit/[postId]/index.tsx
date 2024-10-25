@@ -32,7 +32,7 @@ const RecruitPost = () => {
   const [isJoinDisabled, setIsJoinDisabled] = useState(false);
   const [isOpenModal, setOpenModal] = useState(false);
 
-  const { data } = useQueryWrap({
+  const { data, refetch: refetchPostDetail } = useQueryWrap({
     queryKey: [config.apiUrl.getWriterPostDetail(postId)],
     queryFn: () => getWriterPostDetail({ roomId: postId }),
     enabled: !!postId,
@@ -76,6 +76,9 @@ const RecruitPost = () => {
 
   const handleModalNextStep = () => {
     novelJoin.mutate({ novelRoomId: postId });
+    if (novelJoin.isSuccess) {
+      refetchPostDetail();
+    }
     setOpenModal(false);
   };
 
