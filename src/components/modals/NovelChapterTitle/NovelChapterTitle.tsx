@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ChangeEvent, ReactElement, useState } from 'react';
 
 import CusModal from '@/components/CusModal/CusModal';
 import { config } from '@/config/config';
@@ -8,10 +8,11 @@ import st from './NovelTitle.module.scss';
 
 import { useNovelChapter, useNovelRoom, useNovelTitleModal } from '@/stores/';
 
-export default function NovelChapterTitle(): ReactElement {
+export default function NovelChapterTitle() {
+  const [chapterTitle, setChapterTitle] = useState('');
+
   const modal = useNovelTitleModal();
   const roomData = useNovelRoom();
-  const [chapterTitle, setChapterTitle] = useState<string>();
   const novelChapter = useNovelChapter();
   const novelTitleApi = useMutationWrap({
     mutationKey: [config.apiUrl.novelChapterTitle(roomData.lastChapterId)],
@@ -22,14 +23,14 @@ export default function NovelChapterTitle(): ReactElement {
     },
   });
 
-  const handleChapterTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChapterTitle = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setChapterTitle(e.target.value);
     novelChapter.setChapterTitle(e.target.value);
   };
 
   if (!modal.isShow) {
-    return <></>;
+    return null;
   }
 
   return (
@@ -37,9 +38,7 @@ export default function NovelChapterTitle(): ReactElement {
       <div className={st.contents}>
         <p className={st.contents_title}>회차 제목 수정하기</p>
         <p>수정할 제목을 작성해주세요</p>
-
         <input value={chapterTitle} onChange={handleChapterTitle} />
-        {/* bottom button start */}
         <div className={st.contents_btnBox}>
           <button
             onClick={() => {
@@ -62,7 +61,6 @@ export default function NovelChapterTitle(): ReactElement {
             취소
           </button>
         </div>
-        {/* bottom button end */}
       </div>
     </CusModal>
   );

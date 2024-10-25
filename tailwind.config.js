@@ -22,11 +22,14 @@ module.exports = {
       neutral: '#F8F8F8',
 
       black1: '#2D2D2D',
+      black2: '#333333',
       white2: '#FFFBF4',
       blue1: '#059EAF',
       blue2: '#1CB09E',
 
       error: '#EE3C3C',
+
+      'white-opacity-50': 'rgba(255, 255, 255, 0.5)',
     },
   },
 };

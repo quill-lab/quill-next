@@ -148,7 +148,7 @@ const WorkSpaceDetail = () => {
               handleCurrentTab={handleCurrentTab}
             />
           </div>
-          <NovelDefaultInfo isShow={currentTab === PAGE_1} />
+          <NovelDefaultInfo isCurrentUserHost={isCurrentUserHost} isShow={currentTab === PAGE_1} />
           <ChapterInfo isShow={currentTab === PAGE_2} />
           <NovelChatManager isShow={currentTab === PAGE_3} />
           {isCurrentUserHost && <NovelJoinUserManager isShow={currentTab === PAGE_4} />}
