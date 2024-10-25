@@ -18,6 +18,7 @@ import {
   NovelListResponse,
   NovelRoomInfoResponse,
   UserListResponse,
+  UserResponse,
 } from '../../shared';
 
 const method = 'GET';
@@ -32,6 +33,10 @@ export function novelList({ page, roomState }: NovelListRequest) {
     url: `${config.apiUrl.novelList}?roomStatus=${roomState}&chunkSize=${config.pageSize}&pageNo=${page}`,
     method,
   });
+}
+
+export function getUser() {
+  return callApi<UserResponse>({ url: config.apiUrl.getUser, method });
 }
 
 export function userList() {

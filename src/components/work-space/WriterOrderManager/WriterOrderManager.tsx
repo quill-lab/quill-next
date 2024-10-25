@@ -27,6 +27,7 @@ import { useUrlDatas } from '@/hooks/useUrlDatas';
 
 import DndItem from '../../DndItem/DndItem';
 import readJsonData from '@/shared/utils/readJsonData';
+import { useNovelWriterListStore } from '@/stores/useWriterList';
 
 export const WriterOrderManager = () => {
   const roomId = useUrlDatas<number>('room');
@@ -35,7 +36,7 @@ export const WriterOrderManager = () => {
   const [modifyMode, setModifyMode] = useState(false);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [writers, setWriters] = useState<NovelJoinWriteList[]>([]);
-
+  const { setWriterList } = useNovelWriterListStore()
   const {
     data: writerList,
     isSuccess,
@@ -65,6 +66,7 @@ export const WriterOrderManager = () => {
   useEffect(() => {
     if (isSuccess) {
       setWriters(writerList.data.writers);
+      setWriterList(writerList.data.writers);
     }
   }, [isSuccess, writerList]);
 

@@ -7,7 +7,7 @@ import NovelJoinUserManager from '@/components/NovelJoinUserManager/NovelJoinUse
 import { NovelTabsGray } from '@/components/NovelTabsGray/NovelTabsGray';
 import { WriterOrderManager } from '@/components';
 import { config } from '@/config/config';
-import { getNovelChapterList, novelRoomInfo } from '@/fetch/get';
+import { getNovelChapterList, getUser, novelRoomInfo } from '@/fetch/get';
 import useOnWheelHandle from '@/hooks/onWheelHandle';
 import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import useSocketIO from '@/hooks/useSocketIO';
@@ -17,6 +17,7 @@ import NovelPublish from '@/components/modals/NovelPublish/NovelPublish';
 import NovelChapterTitle from '@/components/modals/NovelChapterTitle/NovelChapterTitle';
 import { useNovelChapter } from '@/stores/useChapter';
 import { getNovelRoomStatus } from '@/shared/utils/get-enum-value';
+import { useLoginUser } from '@/stores';
 
 const PAGE_1 = '기본정보';
 const PAGE_2 = '회차정보';
@@ -55,6 +56,26 @@ const WorkSpaceDetail = () => {
   const [currentTab, setCurrentTab] = useState(tabList[0]);
   const [editMode, setEditMode] = useState(false);
   const roomId = useUrlDatas<number>('room');
+
+  const {
+    data: loginUser,
+    error: loginUserError,
+    isSuccess,
+  } = useQueryWrap({
+    queryKey: [config.apiUrl.getUser],
+    queryFn: () => getUser(),
+  });
+  const { setUser } = useLoginUser();
+
+  useEffect(() => {
+    if (loginUser?.data.id) {
+      setUser({
+        id: loginUser.data.id,
+        email: loginUser.data.email,
+        nickanem: loginUser.data.nickname,
+      });
+    }
+  }, [isSuccess, loginUser?.data.id]);
 
   // 회차 정보 훅 호출
   useChapterList({ page, roomId });

@@ -67,6 +67,7 @@ export interface NovelJoinWriteList {
   status: WriterStatus;
   nickname: string;
   category: WriterType;
+  isLoginUser: boolean;
 }
 
 export interface NovelChapter {
@@ -135,6 +136,11 @@ export interface LoginApiResonse {
   data: {
     accessToken: string;
     hasRoom: boolean;
+    user: {
+      id: number;
+      nickname: string;
+      email: string;
+    };
   };
 }
 export interface NovelListRequest {
@@ -144,6 +150,14 @@ export interface NovelListRequest {
 export interface NovelListResponse {
   data: NovelPost[];
   meta: Pagination;
+}
+
+export interface UserResponse {
+  data: {
+    id: number;
+    nickname: string;
+    email: string;
+  };
 }
 
 export interface CreateRoomArg {

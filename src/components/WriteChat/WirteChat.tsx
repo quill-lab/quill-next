@@ -9,6 +9,8 @@ import lockIcon from '@/images/lock.svg';
 import unLockIcon from '@/images/unlock.svg';
 
 import st from './WriteChat.module.scss';
+import { useNovelWriterListStore } from '@/stores/useWriterList';
+import { useLoginUser } from '@/stores';
 
 const chatStatus = {
   temp: '임시저장',
@@ -27,7 +29,12 @@ export default function WriteChat({
     mutationKey: [config.apiUrl.chatComplete(id)],
     mutationFn: chatComplete,
   });
-  // const [textStatus, setTextStatus] = useState<boolean>(status ? status === 'complete' : false);
+  const { writerList } = useNovelWriterListStore();
+
+  const user = useLoginUser();
+
+  const loginUser = writerList.find(writer => writer.isLoginUser);
+
   return (
     <div className={st.chat}>
       <div className={st.chat_bar}>
@@ -38,6 +45,11 @@ export default function WriteChat({
           type="button"
           disabled={status === 'complete'}
           onClick={() => {
+            console.log('loginUser', user, 'createBy', createdBy);
+            if (user.id !== createdBy.id) {
+              alert('작성자만 클릭이 가능합니다.');
+              return;
+            }
             chatCmp.mutate({ chatId: id });
           }}
         >
