@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 import { dateChanger } from '@/shared/utils/dateChange';
+import { toast } from 'react-toastify';
 
 import { NovelPost } from '@/shared';
 
@@ -59,8 +60,14 @@ function PendingTabTableBody({ item }: { item: NovelPost }) {
 
   const onClickTableItem = (id: number) => {
     if (!item.completedAt) {
-      //TODO: 토스트 처리
-      alert('아직 승인 대기 상태라 접근이 불가능');
+      toast(() => (
+        <div className={'flex flex-col gap-4 py-5 '}>
+          <span className={'font-bold text-gray6'}>해당 공방은 현재 검토중입니다.</span>
+          <span className={'text-xs text-gray6'}>
+            대표작가의 검토가 끝난 후 결과를 알려드립니다.
+          </span>
+        </div>
+      ));
       return;
     }
 
