@@ -58,6 +58,12 @@ function PendingTabTableBody({ item }: { item: NovelPost }) {
   const route = useRouter();
 
   const onClickTableItem = (id: number) => {
+    if (!item.completedAt) {
+      //TODO: 토스트 처리
+      alert('아직 승인 대기 상태라 접근이 불가능');
+      return;
+    }
+
     route.push(`/work-space/detail?room=${id}`);
   };
 
