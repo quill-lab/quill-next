@@ -20,6 +20,7 @@ import {
   UserListResponse,
   UserResponse,
 } from '../../shared';
+import { GetCharactersInfoResponse } from '@/interfaces';
 
 const method = 'GET';
 
@@ -127,6 +128,13 @@ export function getOneNovelText(textId: number) {
 export function getChatHistory(params: GetChatHistoryRequest) {
   return callApi<GetChatHistoryResponse>({
     url: config.apiUrl.getChatHistory(params),
+    method,
+  });
+}
+
+export function getCharactersInfo({ roomId }: { roomId: number }) {
+  return callApi<GetCharactersInfoResponse>({
+    url: `/novel-room/${roomId}/characters`,
     method,
   });
 }
