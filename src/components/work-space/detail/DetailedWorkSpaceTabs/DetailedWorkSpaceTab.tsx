@@ -16,9 +16,7 @@ interface DetailedWorkSpaceTabProps {
 export const DetailedWorkSpaceTab = ({ tabs }: DetailedWorkSpaceTabProps) => {
   return (
     <TabsProvider<TabId> initialTab="work-info">
-      <div className="container mx-auto p-4">
-        <Tabs<TabId> tabs={tabs} />
-      </div>
+      <Tabs<TabId> tabs={tabs} />
     </TabsProvider>
   );
 };

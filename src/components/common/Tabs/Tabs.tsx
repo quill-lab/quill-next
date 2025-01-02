@@ -20,7 +20,7 @@ export const Tabs = <T,>({ tabs }: TabsProps<T>) => {
         {tabs.map(tab => (
           <button
             key={tab.id as string}
-            className={`px-16 py-4 rounded-t-[20px] text-sm bg-white bg-opacity-80 ${
+            className={`px-16 py-4 rounded-t-[20px] text-sm bg-white bg-opacity-80 grow shrink-0 ${
               selectedTab === tab.id ? 'bg-white bg-opacity-100' : ''
             }`}
             onClick={() => setSelectedTab(tab.id)}

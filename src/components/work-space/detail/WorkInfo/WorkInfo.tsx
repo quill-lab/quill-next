@@ -43,10 +43,12 @@ export const WorkInfo = () => {
   ];
 
   return (
-    <div className={'py-80 flex gap-4'}>
-      {dummys?.map(character => (
-        <CharacterInfoCard key={character.name} {...character} />
-      ))}
+    <div className={'flex flex-col gap-[10px]'}>
+      <div className={'flex gap-4'}>
+        {dummys?.map(character => (
+          <CharacterInfoCard key={character.name} {...character} />
+        ))}
+      </div>
     </div>
   );
 };
