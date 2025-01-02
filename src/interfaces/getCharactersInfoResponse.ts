@@ -5,4 +5,4 @@ export interface CharacterInfo {
   lastModifier: string;
 }
 
-export type GetCharactersInfoResponse = CharacterInfo[];
+export type GetCharactersInfoResponse = { data: CharacterInfo[] };
