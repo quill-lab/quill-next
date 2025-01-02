@@ -116,3 +116,22 @@ body {
 .blue-btn:hover {
     background-color: #077D8A;
 }
+
+.overflow-y-auto::-webkit-scrollbar {
+    width: 8px;
+    height: 36px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 1);
+}
