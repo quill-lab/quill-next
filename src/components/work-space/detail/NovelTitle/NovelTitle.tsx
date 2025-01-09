@@ -1,3 +1,4 @@
+import { NovelGenreButton } from '@/components/work-space/detail/NovelTitle/NovelGenreButton';
 import { Categorys, NovelRoomStatus } from '@/shared';
 import { getNovelRoomStatus } from '@/shared/utils/get-enum-value';
 
@@ -18,7 +19,7 @@ export const NovelTitle = ({ title, status, category, editMode }: NovelTitleProp
       <div className="flex gap-3 items-baseline">
         <p className="text-lg font-medium text-black1">{title}</p>
         <p className={'text-xs  font-medium text-black1'}>{category?.name || ''}</p>
-        {/*<GenreBtn disabled={!editMode} category={category} />*/}
+        <NovelGenreButton disabled={!editMode} category={category} />
       </div>
       <p className="text-gray-900 text-center text-[16px] font-medium">
         {getNovelRoomStatus(status || 'prepare')}

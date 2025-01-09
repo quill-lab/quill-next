@@ -35,13 +35,13 @@ const tabs = [
 
 const DetailedWorkSpace = () => {
   return (
-    <div className={"py-[126px] bg-cover bg-[url('/images/back-image.svg')] min-h-screen"}>
+    <div className={'py-[126px] bg-cover bg-blue1 min-h-screen'}>
       <div className="flex flex-col gap-4 items-center pb-[100px] overscroll-none">
         <NovelTitle
           title={'테스트'}
           status={'prepare'}
           category={{ id: 12, name: 'ss' }}
-          editMode={false}
+          editMode={true}
         />
         <DetailedWorkSpaceTab tabs={tabs} />
       </div>
@@ -66,7 +66,7 @@ export default DetailedWorkSpace;
 // import { useUrlDatas } from '@/hooks/useUrlDatas';
 // import { useNovelRoom } from '@/stores/useNovelRoom';
 // import NovelPublish from '@/components/modals/NovelPublish/NovelPublish';
-// import NovelChapterTitle from '@/components/modals/NovelChapterTitle/NovelChapterTitle';
+// import NovelChapterTitleUpdateModal from '@/components/modals/NovelChapterTitleUpdateModal/NovelChapterTitleUpdateModal';
 // import { useNovelChapter } from '@/stores/useChapter';
 // import { getNovelRoomStatus } from '@/shared/utils/get-enum-value';
 // import { useLoginUser } from '@/stores';
@@ -176,7 +176,7 @@ export default DetailedWorkSpace;
 //       onWheel={wheelEvent}
 //     >
 //       <NovelPublish />
-//       <NovelChapterTitle />
+//       <NovelChapterTitleUpdateModal />
 //       <div className="flex flex-row w-[1300px] mt-[7.9rem]">
 //         <WriterOrderManager isCurrentUserHost={isCurrentUserHost ?? false} />
 //         <div className="flex flex-col w-[996px] ml-10">

@@ -14,7 +14,7 @@ export const DescriptionContainer = ({
   return (
     <div
       className={
-        'bg-white-opacity-50 rounded-[10px] py-4 px-8 relative h-full overflow-y-auto min-h-[98px]'
+        'bg-white-opacity-50 rounded-[10px] py-4 px-8 relative w-full h-full overflow-y-auto min-h-[98px]'
       }
     >
       <div className={`pb-2 ${date ? 'flex justify-around items-center' : ''}`}>

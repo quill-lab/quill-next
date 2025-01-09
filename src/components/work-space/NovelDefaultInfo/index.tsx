@@ -26,8 +26,7 @@ export const NovelDefaultInfo = ({
   });
 
   if (!novelInfo) {
-    //TODO: loading ui
-    return <div>loading...</div>;
+    return null;
   }
 
   useEffect(() => {
@@ -50,28 +49,8 @@ export const NovelDefaultInfo = ({
       aria-hidden={!isShow}
     >
       <div className="flex gap-2">
-        <Image
-          className="rounded-[10px]"
-          width={210}
-          height={297}
-          src={novelInfo.data.bookCover ?? '/images/default-book-cover.svg'}
-          alt="북커버"
-        />
         <div className="flex flex-col w-full gap-2">
-          <div>
-            <DescriptionContainer
-              isEditable={editMode}
-              title="한줄소개"
-              content={novelInfo.data.subTitle}
-            />
-          </div>
-          <div className={'flex-1'}>
-            <DescriptionContainer
-              content={novelInfo.data.character}
-              isEditable={editMode}
-              title="등장인물"
-            />
-          </div>
+          <div></div>
         </div>
       </div>
       <div
@@ -79,9 +58,7 @@ export const NovelDefaultInfo = ({
           editMode ? 'bg-white' : ''
         } rounded-[10px]`}
       >
-        <div className="flex items-center justify-center px-4 py-1 bg-white rounded-lg mr-2 text-xs font-normal text-black2">
-          #{novelInfo?.data.category.name}
-        </div>
+        <div className="flex items-center justify-center px-4 py-1 bg-white rounded-lg mr-2 text-xs font-normal text-black2"></div>
       </div>
 
       <DescriptionContainer content={novelInfo.data.summary} isEditable={editMode} title="줄거리" />

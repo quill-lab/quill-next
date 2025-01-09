@@ -200,15 +200,16 @@ export interface CreateRoomResponse {
 export interface NovelRoomInfoResponse {
   data: {
     id: number;
-    category: Categorys;
+    category: Categorys[];
     character: string;
     summary: string;
-    status: NovelRoomStatus;
+    writerStatus: NovelRoomStatus;
     title: string;
     subTitle: string;
     createdAt: string;
     updatedAt: string;
     bookCover: string;
+    novelTag: string[];
   };
 }
 
