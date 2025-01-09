@@ -203,7 +203,7 @@ export interface NovelRoomInfoResponse {
     category: Categorys[];
     character: string;
     summary: string;
-    writerStatus: NovelRoomStatus;
+    writerStatus: string; //TODO:
     title: string;
     subTitle: string;
     createdAt: string;
