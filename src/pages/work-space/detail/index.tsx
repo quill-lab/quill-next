@@ -35,7 +35,7 @@ const tabs = [
 
 const DetailedWorkSpace = () => {
   return (
-    <div className={'py-[126px] bg-cover bg-blue1 min-h-screen'}>
+    <div className={"py-[126px] bg-cover bg-[url('/images/back-image.svg')] min-h-screen"}>
       <div className="flex flex-col gap-4 items-center pb-[100px] overscroll-none">
         <NovelTitle
           title={'테스트'}
