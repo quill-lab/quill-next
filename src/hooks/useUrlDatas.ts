@@ -1,5 +1,7 @@
+'use client';
+
 import { isNaN } from 'lodash';
-import { useRouter } from 'next/router';
+import { useSearchParams, usePathname } from 'next/navigation';
 import { useMemo } from 'react';
 
 // 문자열을 숫자로 변환하는 유틸리티 함수
@@ -16,6 +18,7 @@ function parseValue<T>(value: string): T {
   }
   return value as T;
 }
+
 /**
  * url에서 데이터를 가져올 때 사용함
  * @code  useUrlDatas<number>("roomid")
@@ -23,12 +26,11 @@ function parseValue<T>(value: string): T {
  * @returns T 타입의 dataName
  */
 export function useUrlDatas<T>(dataName: string) {
-  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
   return useMemo(() => {
-    const data = router.query[dataName];
-    // if (data === undefined) {
-    //   return undefined;
-    // }
+    const data = searchParams?.get(dataName);
     return parseValue<T>(data as string);
-  }, [router.isReady, router.query, dataName]);
+  }, [searchParams, pathname, dataName]);
 }

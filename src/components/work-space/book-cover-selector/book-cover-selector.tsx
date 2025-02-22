@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { TooltipTextField } from '@/components';

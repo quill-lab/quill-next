@@ -1,4 +1,6 @@
-import { useRouter } from 'next/router';
+'use client';
+
+import { useRouter } from 'next/navigation';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { tempPassword } from '@/fetch/post';
