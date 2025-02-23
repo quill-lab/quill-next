@@ -1,3 +1,5 @@
+'use client';
+
 import { NovelGenreButton } from '@/components/work-space/detail/NovelTitle/NovelGenreButton';
 import { Categorys, NovelRoomStatus } from '@/shared';
 import { getNovelRoomStatus } from '@/shared/utils/get-enum-value';

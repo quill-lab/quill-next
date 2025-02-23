@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { ChangeEvent, useState } from 'react';
@@ -9,7 +11,7 @@ import { Notice } from '../Notice/Notice';
 import { SearchInput } from '../SearchInput/SearchInput';
 import styles from './PageHeader.module.scss';
 import { storageKey } from '@/constants';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export const PageHeader = () => {
   const [search, setSearch] = useState<string>('');

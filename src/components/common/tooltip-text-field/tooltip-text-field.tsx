@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { ReactElement, useState } from 'react';
 import SpeechBubble from '@/images/speech-bubble.svg';

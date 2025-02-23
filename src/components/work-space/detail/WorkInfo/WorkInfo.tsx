@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { CharacterInfoCard } from '@/components/work-space/detail/CharacterInfoCard/CharacterInfoCard';
 import { useQueryWrap } from '@/hooks/reactQeuryWrapper';

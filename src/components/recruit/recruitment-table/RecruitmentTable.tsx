@@ -1,6 +1,8 @@
+'use client';
+
 import Skeleton from '@mui/material/Skeleton';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 import { GetWriterWantedList } from '@/shared';

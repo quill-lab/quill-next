@@ -1,3 +1,5 @@
+'use client';
+
 import React, { ReactNode } from 'react';
 import { TabsProvider } from '@/components/common/Tabs/TabsContext';
 import { Tabs } from '@/components/common/Tabs/Tabs';
