@@ -2,7 +2,7 @@ import { NovelRoomStatus } from '../interface';
 
 const getNovelRoomStatus = (status: NovelRoomStatus) => {
   switch (status) {
-    case 'prepare':
+    case 'PREPARING':
       return '연재준비중';
     case 'series':
       return '연재중';

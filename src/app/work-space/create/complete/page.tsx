@@ -1,17 +1,22 @@
+'use client';
+
 import React from 'react';
 
 import { Completed } from '@/components/Completed/Completed';
 import { CompletedLogoTextHeader } from '@/components/CompletedLogoTextHeader/CompletedLogoTextHeader';
 
 import styles from './complete.module.scss';
+import { useRouter } from 'next/navigation';
 
 const CompleteWorkSpaceCreation = () => {
+  const router = useRouter();
+
   const handleLeftButton = (): void => {
-    console.log('handleLeftButton');
+    // router.push('/work-space/')
   };
 
   const handleRightButton = (): void => {
-    console.log('handleRightButton');
+    router.push('/work-space');
   };
 
   return (

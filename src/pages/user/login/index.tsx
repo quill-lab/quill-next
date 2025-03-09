@@ -16,6 +16,8 @@ import st from './login.module.scss';
 import { storageKey } from '@/constants';
 import { loginSchema } from '@/shared/utils/validation-schemas';
 import { useLoginUser } from '@/stores/useLoginUser';
+import { signIn } from 'next-auth/react';
+import callApi from '@/shared/utils/fetchWrapper';
 
 interface IFormInput {
   email?: string;
@@ -42,7 +44,7 @@ export default function Login() {
   const { mutate, status } = useMutation({
     mutationKey: ['api/login'],
     mutationFn: loginApi,
-    onSuccess(data) {
+    async onSuccess(data) {
       localStorage.setItem(storageKey, `${data.data.accessToken}`);
       const user = data.data.user;
       setUser({ id: user.id, nickname: user.nickname, email: user.email });
@@ -53,9 +55,21 @@ export default function Login() {
     },
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = data => {
+  const onSubmit: SubmitHandler<IFormInput> = async data => {
     if (data.email && data.password) {
-      mutate({ email: data.email, password: data.password });
+      const res = await signIn('credentials', {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+        callbackUrl: '/work-space', // 로그인 성공 시 리다이렉트할 경로
+      });
+
+      if (res?.error) {
+        alert('로그인에 실패하였습니다. 다시 시도해주세요.'); // 로그인 실패 시 알림 표시
+      } else {
+        route.replace('/work-space');
+      }
+      // mutate({ email: data.email, password: data.password });
     }
   };
 

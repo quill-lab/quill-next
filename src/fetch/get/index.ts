@@ -29,10 +29,11 @@ const method = 'GET';
  * @param param0 NovelListRequest
  * @returns NovelListResponse
  */
-export function novelList({ page, roomState }: NovelListRequest) {
+export function novelList({ page, roomState, token }: NovelListRequest) {
   return callApi<NovelListResponse>({
     url: `${config.apiUrl.novelList}?roomStatus=${roomState}&chunkSize=${config.pageSize}&pageNo=${page}`,
     method,
+    token,
   });
 }
 
@@ -48,10 +49,11 @@ export function userList() {
  * @param roomId 소설공방 번호
  * @returns NovelRoomInfoResponse
  */
-export function novelRoomInfo(roomId: number) {
+export function novelRoomInfo(roomId: number, token: string) {
   return callApi<NovelRoomInfoResponse>({
     url: config.apiUrl.novelRoomInfo(roomId),
     method,
+    token,
   });
 }
 /**

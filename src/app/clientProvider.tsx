@@ -22,10 +22,7 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
         hideProgressBar
         theme={'light'}
       />
-      <QueryClientProvider client={queryClient}>
-        <PageHeader />
-        {children}
-      </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </ThemeProvider>
   );
 }

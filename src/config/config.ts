@@ -1,18 +1,18 @@
-import { envApiConfig, envWsConfig } from '@/shared/utils/envConfig';
+import { apiConfig, envApiConfig, envWsConfig } from '@/shared/utils/envConfig';
 
-import { GetChatHistoryRequest } from '@/shared';
+import { CreateCharacterRequest, GetChatHistoryRequest } from '@/shared';
 
 export const config = {
-  wsLink: envWsConfig(),
+  wsLink: apiConfig(),
 
-  apiLink: envApiConfig(),
+  apiLink: apiConfig(),
 
   apiUrl: {
     // 회원가입
-    signUp: '/auth/joinUser',
+    signUp: '/api/v1/auth/signup',
 
     // 로그인 api
-    login: '/auth/login',
+    login: '/api/v1/auth/signin',
 
     // 임시비밀번호
     tempPassword: '/auth/temp-password',
@@ -27,10 +27,10 @@ export const config = {
     novelList: '/novel-room',
 
     // 소설공방 생성 api
-    createNovelRoom: '/novel-room',
+    createNovelRoom: '/api/v1/novel-rooms',
 
     // 소설공방 작가 모집글 생성 api
-    createWriterPost: '/novel-attend-board',
+    createRecruitments: (roomId: string) => `/api/v1/novel-rooms/${roomId}/recruitments`,
 
     // 소설공방 기본정보
     novelRoomInfo: (roomId: number) => `/novel-room/${roomId}`,
@@ -78,6 +78,9 @@ export const config = {
     // 이전 채탱 불러오기
     getChatHistory: ({ chunkSize, pageNo, chapterId }: GetChatHistoryRequest) =>
       `/novel-text?chunkSize=${chunkSize}&pageNo=${pageNo}&chapterId=${chapterId}`,
+
+    // 캐릭터 생성
+    createCharacter: ({ roomId }: { roomId: string }) => `/novel-rooms/${roomId}/characters`,
   },
   page: {
     // 소설공방

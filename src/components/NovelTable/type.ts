@@ -1,7 +1,7 @@
-import { NovelPost, RoomStatus } from '@/shared';
+import { NovelItem, NovelPost, RoomStatus } from '@/shared';
 
 export interface NovelTableProps {
-  tableData: NovelPost[];
+  tableData: NovelItem[];
   tab: RoomStatus;
 }
 export interface NovelTable {

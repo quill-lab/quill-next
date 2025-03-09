@@ -1,23 +1,28 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import st from './work-space.module.scss';
-import WorkSpace from './work-space';
-import { Tooltip, WorkspaceCreationModal } from '@/components';
-import WriterRecruitment from './writer-recruitment';
+'use client';
+
+import { useCreateNovelPost } from '@/stores';
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { config } from '@/config/config';
-import { CreateRoom } from '@/fetch/post';
-import { useCreateNovelPost } from '@/stores/useCreateNovelPost.zst';
+import { createCharacter, createRecruitments, CreateRoom } from '@/fetch/post';
+import WorkSpace from '@/app/work-space/create/work-space';
+import WriterRecruitment from '@/app/work-space/create/writer-recruitment';
 import Image from 'next/image';
 import SpeechBubble from '@/images/speech-bubble.svg';
+import st from '@/app/work-space/create/work-space.module.scss';
+import { Tooltip, WorkspaceCreationModal } from '@/components';
+import { CreateRecruitments, CreateRoomArg } from '@/shared';
+import { useSession } from 'next-auth/react';
 
 const pageComponentsMap: Record<number, React.ReactNode> = {
   0: <WorkSpace />,
   1: <WriterRecruitment />,
 };
 
-export default function WorkSpaceCreation() {
+export default function WorkSpaceCreateTemplate() {
   const route = useRouter();
+  const { data: session } = useSession();
   const [pageIdx, setPageIdx] = useState(0);
   const [isModalOpen, setModalOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
@@ -38,9 +43,22 @@ export default function WorkSpaceCreation() {
     postChecking,
   } = useCreateNovelPost();
 
-  const { mutate } = useMutation({
+  const { mutate: createRoom, data: createdRoom } = useMutation({
     mutationKey: [config.apiUrl.createNovelRoom],
-    mutationFn: CreateRoom,
+    mutationFn: (data: { body: CreateRoomArg; token: string | null }) =>
+      CreateRoom(data.body, data.token || null),
+    onSuccess(res) {
+      return res;
+    },
+    onError(res) {
+      console.error(res);
+    },
+  });
+
+  const { mutate: createRecruitmentsByRoomId, data: createdRecruitments } = useMutation({
+    mutationKey: [config.apiUrl.createRecruitments],
+    mutationFn: (data: { roomId: string; body: CreateRecruitments; token: string }) =>
+      createRecruitments(data.roomId, data.body, data.token),
     onSuccess(res) {
       route.replace('/work-space');
     },
@@ -74,19 +92,21 @@ export default function WorkSpaceCreation() {
 
   const handleClickModalConfirm = () => {
     setModalOpen(false);
-    mutate({
-      title: title || undefined,
-      type,
-      category: category || undefined,
-      character: actor || undefined,
-      subTitle: subTitle || undefined,
-      novelTags: novelTag,
-      summary: summary || undefined,
-      bookCover,
-      attendContent: postContent || undefined,
-      attendOpenKakaoLink: openLink || undefined,
-      attendTitle: postTitle || undefined,
+    const res = createRoom({
+      body: {
+        title: title || undefined,
+        maxContributors: type,
+        // category: category || undefined,
+        category: 'GENERAL',
+        description: subTitle || undefined,
+        tags: novelTag,
+        synopsis: summary || undefined,
+        coverImage: bookCover,
+      },
+      token: session?.user?.token || null,
     });
+    console.log(res);
+    // route.replace('/work-space/create/complete');
   };
 
   const handleClickModalCancel = () => {

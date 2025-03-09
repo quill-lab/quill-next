@@ -10,56 +10,79 @@ import { config } from '@/config/config';
 import { DescriptionContainer } from '@/components';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
 import { Tag } from '@/components/common/Tag/Tag';
+import { useSession } from 'next-auth/react';
+import { useParams, useRouter } from 'next/navigation';
+import { NovelItem } from '@/shared';
+import callApi from '@/shared/utils/fetchWrapper';
 
-export const WorkInfo = () => {
-  const roomId = useUrlDatas<number>('room');
+interface WorkInfoTemplateProps {
+  novelRoomInfo: NovelItem;
+}
+
+export const WorkInfo = ({ novelRoomInfo }: WorkInfoTemplateProps) => {
+  const params = useParams();
+  const router = useRouter();
+  const roomId = params?.roomId;
+  const { data: session } = useSession();
+
   const [editMode, setEditMode] = useState(false);
+  const [editDescription, setEditDescription] = useState(novelRoomInfo.description);
+  const [editSynopsis, setEditSynopsis] = useState(novelRoomInfo.synopsis);
 
-  const { data: novelInfo, isSuccess } = useQueryWrap({
-    queryKey: [config.apiUrl.novelRoomInfo(roomId), roomId],
-    queryFn: () => novelRoomInfo(roomId),
-    enabled: !!roomId,
-  });
+  const onClickEdit = async () => {
+    if (editMode) {
+      await callApi({
+        url: `/api/v1/novel-rooms/${roomId}`,
+        body: {
+          title: novelRoomInfo.title,
+          description: editDescription,
+          tags: novelRoomInfo.tags,
+          category: novelRoomInfo.category.name,
+          synopsis: editSynopsis,
+        },
+        method: 'PATCH',
+        token: session?.user?.token,
+      });
+      router.refresh();
+    }
 
-  const { data: characters } = useQueryWrap({
-    queryKey: [`getCharactersInfo`, roomId],
-    queryFn: () => getCharactersInfo({ roomId }),
-  });
-
-  if (isEmpty(novelInfo) || isEmpty(characters)) {
-    return null; // TODO: loading 처리
-  }
-
-  const onClickEdit = () => {
     setEditMode(prev => !prev);
+  };
+
+  const characters = {
+    data: [
+      { name: '로미오', description: '남 주인공' },
+      { name: '줄리엣', description: '여 주인공' },
+    ],
   };
 
   return (
     <div className={'flex flex-col gap-[18px] items-center w-full'}>
       <div className={'flex flex-col gap-[10px] w-full'}>
-        <div className={'flex gap-2 flex-grow'}>
-          <div className="relative w-[189px] h-[267px]">
+        <div className={'flex gap-4 flex-grow'}>
+          <div className="relative w-full max-w-[189px] h-full min-h-[267px]">
             <Image
-              src={novelInfo.data.bookCover ?? '/images/default-book-cover.svg'}
+              src={'/images/default-book-cover.svg'}
               alt="북커버"
               layout="fill"
               objectFit="cover"
               className="rounded-[10px]"
             />
           </div>
-          <div className={'flex flex-col gap-2 w-full'}>
+          <div className={'flex flex-col gap-3 w-full'}>
             <DescriptionContainer
               title="작품 소개"
               isEditable={editMode}
-              content={novelInfo.data.subTitle}
+              content={novelRoomInfo.description}
+              onChangeDescription={setEditDescription}
             />
             <div
               className={
-                'bg-white-opacity-50 rounded-[10px] py-4 px-8 relative w-full overflow-y-hidden overflow-x-auto min-h-[58px] flex items-center'
+                'bg-white-opacity-50 rounded-[10px] py-4 px-5 relative w-full overflow-y-hidden overflow-x-auto min-h-[58px] flex items-center'
               }
             >
-              <div className={'flex gap-[14px]'}>
-                {novelInfo.data.novelTag.map(tag => (
+              <div className={'flex gap-3.5'}>
+                {novelRoomInfo.tags.map(tag => (
                   <Tag key={tag} text={tag} />
                 ))}
               </div>
@@ -70,16 +93,26 @@ export const WorkInfo = () => {
           {characters?.data?.map(character => (
             <CharacterInfoCard key={character.name} {...character} />
           ))}
+          {editMode && (
+            <div
+              className={
+                'w-[238px] min-h-[200px] p-[20px] bg-white-opacity-50 flex items-center justify-center rounded-xl'
+              }
+            >
+              <Image src={'/images/add.png'} width={24} height={24} alt="add" />
+            </div>
+          )}
         </div>
         <div className={'flex-1'}>
           <DescriptionContainer
             title="줄거리"
             isEditable={editMode}
-            content={novelInfo.data.summary}
+            content={novelRoomInfo.synopsis}
+            onChangeDescription={setEditSynopsis}
           />
         </div>
       </div>
-      {novelInfo?.data.writerStatus === 'host' && (
+      {novelRoomInfo?.role === 'MAIN' && (
         <button
           onClick={onClickEdit}
           className={
