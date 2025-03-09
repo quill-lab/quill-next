@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { ChangeEvent, useState } from 'react';
@@ -9,11 +11,12 @@ import { Notice } from '../Notice/Notice';
 import { SearchInput } from '../SearchInput/SearchInput';
 import styles from './PageHeader.module.scss';
 import { storageKey } from '@/constants';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+import { signOut } from 'next-auth/react';
 
 export const PageHeader = () => {
   const [search, setSearch] = useState<string>('');
-  const route = useRouter();
+  const router = useRouter();
   const [visibleAlarm, setVisibleAlarm] = useState<boolean>(false);
 
   const { isWheelTop } = useWheelState();
@@ -42,32 +45,35 @@ export const PageHeader = () => {
   };
 
   const handleClickLogout = () => {
-    localStorage.removeItem(storageKey);
+    // localStorage.removeItem(storageKey);
+    signOut();
+    router.push('/');
   };
 
   const handleClickLogo = () => {
-    route.push('/');
+    router.push('/work-space');
   };
 
   return (
     <header
-      className={styles.header}
-      style={{ backgroundColor: isWheelTop ? '#ffffff00' : '#ffffff' }}
+      className={`flex w-full justify-center items-center h-32 text-4 font-[500] bg-transparent`}
     >
-      <div className={`${styles.outline} flex justify-between px-[100px] items-center`}>
-        <div className={'flex content-center'}>
+      <div className="flex justify-between text-[#059EAF] px-[100px] w-full items-center h-16 rounded-full border border-[#059EAF] bg-gray-200 bg-opacity-50">
+        <div className="flex content-center">
           <Image
             src={Logo}
-            alt="작가의 정원 로고"
+            alt="logo"
+            width={30}
+            height={30}
             onClick={handleClickLogo}
-            className={'cursor-pointer'}
+            className="cursor-pointer"
           />
-          <div className={'flex gap-12 pl-12 items-center'}>
+          <div className="flex gap-12 pl-12 items-center">
             <Link href="/work-space">소설공방</Link>
             <Link href="/recruit">작가모집</Link>
           </div>
         </div>
-        <div className={'flex gap-12 '}>
+        <div className="flex gap-12">
           <Notice
             visible={visibleAlarm}
             handleVisible={handleVisibleAralm}

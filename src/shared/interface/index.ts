@@ -9,7 +9,7 @@ export type WriterStatus = 'attending' | 'reject' | 'review' | 'exit';
 export type WriterType = 'host' | 'attendee';
 export type NovelStatus = 'writing' | 'review' | 'approve' | 'reject';
 // prepare: 연재준비중, series : 연재중, complete : 연재완료, remove : 삭제
-export type NovelRoomStatus = 'prepare' | 'series' | 'complete' | 'remove';
+export type NovelRoomStatus = 'PREPARING' | 'series' | 'complete' | 'remove';
 // solo : 혼자 ___ group2 : 2명 ___ group3 : 3명
 export type RoomType = 1 | 2 | 3 | 4 | 5;
 export type RoomStatus = 'attending' | 'apptendApply';
@@ -26,7 +26,7 @@ export interface Pagination {
   totalCount: number;
 }
 export interface Categorys {
-  id: number;
+  alias: string;
   name: string;
 }
 export interface NovelPost {
@@ -151,6 +151,7 @@ export interface LoginApiResonse {
 export interface NovelListRequest {
   roomState: RoomStatus;
   page: number;
+  token: string;
 }
 export interface NovelListResponse {
   data: NovelPost[];
@@ -167,17 +168,21 @@ export interface UserResponse {
 
 export interface CreateRoomArg {
   title?: string;
+  maxContributors: number;
+  description: string | undefined;
   subTitle?: string;
-  category?: number;
-  novelTags?: string[];
+  category?: string;
+  tags?: string[];
   type?: RoomType;
   character?: string;
-  summary?: string;
-  bookCover?: BookCover;
+  synopsis?: string;
+  coverImage?: BookCover;
+}
 
-  attendTitle?: string;
-  attendOpenKakaoLink?: string;
-  attendContent?: string;
+export interface CreateRecruitments {
+  title: string;
+  content: string;
+  link: string;
 }
 
 export interface UserListResponse {
@@ -185,6 +190,7 @@ export interface UserListResponse {
 }
 
 export interface CreateRoomResponse {
+  id: string;
   title: string;
   subTitle: string;
   category: number;
@@ -300,4 +306,14 @@ export interface GetChatHistoryResponse {
   };
 
   meta: Pagination;
+}
+
+export interface CreateCharacterRequest {
+  roomId: string;
+  name: string;
+  description: string;
+}
+
+export interface CreateCharacterResponse {
+  id: string;
 }

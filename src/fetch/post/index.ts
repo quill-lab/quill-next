@@ -3,6 +3,9 @@ import callApi from '@/shared/utils/fetchWrapper';
 import { config } from '@/config/config';
 
 import {
+  CreateCharacterRequest,
+  CreateCharacterResponse,
+  CreateRecruitments,
   CreateRoomArg,
   CreateRoomResponse,
   LoginApiArg,
@@ -30,12 +33,18 @@ export function checkUserNickname(nickname: string) {
   });
 }
 
-export function CreateRoom(body: CreateRoomArg) {
-  return callApi<CreateRoomResponse>({ url: config.apiUrl.createNovelRoom, body, method });
+export function CreateRoom(body: CreateRoomArg, token: string | null) {
+  return callApi<CreateRoomResponse>({ url: config.apiUrl.createNovelRoom, body, method, token });
 }
+
+export function createRecruitments(roomId: string, body: CreateRecruitments, token: string) {
+  return callApi({ url: config.apiUrl.createRecruitments(roomId), body, method, token });
+}
+
 export function loginApi({ email, password }: LoginApiArg) {
   return callApi<LoginApiResonse>({ url: config.apiUrl.login, body: { email, password }, method });
 }
+
 export function signUp({ email, password, nickname }: SignUpRequestModel) {
   return callApi<{ data: { accessToken: string } }>({
     url: config.apiUrl.signUp,
@@ -81,6 +90,14 @@ export function setBoardLike(body: { novelRoomId: number }) {
 export function writerJoinReqest(body: WriterJoinReqest) {
   return callApi<number>({
     url: config.apiUrl.writerJoinRequest,
+    body,
+    method,
+  });
+}
+
+export function createCharacter(body: CreateCharacterRequest) {
+  return callApi<CreateCharacterResponse>({
+    url: config.apiUrl.createCharacter({ roomId: body.roomId }),
     body,
     method,
   });

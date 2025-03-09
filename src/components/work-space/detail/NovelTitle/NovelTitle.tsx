@@ -1,3 +1,5 @@
+'use client';
+
 import { NovelGenreButton } from '@/components/work-space/detail/NovelTitle/NovelGenreButton';
 import { Categorys, NovelRoomStatus } from '@/shared';
 import { getNovelRoomStatus } from '@/shared/utils/get-enum-value';
@@ -5,14 +7,14 @@ import { getNovelRoomStatus } from '@/shared/utils/get-enum-value';
 type NovelTitleProps = {
   title: string;
   status: NovelRoomStatus;
-  category: Categorys | undefined;
+  category: Categorys;
   editMode: boolean;
 };
 
 export const NovelTitle = ({ title, status, category, editMode }: NovelTitleProps) => {
   return (
     <div
-      className={`flex w-[996px] h-14 rounded-[10px] ${
+      className={`flex w-full h-14 rounded-[10px] ${
         editMode ? 'bg-white' : 'bg-white/50'
       } flex-row items-center justify-between py-4 px-8 rounded-[10px]`}
     >

@@ -1,3 +1,5 @@
+'use client';
+
 import { FormEvent, useState } from 'react';
 
 import CategorySelect from '@/components/CategorySelect/CategorySelect';
@@ -86,19 +88,6 @@ export default function WorkSpace() {
           compulsory={props.novelTagCheck.essential}
           errorText={props.novelTagCheck.errorMsg}
           isError={props.novelTagCheck.isError}
-        />
-      </div>
-      <div className={'mt-14'}>
-        <MultilineInput
-          onChange={value => {
-            setNovel({ actor: value });
-          }}
-          compulsory={props.actorCheck.essential}
-          categoryText="등장인물"
-          tooltipText={`소설의 등장인물에 대한 설명을\n입력해주세요.`}
-          placeholder="(예시) 로미오 : 아름다운 줄리엣을 만나 첫눈에 사랑에 빠진다."
-          errorText={props.actorCheck.errorMsg}
-          isError={props.actorCheck.isError}
         />
       </div>
       <div className={'mt-5'}>

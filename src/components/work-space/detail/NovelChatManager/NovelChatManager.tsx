@@ -1,3 +1,5 @@
+'use client';
+
 import { GetOneNovelText } from '@/shared';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
 import { useEffect, useRef, useState } from 'react';

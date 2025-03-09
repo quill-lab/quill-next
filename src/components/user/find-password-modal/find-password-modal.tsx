@@ -1,6 +1,8 @@
+'use client';
+
 import st from './find-password-modal.module.scss';
 import CusModal from '@/components/CusModal/CusModal';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export const FindPasswordModal = () => {
   const route = useRouter();

@@ -1,27 +1,26 @@
 import { config } from '@/config/config';
-import { storageKey } from '@/constants';
 
 type apiMethod = 'POST' | 'GET' | 'DELETE' | 'PUT' | 'PATCH';
 interface CallApi {
   url: string;
   body?: any;
   method: apiMethod;
+  token?: string | null;
 }
-export default async function callApi<T>({ url, body, method }: CallApi): Promise<T> {
-  const token = localStorage.getItem(storageKey);
+export default async function callApi<T>({ url, body, method, token }: CallApi): Promise<T> {
   const init: RequestInit = {
     credentials: 'include',
     method,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: token ? `Bearer ${token}` : '',
+      Authorization: token ? 'Bearer ' + token : '',
     },
     body: body ? JSON.stringify(body) : undefined,
   };
   const res = await fetch(config.apiLink + url, init);
   // 에러면 에러 반환
   if (!res.ok) {
-    throw res.status;
+    return { statusCode: res.status } as T;
   }
   // 200이 아닌 성공은 boolean 반환
   if (res.status !== 200) {

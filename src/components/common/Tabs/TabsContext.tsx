@@ -1,3 +1,5 @@
+'use client';
+
 // contexts/TabsContext.tsx
 import React, { createContext, useContext, useState } from 'react';
 

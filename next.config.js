@@ -1,6 +1,12 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   reactStrictMode: false,
   // async headers() {
   //   return [
@@ -22,6 +28,7 @@ const nextConfig = {
   // },
   async rewrites() {
     return [
+      { source: '/api/:path*', destination: '/api/:path*' },
       {
         source: '/api/:path*',
         destination:

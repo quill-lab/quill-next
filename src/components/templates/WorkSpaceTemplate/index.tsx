@@ -1,65 +1,57 @@
-import Skeleton from '@mui/material/Skeleton';
+'use client';
+
 import React, { useState } from 'react';
 import Pagination from 'react-js-pagination';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import { InformationText } from '@/components/InformationText/InformationText';
 import { InformationTextType } from '@/components/InformationText/type';
 import { NovelTable as Table } from '@/components/NovelTable/NovelTable';
 import { NovelTabs } from '@/components';
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
-// import { Select } from '@/components/Select/Select';
 import { config } from '@/config/config';
 import { novelList } from '@/fetch/get';
-import { NovelListResponse, RoomStatus } from '@/shared';
+import { NovelItem, NovelListResponse, RoomStatus } from '@/shared';
 import useOnWheelHandle from '@/hooks/onWheelHandle';
 import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import NovelPageHeaderBackground from '@/images/novel-page-header-background.svg';
 
 import styles from './novel.module.scss';
+import { useSession } from 'next-auth/react';
 
 const TAB_NAMES = ['참여중', '참여 신청'];
 
-const WorkSpace = () => {
-  const [page, setPage] = useState(1);
+interface WordSpaceProps {
+  items: NovelItem[];
+  totalCount: number;
+  size: number;
+  page: number;
+}
+
+const WorkSpace = ({ items, totalCount, size, page }: WordSpaceProps) => {
   const [currentTab, setCurrentTab] = useState(TAB_NAMES[0]);
   const [roomState, setRoomStatus] = useState<RoomStatus>('attending');
-
   const wheelEvent = useOnWheelHandle(300);
   const router = useRouter();
-
-  const { data, isSuccess } = useQueryWrap<NovelListResponse>({
-    queryKey: ['api/novelList', roomState, page],
-    queryFn: () => novelList({ roomState, page }),
-  });
+  const { data: session } = useSession();
 
   const handleClickTab = (tab: string) => {
-    if (currentTab === tab) return;
-
-    setCurrentTab(tab);
-    setRoomStatus(tab === TAB_NAMES[0] ? 'attending' : 'apptendApply');
-    setPage(1);
+    // if (currentTab === tab) return;
+    // setCurrentTab(tab);
+    // setRoomStatus(tab === TAB_NAMES[0] ? 'attending' : 'apptendApply');
+    // setPage(1);
   };
 
   const handleClickPagination = (page: number) => {
-    setPage(page);
+    // setPage(page);
   };
 
   const handleClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
-    // 현재 연재중인 내 소설 공방이 있는지 검증
-    const myWorkSpaces = data?.data.filter(res => res.writerCategory === 'host');
-    // if (myWorkSpaces && myWorkSpaces.length > 1) {
-    //   // TODO: 모달 추가
-    //
-    //   alert('소설공방 개설 횟수를 초과했습니다.');
-    //   return;
-    // }
-
     router.push('/work-space/create');
   };
 
   return (
-    <div onWheel={wheelEvent}>
+    <div onWheel={wheelEvent} className="w-full">
       <PageContentHeader
         backgroundColor="#9CE1E6"
         pageImage={NovelPageHeaderBackground}
@@ -92,8 +84,7 @@ const WorkSpace = () => {
                 handleCurrentTab={handleClickTab}
               />
             </div>
-            {/* {isLoading ?  : null} */}
-            {!isSuccess &&
+            {/* {!isSuccess &&
               Array(6)
                 .fill(0)
                 .map((item, index) => (
@@ -107,9 +98,9 @@ const WorkSpace = () => {
                     }}
                     animation="wave"
                   />
-                ))}
+                ))} */}
 
-            {isSuccess && <Table tab={roomState} tableData={data?.data ?? []} />}
+            <Table tab={roomState} tableData={items ?? []} />
           </div>
         </div>
 
@@ -118,7 +109,7 @@ const WorkSpace = () => {
           itemClass="cus-pagination-li"
           activePage={page}
           itemsCountPerPage={config.pageSize}
-          totalItemsCount={data?.meta?.totalCount ?? 0}
+          totalItemsCount={totalCount ?? 0}
           pageRangeDisplayed={5}
           prevPageText="‹"
           nextPageText="›"
