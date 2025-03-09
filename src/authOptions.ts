@@ -15,7 +15,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         try {
-          const res = await fetch('http://localhost:3000/api/proxy', {
+          const res = await fetch(process.env.NEXT_PUBLIC_APP_URL + '/api/proxy', {
             method: 'POST',
             body: JSON.stringify({
               path: '/api/v1/auth/signin',
