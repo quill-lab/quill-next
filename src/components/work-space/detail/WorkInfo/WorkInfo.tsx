@@ -9,56 +9,88 @@ import Image from 'next/image';
 import { config } from '@/config/config';
 import { DescriptionContainer } from '@/components';
 import { useUrlDatas } from '@/hooks/useUrlDatas';
-import { Tag } from '@/components/common/Tag/Tag';
+import { Tag } from '@/components/atoms/Tag/Tag';
 import { useSession } from 'next-auth/react';
 import { useParams, useRouter } from 'next/navigation';
 import { NovelItem } from '@/shared';
 import callApi from '@/shared/utils/fetchWrapper';
+import WorkSpaceTabHeader from '@/components/organisms/WorkSpaceTabHeader';
+import { CharacterInfo } from '@/interfaces';
+import CharacterCardList from '@/components/organisms/CharacterCardList';
+import { useCharacterStore } from '@/stores/useCharacter';
+import { useNovelRoom } from '@/stores';
+import TagList from '@/components/organisms/TagList';
 
 interface WorkInfoTemplateProps {
   novelRoomInfo: NovelItem;
+  characters: [CharacterInfo];
 }
 
-export const WorkInfo = ({ novelRoomInfo }: WorkInfoTemplateProps) => {
+export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) => {
   const params = useParams();
   const router = useRouter();
   const roomId = params?.roomId;
   const { data: session } = useSession();
 
-  const [editMode, setEditMode] = useState(false);
-  const [editDescription, setEditDescription] = useState(novelRoomInfo.description);
-  const [editSynopsis, setEditSynopsis] = useState(novelRoomInfo.synopsis);
+  const { list: characterList, setEditingCharacters } = useCharacterStore();
+  const {
+    editMode,
+    editDescription,
+    editSynopsis,
+    editTitle,
+    editTags,
+    toggleEditMode,
+    setEditDescription,
+    setEditSynopsis,
+  } = useNovelRoom();
 
   const onClickEdit = async () => {
     if (editMode) {
+      let validateTags = editTags.filter(tag => tag !== '');
+
+      if (!validateTags.length) {
+        validateTags = novelRoomInfo.tags;
+      }
+
       await callApi({
         url: `/api/v1/novel-rooms/${roomId}`,
         body: {
-          title: novelRoomInfo.title,
-          description: editDescription,
-          tags: novelRoomInfo.tags,
+          title: editTitle || novelRoomInfo.title,
+          description: editDescription || novelRoomInfo.description,
+          tags: validateTags,
           category: novelRoomInfo.category.name,
-          synopsis: editSynopsis,
+          synopsis: editSynopsis || novelRoomInfo.synopsis,
         },
         method: 'PATCH',
         token: session?.user?.token,
       });
-      router.refresh();
+
+      const characterRequests = characterList.map(character =>
+        callApi({
+          url: `/api/v1/novel-rooms/${roomId}/characters`,
+          body: {
+            name: character.name,
+            description: character.description,
+          },
+          method: 'POST',
+          token: session?.user?.token,
+        })
+      );
+
+      await Promise.all(characterRequests);
+
+      location.reload();
+      return;
     }
 
-    setEditMode(prev => !prev);
-  };
-
-  const characters = {
-    data: [
-      { name: '로미오', description: '남 주인공' },
-      { name: '줄리엣', description: '여 주인공' },
-    ],
+    toggleEditMode();
+    setEditingCharacters(!editMode);
   };
 
   return (
     <div className={'flex flex-col gap-[18px] items-center w-full'}>
       <div className={'flex flex-col gap-[10px] w-full'}>
+        <WorkSpaceTabHeader currentTab="work-info" />
         <div className={'flex gap-4 flex-grow'}>
           <div className="relative w-full max-w-[189px] h-full min-h-[267px]">
             <Image
@@ -76,33 +108,11 @@ export const WorkInfo = ({ novelRoomInfo }: WorkInfoTemplateProps) => {
               content={novelRoomInfo.description}
               onChangeDescription={setEditDescription}
             />
-            <div
-              className={
-                'bg-white-opacity-50 rounded-[10px] py-4 px-5 relative w-full overflow-y-hidden overflow-x-auto min-h-[58px] flex items-center'
-              }
-            >
-              <div className={'flex gap-3.5'}>
-                {novelRoomInfo.tags.map(tag => (
-                  <Tag key={tag} text={tag} />
-                ))}
-              </div>
-            </div>
+            <TagList tags={novelRoomInfo.tags} />
           </div>
         </div>
-        <div className={'flex gap-4'}>
-          {characters?.data?.map(character => (
-            <CharacterInfoCard key={character.name} {...character} />
-          ))}
-          {editMode && (
-            <div
-              className={
-                'w-[238px] min-h-[200px] p-[20px] bg-white-opacity-50 flex items-center justify-center rounded-xl'
-              }
-            >
-              <Image src={'/images/add.png'} width={24} height={24} alt="add" />
-            </div>
-          )}
-        </div>
+        <CharacterCardList characters={characters} />
+
         <div className={'flex-1'}>
           <DescriptionContainer
             title="줄거리"

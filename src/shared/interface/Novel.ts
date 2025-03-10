@@ -27,3 +27,21 @@ export interface NovelItem {
   author: string;
   status: NovelRoomStatus;
 }
+
+export interface Member {
+  id: string;
+  nickname: string;
+  role: string;
+  writingOrder: number;
+  joinedAt: string;
+}
+
+export interface StoryArc {
+  id: string;
+  description: string;
+  phase: string;
+  phaseAlias: string;
+  firstChapterNumber: string;
+  lastChapterNumber: string;
+  lastModifiedAt: string;
+}
