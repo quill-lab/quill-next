@@ -1,9 +1,11 @@
 import { authOptions } from '@/authOptions';
 import { NovelTitle } from '@/components/work-space/detail/NovelTitle/NovelTitle';
-import { NovelItem } from '@/shared';
+import { Member, NovelItem } from '@/shared';
+import { callApiResponse } from '@/shared/interface/api';
 import callApi from '@/shared/utils/fetchWrapper';
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 
 export default async function DetailRoomLayout({
   children,
@@ -15,8 +17,22 @@ export default async function DetailRoomLayout({
   const roomId = params.roomId;
   const session = await getServerSession(authOptions);
 
-  const novelRoomInfo: NovelItem = await callApi({
+  if (!session) {
+    redirect('/');
+  }
+
+  const novelRoomInfo: NovelItem & callApiResponse = await callApi({
     url: `/api/v1/novel-rooms/${roomId}`,
+    method: 'GET',
+    token: session?.user?.token,
+  });
+
+  if (novelRoomInfo.statusCode && novelRoomInfo.statusCode === 401) {
+    redirect('/');
+  }
+
+  const members: Member[] & callApiResponse = await callApi({
+    url: `/api/v1/novel-rooms/${roomId}/participants`,
     method: 'GET',
     token: session?.user?.token,
   });
@@ -33,10 +49,15 @@ export default async function DetailRoomLayout({
           <p className="text-[#2D2D2D] text-[16px] font-[400]">참여 작가 (5/5)</p>
         </div>
         <div className="pt-[21.5px] pl-[32px] flex flex-col gap-[24px] items-start w-full">
-          <div className="flex gap-[12px]">
-            <Image src={'/images/avatar.png'} width={24} height={24} alt="avatar" />
-            <p>용진 726</p>
-          </div>
+          {members.map(member => (
+            <div className="flex gap-[12px]">
+              <Image src={'/images/avatar.png'} width={24} height={24} alt="avatar" />
+              <p>{member.nickname}</p>
+              {member.role === 'MAIN' && (
+                <Image src={'/images/novel-room-admin.svg'} width={16} height={16} alt="admin" />
+              )}
+            </div>
+          ))}
         </div>
       </div>
       <div className="flex flex-col gap-[16px] w-full">
@@ -45,7 +66,6 @@ export default async function DetailRoomLayout({
             title={novelRoomInfo.title}
             status={novelRoomInfo.status}
             category={{ name: novelRoomInfo.category.name, alias: novelRoomInfo.category.alias }}
-            editMode={true}
           />
         </div>
         {children}

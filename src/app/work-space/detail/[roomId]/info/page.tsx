@@ -1,5 +1,6 @@
 import { authOptions } from '@/authOptions';
 import { WorkInfo } from '@/components/work-space/detail/WorkInfo/WorkInfo';
+import { CharacterInfo } from '@/interfaces';
 import { NovelChapter, NovelItem } from '@/shared';
 import { callApiResponse } from '@/shared/interface/api';
 import callApi from '@/shared/utils/fetchWrapper';
@@ -30,7 +31,13 @@ const WorkInfoPage = async ({ params }: WorkInfoPageProps) => {
     redirect('/');
   }
 
-  return <WorkInfo novelRoomInfo={novelRoomInfo} />;
+  const characters: [CharacterInfo] = await callApi({
+    url: `/api/v1/novel-rooms/${roomId}/characters`,
+    method: 'GET',
+    token: session?.user?.token,
+  });
+
+  return <WorkInfo novelRoomInfo={novelRoomInfo} characters={characters} />;
 };
 
 export default WorkInfoPage;

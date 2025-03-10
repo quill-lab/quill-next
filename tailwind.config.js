@@ -12,6 +12,7 @@ module.exports = {
       },
       fontFamily: {
         hakgyoansim: ['Hakgyoansim', 'sans-serif'],
+        spoqa: ['Spoqa Han Sans Neo', 'sans-serif'],
       },
     },
     colors: {
