@@ -43,7 +43,7 @@ const WorkSpace = ({ items, totalCount, size, page }: WordSpaceProps) => {
   };
 
   const handleClickPagination = (page: number) => {
-    // setPage(page);
+    router.push(`/work-space?page=${page}&size=${config.pageSize}&sort=OLDEST`);
   };
 
   const handleClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -107,7 +107,7 @@ const WorkSpace = ({ items, totalCount, size, page }: WordSpaceProps) => {
         <Pagination
           innerClass="cus-pagination"
           itemClass="cus-pagination-li"
-          activePage={page}
+          activePage={page + 1}
           itemsCountPerPage={config.pageSize}
           totalItemsCount={totalCount ?? 0}
           pageRangeDisplayed={5}

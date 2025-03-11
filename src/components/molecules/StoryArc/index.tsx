@@ -45,7 +45,7 @@ interface StoryArcProps {
 
 export default function StoryArc({ arc, editMode, onChange }: StoryArcProps) {
   return (
-    <div className="w-full flex flex-col px-[32px] bg-white/50 rounded-[12px] mr-[24px]">
+    <div className="w-full flex flex-col px-[32px] py-[8px] bg-white/50 rounded-[12px] mr-[24px]">
       <div className="flex justify-between items-center">
         <p className="py-[8px] font-spoqa text-[#2D2D2D] text-[14px] font-[500]">
           {arc.phaseAlias}
@@ -65,7 +65,7 @@ export default function StoryArc({ arc, editMode, onChange }: StoryArcProps) {
 
       {editMode ? (
         <textarea
-          className="w-full p-2 border rounded-md"
+          className="w-full p-2 border rounded-md h-[160px]"
           defaultValue={arc.description || storyArcWrapper[arc.phase].tip}
           onChange={e => onChange(e.target.value)}
         />

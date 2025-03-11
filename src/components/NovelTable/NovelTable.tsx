@@ -50,7 +50,7 @@ const ActiveTabTableBody = ({ item }: { item: NovelItem }) => {
       <td style={{ width: '6rem' }}>
         {item.contributorCount}/{item.maxContributorCount}
       </td>
-      <td style={{ width: '9rem' }}>{item.author}</td>
+      <td style={{ width: '9rem' }}>{item?.author?.name}</td>
       <td style={{ width: '6rem' }}>{roomStatus[item.status]}</td>
     </tr>
   );

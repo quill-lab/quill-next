@@ -33,7 +33,7 @@ export function checkUserNickname(nickname: string) {
   });
 }
 
-export function CreateRoom(body: CreateRoomArg, token: string | null) {
+export function CreateRoom(body: CreateRoomArg, token: string) {
   return callApi<CreateRoomResponse>({ url: config.apiUrl.createNovelRoom, body, method, token });
 }
 
