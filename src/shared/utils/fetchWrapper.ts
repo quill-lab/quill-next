@@ -15,7 +15,7 @@ export default async function callApi<T>({ url, body, method, token }: CallApi):
       'Content-Type': 'application/json',
       Authorization: token ? 'Bearer ' + token : '',
     },
-    body: body ? JSON.stringify(body) : undefined,
+    body: body ? JSON.stringify(body) : null,
   };
   const res = await fetch(config.apiLink + url, init);
   // 에러면 에러 반환
@@ -23,7 +23,7 @@ export default async function callApi<T>({ url, body, method, token }: CallApi):
     return { statusCode: res.status } as T;
   }
   // 200이 아닌 성공은 boolean 반환
-  if (res.status !== 200) {
+  if (res.status !== 200 && res.status !== 201) {
     return res.ok as T;
   }
   // 200인 성공은 body반환

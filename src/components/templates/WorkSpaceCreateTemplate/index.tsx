@@ -33,7 +33,6 @@ export default function WorkSpaceCreateTemplate() {
     subTitle,
     category,
     novelTag,
-    actor,
     summary,
     bookCover,
     postTitle,
@@ -43,10 +42,9 @@ export default function WorkSpaceCreateTemplate() {
     postChecking,
   } = useCreateNovelPost();
 
-  const { mutate: createRoom, data: createdRoom } = useMutation({
+  const { mutateAsync: createRoom, data: createdRoom } = useMutation({
     mutationKey: [config.apiUrl.createNovelRoom],
-    mutationFn: (data: { body: CreateRoomArg; token: string | null }) =>
-      CreateRoom(data.body, data.token || null),
+    mutationFn: (data: { body: CreateRoomArg; token: string }) => CreateRoom(data.body, data.token),
     onSuccess(res) {
       return res;
     },
@@ -55,12 +53,12 @@ export default function WorkSpaceCreateTemplate() {
     },
   });
 
-  const { mutate: createRecruitmentsByRoomId, data: createdRecruitments } = useMutation({
+  const { mutateAsync: createRecruitmentsByRoomId, data: createdRecruitments } = useMutation({
     mutationKey: [config.apiUrl.createRecruitments],
     mutationFn: (data: { roomId: string; body: CreateRecruitments; token: string }) =>
       createRecruitments(data.roomId, data.body, data.token),
     onSuccess(res) {
-      route.replace('/work-space');
+      return res;
     },
     onError(res) {
       console.error(res);
@@ -69,7 +67,6 @@ export default function WorkSpaceCreateTemplate() {
 
   const handleClickButton = () => {
     if (type === 1) {
-      console.log('novelChecking', novelChecking);
       if (!novelChecking()) {
         setModalOpen(true);
       }
@@ -90,23 +87,33 @@ export default function WorkSpaceCreateTemplate() {
     }
   };
 
-  const handleClickModalConfirm = () => {
+  const handleClickModalConfirm = async () => {
     setModalOpen(false);
-    const res = createRoom({
+    const createdRoom = await createRoom({
       body: {
-        title: title || undefined,
+        title: title,
         maxContributors: type,
-        // category: category || undefined,
         category: 'GENERAL',
-        description: subTitle || undefined,
+        description: subTitle,
         tags: novelTag,
-        synopsis: summary || undefined,
-        coverImage: bookCover,
+        synopsis: summary || null,
+        coverImage: bookCover || null,
       },
-      token: session?.user?.token || null,
+      token: session?.user?.token!,
     });
-    console.log(res);
-    // route.replace('/work-space/create/complete');
+
+    const createdRecruitment = await createRecruitmentsByRoomId({
+      roomId: createdRoom.id,
+      body: {
+        title: postTitle,
+        content: postContent,
+        link: openLink,
+      },
+      token: session?.user?.token!,
+    });
+
+    console.log(createdRecruitment);
+    route.replace('/work-space/create/complete');
   };
 
   const handleClickModalCancel = () => {

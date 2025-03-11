@@ -169,14 +169,14 @@ export interface UserResponse {
 export interface CreateRoomArg {
   title?: string;
   maxContributors: number;
-  description: string | undefined;
+  description: string;
   subTitle?: string;
   category?: string;
   tags?: string[];
   type?: RoomType;
   character?: string;
-  synopsis?: string;
-  coverImage?: BookCover;
+  synopsis?: string | null;
+  coverImage?: BookCover | null;
 }
 
 export interface CreateRecruitments {

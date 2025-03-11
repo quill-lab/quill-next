@@ -24,7 +24,7 @@ export interface NovelItem {
   role: string;
   contributorCount: number;
   maxContributorCount: number;
-  author: string;
+  author: { id: string; name: string };
   status: NovelRoomStatus;
 }
 
