@@ -35,4 +35,5 @@ module.exports = {
       'white-opacity-50': 'rgba(255, 255, 255, 0.5)',
     },
   },
+  plugins: [require('tailwind-scrollbar')],
 };

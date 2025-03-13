@@ -23,7 +23,10 @@ export const useCharacterStore = create<CharacterStore>(set => ({
 
   addCharacter: () =>
     set(state => ({
-      list: [...state.list, { name: '캐릭터 이름', description: '캐릭터 설명을 입력해주세요' }],
+      list: [
+        ...state.list,
+        { name: '등장인물 이름', description: '등장인물의 성격과 배경을 쉽게 설명해 주세요.' },
+      ],
     })),
 
   removeCharacter: index =>

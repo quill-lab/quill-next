@@ -3,6 +3,7 @@ import { CharacterInfo } from '@/interfaces';
 import { useNovelRoom } from '@/stores';
 import { useCharacterStore } from '@/stores/useCharacter';
 import Image from 'next/image';
+import './custom-scrollbar.scss';
 
 interface CharacterCardListProps {
   characters: [CharacterInfo];
@@ -24,26 +25,26 @@ export default function CharacterCardList({ characters }: CharacterCardListProps
       {list.map((character, index) => (
         <div
           key={index}
-          className="w-[238px] min-h-[200px] p-[20px] bg-white-opacity-50 flex flex-col gap-[8px] items-center justify-start rounded-xl"
+          className="w-[238px] min-h-[200px] p-[20px] bg-[#FFFFFFCC] flex flex-col items-center justify-start rounded-xl"
         >
           <div className="w-full flex items-center gap-[8px]">
             <input
               type="text"
               value={character.name}
               onChange={e => updateCharacter(index, 'name', e.target.value)}
-              className="w-full bg-[transparent] border border-[1px] px-[4px] py-[4px]"
+              className="w-full bg-[transparent] px-[4px] py-[4px] outline-none"
             />
-            <button
+            {/* <button
               onClick={() => removeCharacter(index)}
-              className="bg-[gray] text-center border border-[1px] border-[gray] px-[12px] py-[4px]"
+              className="bg-[gray] text-center px-[12px] py-[4px]"
             >
               x
-            </button>
+            </button> */}
           </div>
           <textarea
             value={character.description}
             onChange={e => updateCharacter(index, 'description', e.target.value)}
-            className="w-full h-full bg-[transparent] border border-[1px] px-[4px] py-[4px] resize-none"
+            className="w-full h-full bg-[transparent] px-[4px] py-[4px] resize-none text-[14px] font-[400] border-none outline-none custom-scrollbar"
           />
         </div>
       ))}
