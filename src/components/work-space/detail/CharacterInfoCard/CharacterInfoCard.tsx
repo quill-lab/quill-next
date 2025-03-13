@@ -1,5 +1,6 @@
 import React from 'react';
 import { CharacterInfo } from '@/interfaces';
+import './index.scss';
 
 type CharacterInfoCard = CharacterInfo;
 
@@ -14,7 +15,9 @@ export const CharacterInfoCard = ({ name, description }: CharacterInfoCard) => {
       <div className={'overflow-y-auto max-h-[174px]'}>
         <div className={'flex flex-col w-[176px]'}>
           <span className={'text-[#2D2D2D] text-[14px] font-[500]'}>{name}</span>
-          <span className={'text-[#2D2D2D] text-[14px] font-[400]'}>{description}</span>
+          <span className={'text-[#2D2D2D] text-[14px] font-[400] custom-scrollbar'}>
+            {description}
+          </span>
         </div>
       </div>
     </div>
