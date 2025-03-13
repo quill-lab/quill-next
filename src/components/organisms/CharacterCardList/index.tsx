@@ -28,12 +28,13 @@ export default function CharacterCardList({ characters }: CharacterCardListProps
           className="w-[238px] min-h-[200px] p-[20px] bg-[#FFFFFFCC] flex flex-col items-center justify-start rounded-xl"
         >
           <div className="w-full flex items-center gap-[8px]">
-            <input
-              type="text"
-              value={character.name}
-              onChange={e => updateCharacter(index, 'name', e.target.value)}
-              className="w-full bg-[transparent] px-[4px] py-[4px] outline-none"
-            />
+            <div
+              contentEditable
+              className="w-full bg-[transparent] px-[4px] py-[4px] outline-none break-words whitespace-pre-wrap"
+              onInput={e => updateCharacter(index, 'name', e.currentTarget.textContent || '')}
+            >
+              {character.name}
+            </div>
             {/* <button
               onClick={() => removeCharacter(index)}
               className="bg-[gray] text-center px-[12px] py-[4px]"
