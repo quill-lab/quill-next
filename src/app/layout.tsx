@@ -1,6 +1,5 @@
 // RootLayout.tsx
-import '../styles/global.css';
-import 'tailwindcss/tailwind.css';
+import "./globals.css";
 import { ClientProviders } from './clientProvider';
 import { getSession, SessionProvider } from 'next-auth/react';
 import AuthProvider from '@/context/AuthProvider';
