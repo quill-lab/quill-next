@@ -1,59 +1,11 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
-    "admin_permissions": {
+    "accounts": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "integer"
-        },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "action": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "action_parameters": {
-          "type": [
-            "number",
-            "string",
-            "boolean",
-            "object",
-            "array",
-            "null"
-          ]
-        },
-        "subject": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "properties": {
-          "type": [
-            "number",
-            "string",
-            "boolean",
-            "object",
-            "array",
-            "null"
-          ]
-        },
-        "conditions": {
-          "type": [
-            "number",
-            "string",
-            "boolean",
-            "object",
-            "array",
-            "null"
-          ]
+          "type": "string"
         },
         "created_at": {
           "type": [
@@ -69,210 +21,12 @@
           ],
           "format": "date-time"
         },
-        "published_at": {
+        "deleted_at": {
           "type": [
             "string",
             "null"
           ],
           "format": "date-time"
-        },
-        "locale": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "admin_users_admin_permissions_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_admin_permissions_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_permissions_role_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/admin_permissions_role_lnk"
-          }
-        },
-        "strapi_workflows_stages_permissions_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_workflows_stages_permissions_lnk"
-          }
-        }
-      },
-      "required": []
-    },
-    "admin_permissions_role_lnk": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "permission_ord": {
-          "type": [
-            "number",
-            "null"
-          ]
-        },
-        "admin_permissions": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_permissions"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_roles": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_roles"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": []
-    },
-    "admin_roles": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "name": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "code": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "description": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "created_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "updated_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "published_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "locale": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "admin_permissions_role_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/admin_permissions_role_lnk"
-          }
-        },
-        "admin_users_admin_roles_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_admin_roles_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_roles_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/admin_users_roles_lnk"
-          }
-        }
-      },
-      "required": []
-    },
-    "admin_users": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "firstname": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "lastname": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "username": {
-          "type": [
-            "string",
-            "null"
-          ]
         },
         "email": {
           "type": [
@@ -286,35 +40,86 @@
             "null"
           ]
         },
-        "reset_password_token": {
+        "name": {
           "type": [
             "string",
             "null"
           ]
         },
-        "registration_token": {
+        "persisted_at": {
           "type": [
             "string",
             "null"
-          ]
+          ],
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "chapter_metadata": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
         },
-        "is_active": {
-          "type": [
-            "boolean",
-            "null"
-          ]
-        },
-        "blocked": {
-          "type": [
-            "boolean",
-            "null"
-          ]
-        },
-        "prefered_language": {
+        "created_at": {
           "type": [
             "string",
             "null"
+          ],
+          "format": "date-time"
+        },
+        "persisted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "deleted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "likes": {
+          "type": [
+            "integer",
+            "null"
           ]
+        },
+        "views": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "comment_count": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "chapter_texts": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
         },
         "created_at": {
           "type": [
@@ -330,314 +135,114 @@
           ],
           "format": "date-time"
         },
-        "published_at": {
+        "deleted_at": {
           "type": [
             "string",
             "null"
           ],
           "format": "date-time"
         },
-        "locale": {
+        "content": {
           "type": [
             "string",
             "null"
           ]
         },
-        "admin_permissions_admin_permissions_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/admin_permissions"
-          }
+        "account_id": {
+          "type": "string"
         },
-        "admin_permissions_admin_permissions_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/admin_permissions"
-          }
+        "persisted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
         },
-        "admin_roles_admin_roles_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/admin_roles"
-          }
-        },
-        "admin_roles_admin_roles_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/admin_roles"
-          }
-        },
-        "admin_users_admin_users_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "other_admin_users_admin_users_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/admin_users"
-          }
-        },
-        "admin_users_admin_users_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "other_admin_users_admin_users_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/admin_users"
-          }
-        },
-        "admin_users_roles_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/admin_users_roles_lnk"
-          }
-        },
-        "articles_articles_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/articles"
-          }
-        },
-        "articles_articles_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/articles"
-          }
-        },
-        "files_files_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/files"
-          }
-        },
-        "files_files_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/files"
-          }
-        },
-        "i18n_locale_i18n_locale_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/i18n_locale"
-          }
-        },
-        "i18n_locale_i18n_locale_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/i18n_locale"
-          }
-        },
-        "strapi_api_token_permissions_strapi_api_token_permissions_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_api_token_permissions"
-          }
-        },
-        "strapi_api_token_permissions_strapi_api_token_permissions_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_api_token_permissions"
-          }
-        },
-        "strapi_api_tokens_strapi_api_tokens_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_api_tokens"
-          }
-        },
-        "strapi_api_tokens_strapi_api_tokens_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_api_tokens"
-          }
-        },
-        "strapi_history_versions": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_history_versions"
-          }
-        },
-        "strapi_release_actions_strapi_release_actions_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_release_actions"
-          }
-        },
-        "strapi_release_actions_strapi_release_actions_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_release_actions"
-          }
-        },
-        "strapi_releases_strapi_releases_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_releases"
-          }
-        },
-        "strapi_releases_strapi_releases_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_releases"
-          }
-        },
-        "strapi_transfer_token_permissions_strapi_transfer_token_permissions_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_transfer_token_permissions"
-          }
-        },
-        "strapi_transfer_token_permissions_strapi_transfer_token_permissions_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_transfer_token_permissions"
-          }
-        },
-        "strapi_transfer_tokens_strapi_transfer_tokens_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_transfer_tokens"
-          }
-        },
-        "strapi_transfer_tokens_strapi_transfer_tokens_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_transfer_tokens"
-          }
-        },
-        "strapi_workflows_strapi_workflows_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_workflows"
-          }
-        },
-        "strapi_workflows_strapi_workflows_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_workflows"
-          }
-        },
-        "strapi_workflows_stages_strapi_workflows_stages_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_workflows_stages"
-          }
-        },
-        "strapi_workflows_stages_strapi_workflows_stages_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_workflows_stages"
-          }
-        },
-        "subscribers_subscribers_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/subscribers"
-          }
-        },
-        "subscribers_subscribers_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/subscribers"
-          }
-        },
-        "up_permissions_up_permissions_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/up_permissions"
-          }
-        },
-        "up_permissions_up_permissions_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/up_permissions"
-          }
-        },
-        "up_roles_up_roles_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/up_roles"
-          }
-        },
-        "up_roles_up_roles_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/up_roles"
-          }
-        },
-        "up_users_up_users_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/up_users"
-          }
-        },
-        "up_users_up_users_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/up_users"
-          }
-        },
-        "upload_folders_upload_folders_created_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/upload_folders"
-          }
-        },
-        "upload_folders_upload_folders_updated_by_idToadmin_users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/upload_folders"
-          }
+        "chapters": {
+          "$ref": "#/definitions/chapters"
         }
       },
-      "required": []
+      "required": [
+        "id",
+        "chapter_id",
+        "account_id"
+      ]
     },
-    "admin_users_roles_lnk": {
+    "chapters": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "integer"
+          "type": "string"
         },
-        "role_ord": {
+        "created_at": {
           "type": [
-            "number",
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "deleted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": [
+            "string",
             "null"
           ]
         },
-        "user_ord": {
+        "approved_at": {
           "type": [
-            "number",
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "chapter_number": {
+          "type": [
+            "integer",
             "null"
           ]
         },
-        "admin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
+        "status": {
+          "type": [
+            "string",
+            "null"
           ]
         },
-        "admin_roles": {
+        "persisted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "chapter_texts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/chapter_texts"
+          }
+        },
+        "novels": {
+          "$ref": "#/definitions/novels"
+        },
+        "story_arcs": {
           "anyOf": [
             {
-              "$ref": "#/definitions/admin_roles"
+              "$ref": "#/definitions/story_arcs"
             },
             {
               "type": "null"
@@ -645,19 +250,109 @@
           ]
         }
       },
-      "required": []
+      "required": [
+        "id",
+        "title",
+        "novel_id"
+      ]
     },
-    "articles": {
+    "characters": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "integer"
+          "type": "string"
         },
-        "document_id": {
+        "created_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "deleted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
           "type": [
             "string",
             "null"
           ]
+        },
+        "profile_image": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "last_updated_by": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "priority": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "persisted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "novels": {
+          "$ref": "#/definitions/novels"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "novel_id"
+      ]
+    },
+    "contributor_group_recruitments": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "deleted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
         },
         "title": {
           "type": [
@@ -671,832 +366,121 @@
             "null"
           ]
         },
-        "created_at": {
+        "link": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contributor_group_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "author_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "persisted_at": {
           "type": [
             "string",
             "null"
           ],
           "format": "date-time"
-        },
-        "updated_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "published_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "locale": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "sub_title": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "admin_users_articles_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_articles_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
         }
       },
-      "required": []
+      "required": [
+        "id"
+      ]
     },
-    "files": {
+    "contributor_groups": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "integer"
-        },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "name": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "alternative_text": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "caption": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "width": {
-          "type": [
-            "integer",
-            "null"
-          ]
-        },
-        "height": {
-          "type": [
-            "integer",
-            "null"
-          ]
-        },
-        "formats": {
-          "type": [
-            "number",
-            "string",
-            "boolean",
-            "object",
-            "array",
-            "null"
-          ]
-        },
-        "hash": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "ext": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "mime": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "size": {
-          "type": [
-            "number",
-            "null"
-          ]
-        },
-        "url": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "preview_url": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "provider": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "provider_metadata": {
-          "type": [
-            "number",
-            "string",
-            "boolean",
-            "object",
-            "array",
-            "null"
-          ]
-        },
-        "folder_path": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "created_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "updated_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "published_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "locale": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "admin_users_files_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_files_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "files_folder_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/files_folder_lnk"
-          }
-        },
-        "files_related_mph": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/files_related_mph"
-          }
-        }
-      },
-      "required": []
-    },
-    "files_folder_lnk": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "file_ord": {
-          "type": [
-            "number",
-            "null"
-          ]
-        },
-        "files": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/files"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "upload_folders": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/upload_folders"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": []
-    },
-    "files_related_mph": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "related_id": {
-          "type": [
-            "integer",
-            "null"
-          ]
-        },
-        "related_type": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "field": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "order": {
-          "type": [
-            "number",
-            "null"
-          ]
-        },
-        "files": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/files"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": []
-    },
-    "i18n_locale": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "name": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "code": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "created_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "updated_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "published_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "locale": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "admin_users_i18n_locale_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_i18n_locale_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": []
-    },
-    "strapi_api_token_permissions": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "action": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "created_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "updated_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "published_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "locale": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "admin_users_strapi_api_token_permissions_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_strapi_api_token_permissions_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "strapi_api_token_permissions_token_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_api_token_permissions_token_lnk"
-          }
-        }
-      },
-      "required": []
-    },
-    "strapi_api_token_permissions_token_lnk": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "api_token_permission_ord": {
-          "type": [
-            "number",
-            "null"
-          ]
-        },
-        "strapi_api_token_permissions": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/strapi_api_token_permissions"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "strapi_api_tokens": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/strapi_api_tokens"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": []
-    },
-    "strapi_api_tokens": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "name": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "description": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "type": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "access_key": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "last_used_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "expires_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "lifespan": {
-          "type": [
-            "integer",
-            "null"
-          ]
-        },
-        "created_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "updated_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "published_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "locale": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "strapi_api_token_permissions_token_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_api_token_permissions_token_lnk"
-          }
-        },
-        "admin_users_strapi_api_tokens_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_strapi_api_tokens_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": []
-    },
-    "strapi_core_store_settings": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "key": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "value": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "type": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "environment": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "tag": {
-          "type": [
-            "string",
-            "null"
-          ]
-        }
-      },
-      "required": []
-    },
-    "strapi_database_schema": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "schema": {
-          "type": [
-            "number",
-            "string",
-            "boolean",
-            "object",
-            "array",
-            "null"
-          ]
-        },
-        "time": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "hash": {
-          "type": [
-            "string",
-            "null"
-          ]
-        }
-      },
-      "required": []
-    },
-    "strapi_history_versions": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "content_type": {
           "type": "string"
         },
-        "related_document_id": {
+        "created_at": {
           "type": [
             "string",
             "null"
-          ]
+          ],
+          "format": "date-time"
         },
-        "locale": {
+        "updated_at": {
           "type": [
             "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "deleted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "max_contributor_count": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "contributor_count": {
+          "type": [
+            "integer",
             "null"
           ]
         },
         "status": {
           "type": [
-            "string",
+            "integer",
             "null"
           ]
         },
-        "data": {
-          "type": [
-            "number",
-            "string",
-            "boolean",
-            "object",
-            "array",
-            "null"
-          ]
+        "novel_id": {
+          "type": "string"
         },
-        "schema": {
-          "type": [
-            "number",
-            "string",
-            "boolean",
-            "object",
-            "array",
-            "null"
-          ]
-        },
-        "created_at": {
+        "completed_at": {
           "type": [
             "string",
             "null"
           ],
           "format": "date-time"
         },
-        "admin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
+        "persisted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "contributor_requests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/contributor_requests"
+          }
+        },
+        "contributors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/contributors"
+          }
         }
       },
       "required": [
-        "content_type"
+        "id",
+        "novel_id"
       ]
     },
-    "strapi_migrations": {
+    "contributor_requests": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "integer"
-        },
-        "name": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "time": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        }
-      },
-      "required": []
-    },
-    "strapi_migrations_internal": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "name": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "time": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        }
-      },
-      "required": []
-    },
-    "strapi_release_actions": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "type": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "content_type": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "entry_document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "locale": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "is_entry_valid": {
-          "type": [
-            "boolean",
-            "null"
-          ]
+          "type": "string"
         },
         "created_at": {
           "type": [
@@ -1512,114 +496,15 @@
           ],
           "format": "date-time"
         },
-        "published_at": {
+        "deleted_at": {
           "type": [
             "string",
             "null"
           ],
           "format": "date-time"
         },
-        "admin_users_strapi_release_actions_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_strapi_release_actions_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "strapi_release_actions_release_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_release_actions_release_lnk"
-          }
-        }
-      },
-      "required": []
-    },
-    "strapi_release_actions_release_lnk": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "release_action_ord": {
-          "type": [
-            "number",
-            "null"
-          ]
-        },
-        "strapi_release_actions": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/strapi_release_actions"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "strapi_releases": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/strapi_releases"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": []
-    },
-    "strapi_releases": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "name": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "released_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "scheduled_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "timezone": {
-          "type": [
-            "string",
-            "null"
-          ]
+        "account_id": {
+          "type": "string"
         },
         "status": {
           "type": [
@@ -1627,79 +512,35 @@
             "null"
           ]
         },
-        "created_at": {
+        "approved_at": {
           "type": [
             "string",
             "null"
           ],
           "format": "date-time"
         },
-        "updated_at": {
+        "persisted_at": {
           "type": [
             "string",
             "null"
           ],
           "format": "date-time"
         },
-        "published_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "locale": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "strapi_release_actions_release_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_release_actions_release_lnk"
-          }
-        },
-        "admin_users_strapi_releases_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_strapi_releases_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
+        "contributor_groups": {
+          "$ref": "#/definitions/contributor_groups"
         }
       },
-      "required": []
+      "required": [
+        "id",
+        "contributor_group_id",
+        "account_id"
+      ]
     },
-    "strapi_transfer_token_permissions": {
+    "contributors": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "integer"
-        },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "action": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": "string"
         },
         "created_at": {
           "type": [
@@ -1715,966 +556,107 @@
           ],
           "format": "date-time"
         },
-        "published_at": {
+        "deleted_at": {
           "type": [
             "string",
             "null"
           ],
           "format": "date-time"
         },
-        "locale": {
+        "account_id": {
+          "type": "string"
+        },
+        "role": {
           "type": [
             "string",
             "null"
           ]
         },
-        "admin_users_strapi_transfer_token_permissions_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_strapi_transfer_token_permissions_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "strapi_transfer_token_permissions_token_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_transfer_token_permissions_token_lnk"
-          }
-        }
-      },
-      "required": []
-    },
-    "strapi_transfer_token_permissions_token_lnk": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "transfer_token_permission_ord": {
-          "type": [
-            "number",
-            "null"
-          ]
-        },
-        "strapi_transfer_token_permissions": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/strapi_transfer_token_permissions"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "strapi_transfer_tokens": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/strapi_transfer_tokens"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": []
-    },
-    "strapi_transfer_tokens": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "name": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "description": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "access_key": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "last_used_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "expires_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "lifespan": {
+        "writing_order": {
           "type": [
             "integer",
             "null"
           ]
         },
-        "created_at": {
+        "persisted_at": {
           "type": [
             "string",
             "null"
           ],
           "format": "date-time"
         },
-        "updated_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "published_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "locale": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "strapi_transfer_token_permissions_token_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_transfer_token_permissions_token_lnk"
-          }
-        },
-        "admin_users_strapi_transfer_tokens_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_strapi_transfer_tokens_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": []
-    },
-    "strapi_webhooks": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "name": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "url": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "headers": {
-          "type": [
-            "number",
-            "string",
-            "boolean",
-            "object",
-            "array",
-            "null"
-          ]
-        },
-        "events": {
-          "type": [
-            "number",
-            "string",
-            "boolean",
-            "object",
-            "array",
-            "null"
-          ]
-        },
-        "enabled": {
+        "is_current_writer": {
           "type": [
             "boolean",
             "null"
           ]
+        },
+        "contributor_groups": {
+          "$ref": "#/definitions/contributor_groups"
         }
       },
-      "required": []
+      "required": [
+        "id",
+        "account_id",
+        "contributor_group_id"
+      ]
     },
-    "strapi_workflows": {
+    "flyway_schema_history": {
       "type": "object",
       "properties": {
-        "id": {
+        "installed_rank": {
           "type": "integer"
         },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "name": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "content_types": {
-          "type": [
-            "number",
-            "string",
-            "boolean",
-            "object",
-            "array",
-            "null"
-          ]
-        },
-        "created_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "updated_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "published_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "locale": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "admin_users_strapi_workflows_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_strapi_workflows_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "strapi_workflows_stage_required_to_publish_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_workflows_stage_required_to_publish_lnk"
-          }
-        },
-        "strapi_workflows_stages_workflow_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_workflows_stages_workflow_lnk"
-          }
-        }
-      },
-      "required": []
-    },
-    "strapi_workflows_stage_required_to_publish_lnk": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "strapi_workflows": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/strapi_workflows"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "strapi_workflows_stages": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/strapi_workflows_stages"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": []
-    },
-    "strapi_workflows_stages": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "name": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "color": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "created_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "updated_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "published_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "locale": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "strapi_workflows_stage_required_to_publish_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_workflows_stage_required_to_publish_lnk"
-          }
-        },
-        "admin_users_strapi_workflows_stages_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_strapi_workflows_stages_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "strapi_workflows_stages_permissions_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_workflows_stages_permissions_lnk"
-          }
-        },
-        "strapi_workflows_stages_workflow_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/strapi_workflows_stages_workflow_lnk"
-          }
-        }
-      },
-      "required": []
-    },
-    "strapi_workflows_stages_permissions_lnk": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "permission_ord": {
-          "type": [
-            "number",
-            "null"
-          ]
-        },
-        "strapi_workflows_stages": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/strapi_workflows_stages"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_permissions": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_permissions"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": []
-    },
-    "strapi_workflows_stages_workflow_lnk": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "workflow_stage_ord": {
-          "type": [
-            "number",
-            "null"
-          ]
-        },
-        "strapi_workflows_stages": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/strapi_workflows_stages"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "strapi_workflows": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/strapi_workflows"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": []
-    },
-    "subscribers": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "email": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "created_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "updated_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "published_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "locale": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "admin_users_subscribers_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_subscribers_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": []
-    },
-    "up_permissions": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "action": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "created_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "updated_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "published_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "locale": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "admin_users_up_permissions_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_up_permissions_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "up_permissions_role_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/up_permissions_role_lnk"
-          }
-        }
-      },
-      "required": []
-    },
-    "up_permissions_role_lnk": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "permission_ord": {
-          "type": [
-            "number",
-            "null"
-          ]
-        },
-        "up_permissions": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/up_permissions"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "up_roles": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/up_roles"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": []
-    },
-    "up_roles": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "name": {
+        "version": {
           "type": [
             "string",
             "null"
           ]
         },
         "description": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": "string"
         },
         "type": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": "string"
         },
-        "created_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
+        "script": {
+          "type": "string"
         },
-        "updated_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "published_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "locale": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "up_permissions_role_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/up_permissions_role_lnk"
-          }
-        },
-        "admin_users_up_roles_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_up_roles_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "up_users_role_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/up_users_role_lnk"
-          }
-        }
-      },
-      "required": []
-    },
-    "up_users": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "username": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "email": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "provider": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "password": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "reset_password_token": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "confirmation_token": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "confirmed": {
-          "type": [
-            "boolean",
-            "null"
-          ]
-        },
-        "blocked": {
-          "type": [
-            "boolean",
-            "null"
-          ]
-        },
-        "created_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "updated_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "published_at": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
-        },
-        "locale": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "admin_users_up_users_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_up_users_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "up_users_role_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/up_users_role_lnk"
-          }
-        }
-      },
-      "required": []
-    },
-    "up_users_role_lnk": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "user_ord": {
-          "type": [
-            "number",
-            "null"
-          ]
-        },
-        "up_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/up_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "up_roles": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/up_roles"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": []
-    },
-    "upload_folders": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "document_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "name": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "path_id": {
+        "checksum": {
           "type": [
             "integer",
             "null"
           ]
         },
-        "path": {
-          "type": [
-            "string",
-            "null"
-          ]
+        "installed_by": {
+          "type": "string"
+        },
+        "installed_on": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "execution_time": {
+          "type": "integer"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "installed_rank",
+        "description",
+        "type",
+        "script",
+        "installed_by",
+        "execution_time",
+        "success"
+      ]
+    },
+    "novel_tags": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
         },
         "created_at": {
           "type": [
@@ -2690,211 +672,234 @@
           ],
           "format": "date-time"
         },
-        "published_at": {
+        "deleted_at": {
           "type": [
             "string",
             "null"
           ],
           "format": "date-time"
         },
-        "locale": {
+        "name": {
+          "type": "string"
+        },
+        "persisted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "novels": {
+          "$ref": "#/definitions/novels"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "novel_id"
+      ]
+    },
+    "novels": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "deleted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
           "type": [
             "string",
             "null"
           ]
         },
-        "files_folder_lnk": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/files_folder_lnk"
-          }
-        },
-        "admin_users_upload_folders_created_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "admin_users_upload_folders_updated_by_idToadmin_users": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/admin_users"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "upload_folders_parent_lnk_upload_folders_parent_lnk_folder_idToupload_folders": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/upload_folders_parent_lnk"
-          }
-        },
-        "upload_folders_parent_lnk_upload_folders_parent_lnk_inv_folder_idToupload_folders": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/upload_folders_parent_lnk"
-          }
-        }
-      },
-      "required": []
-    },
-    "upload_folders_parent_lnk": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "folder_ord": {
+        "cover_image": {
           "type": [
-            "number",
+            "string",
             "null"
           ]
         },
-        "upload_folders_upload_folders_parent_lnk_folder_idToupload_folders": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/upload_folders"
-            },
-            {
-              "type": "null"
-            }
+        "synopsis": {
+          "type": [
+            "string",
+            "null"
           ]
         },
-        "upload_folders_upload_folders_parent_lnk_inv_folder_idToupload_folders": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/upload_folders"
-            },
-            {
-              "type": "null"
-            }
-          ]
+        "category": {
+          "type": "string"
+        },
+        "persisted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "chapters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/chapters"
+          }
+        },
+        "characters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/characters"
+          }
+        },
+        "novel_tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/novel_tags"
+          }
+        },
+        "story_arcs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/story_arcs"
+          }
         }
       },
-      "required": []
+      "required": [
+        "id",
+        "title",
+        "category"
+      ]
+    },
+    "story_arcs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "deleted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phase": {
+          "type": "string"
+        },
+        "end_chapter_number": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "start_chapter_number": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "persisted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "chapters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/chapters"
+          }
+        },
+        "novels": {
+          "$ref": "#/definitions/novels"
+        }
+      },
+      "required": [
+        "id",
+        "phase",
+        "novel_id"
+      ]
     }
   },
   "type": "object",
   "properties": {
-    "admin_permissions": {
-      "$ref": "#/definitions/admin_permissions"
+    "accounts": {
+      "$ref": "#/definitions/accounts"
     },
-    "admin_permissions_role_lnk": {
-      "$ref": "#/definitions/admin_permissions_role_lnk"
+    "chapter_metadata": {
+      "$ref": "#/definitions/chapter_metadata"
     },
-    "admin_roles": {
-      "$ref": "#/definitions/admin_roles"
+    "chapter_texts": {
+      "$ref": "#/definitions/chapter_texts"
     },
-    "admin_users": {
-      "$ref": "#/definitions/admin_users"
+    "chapters": {
+      "$ref": "#/definitions/chapters"
     },
-    "admin_users_roles_lnk": {
-      "$ref": "#/definitions/admin_users_roles_lnk"
+    "characters": {
+      "$ref": "#/definitions/characters"
     },
-    "articles": {
-      "$ref": "#/definitions/articles"
+    "contributor_group_recruitments": {
+      "$ref": "#/definitions/contributor_group_recruitments"
     },
-    "files": {
-      "$ref": "#/definitions/files"
+    "contributor_groups": {
+      "$ref": "#/definitions/contributor_groups"
     },
-    "files_folder_lnk": {
-      "$ref": "#/definitions/files_folder_lnk"
+    "contributor_requests": {
+      "$ref": "#/definitions/contributor_requests"
     },
-    "files_related_mph": {
-      "$ref": "#/definitions/files_related_mph"
+    "contributors": {
+      "$ref": "#/definitions/contributors"
     },
-    "i18n_locale": {
-      "$ref": "#/definitions/i18n_locale"
+    "flyway_schema_history": {
+      "$ref": "#/definitions/flyway_schema_history"
     },
-    "strapi_api_token_permissions": {
-      "$ref": "#/definitions/strapi_api_token_permissions"
+    "novel_tags": {
+      "$ref": "#/definitions/novel_tags"
     },
-    "strapi_api_token_permissions_token_lnk": {
-      "$ref": "#/definitions/strapi_api_token_permissions_token_lnk"
+    "novels": {
+      "$ref": "#/definitions/novels"
     },
-    "strapi_api_tokens": {
-      "$ref": "#/definitions/strapi_api_tokens"
-    },
-    "strapi_core_store_settings": {
-      "$ref": "#/definitions/strapi_core_store_settings"
-    },
-    "strapi_database_schema": {
-      "$ref": "#/definitions/strapi_database_schema"
-    },
-    "strapi_history_versions": {
-      "$ref": "#/definitions/strapi_history_versions"
-    },
-    "strapi_migrations": {
-      "$ref": "#/definitions/strapi_migrations"
-    },
-    "strapi_migrations_internal": {
-      "$ref": "#/definitions/strapi_migrations_internal"
-    },
-    "strapi_release_actions": {
-      "$ref": "#/definitions/strapi_release_actions"
-    },
-    "strapi_release_actions_release_lnk": {
-      "$ref": "#/definitions/strapi_release_actions_release_lnk"
-    },
-    "strapi_releases": {
-      "$ref": "#/definitions/strapi_releases"
-    },
-    "strapi_transfer_token_permissions": {
-      "$ref": "#/definitions/strapi_transfer_token_permissions"
-    },
-    "strapi_transfer_token_permissions_token_lnk": {
-      "$ref": "#/definitions/strapi_transfer_token_permissions_token_lnk"
-    },
-    "strapi_transfer_tokens": {
-      "$ref": "#/definitions/strapi_transfer_tokens"
-    },
-    "strapi_webhooks": {
-      "$ref": "#/definitions/strapi_webhooks"
-    },
-    "strapi_workflows": {
-      "$ref": "#/definitions/strapi_workflows"
-    },
-    "strapi_workflows_stage_required_to_publish_lnk": {
-      "$ref": "#/definitions/strapi_workflows_stage_required_to_publish_lnk"
-    },
-    "strapi_workflows_stages": {
-      "$ref": "#/definitions/strapi_workflows_stages"
-    },
-    "strapi_workflows_stages_permissions_lnk": {
-      "$ref": "#/definitions/strapi_workflows_stages_permissions_lnk"
-    },
-    "strapi_workflows_stages_workflow_lnk": {
-      "$ref": "#/definitions/strapi_workflows_stages_workflow_lnk"
-    },
-    "subscribers": {
-      "$ref": "#/definitions/subscribers"
-    },
-    "up_permissions": {
-      "$ref": "#/definitions/up_permissions"
-    },
-    "up_permissions_role_lnk": {
-      "$ref": "#/definitions/up_permissions_role_lnk"
-    },
-    "up_roles": {
-      "$ref": "#/definitions/up_roles"
-    },
-    "up_users": {
-      "$ref": "#/definitions/up_users"
-    },
-    "up_users_role_lnk": {
-      "$ref": "#/definitions/up_users_role_lnk"
-    },
-    "upload_folders": {
-      "$ref": "#/definitions/upload_folders"
-    },
-    "upload_folders_parent_lnk": {
-      "$ref": "#/definitions/upload_folders_parent_lnk"
+    "story_arcs": {
+      "$ref": "#/definitions/story_arcs"
     }
   }
 }
