@@ -41,7 +41,11 @@ const ActiveTabTableBody = ({ item }: { item: NovelItem }) => {
   };
 
   return (
-    <tr key={item.id} onClick={() => onClickTableItem(item.id)}>
+    <tr
+      key={item.id}
+      className="text-[#2D2D2D] text-[14px] font-[500]"
+      onClick={() => onClickTableItem(item.id)}
+    >
       <td style={{ width: '11.75rem' }}>{item.category.alias}</td>
       <td style={{ width: '15rem' }}>{item.title}</td>
       <td style={{ width: '9rem' }}>{dayjs(item.createdAt).format('YYYY.M.D')}</td>

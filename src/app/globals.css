@@ -1,11 +1,136 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-  }
+@font-face {
+    font-family: 'Hakgyoansim';
+    src: url('/fonts/Hakgyoansim-Dunggeunmiso.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Hakgyoansim', sans-serif;
+
+    /* drag 방지 */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+.cus-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin: 50px auto;
+}
+
+.cus-pagination-li {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: all 0.3s;
+    list-style-type: none;
+}
+
+.cus-pagination-li:hover>a,
+.cus-pagination-li:active>a,
+.cus-pagination-li.active>a {
+    /* background-color: gray; */
+    color: #000000;
+}
+
+.cus-pagination-li:nth-child(1)>a,
+.cus-pagination-li:nth-child(2)>a,
+.cus-pagination-li:nth-last-child(1)>a,
+.cus-pagination-li:nth-last-child(2)>a {
+    font-size: 20px;
+}
+
+.cus-pagination-li>a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+
+    text-decoration: none;
+    color: #C3C3C3;
+}
+
+.white-btn {
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 3.875rem;
+    border: 0.6px solid #059EAF;
+    background-color: #FFF;
+
+    color: #059EAF;
+    font-family: "Spoqa Han Sans Neo";
+    font-size: 0.875rem;
+    font-style: normal;
+
+    transition-property: background-color;
+    transition-duration: 0.5s;
+}
+
+.white-btn:hover {
+    background-color: #E7F6F8;
+}
+
+
+.blue-btn {
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 3.875rem;
+    border: 0.6px solid #059EAF;
+    background-color: #059EAF;
+
+    color: #FFFFFF;
+    font-family: "Spoqa Han Sans Neo";
+    font-size: 0.875rem;
+    font-style: normal;
+
+    transition-property: background-color;
+    transition-duration: 0.5s;
+}
+
+.blue-btn:hover {
+    background-color: #077D8A;
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+    width: 8px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 1);
+}

@@ -3,17 +3,14 @@
 import React, { useState } from 'react';
 import Pagination from 'react-js-pagination';
 import { useRouter } from 'next/navigation';
-
 import { InformationText } from '@/components/InformationText/InformationText';
 import { InformationTextType } from '@/components/InformationText/type';
 import { NovelTable as Table } from '@/components/NovelTable/NovelTable';
 import { NovelTabs } from '@/components';
 import PageContentHeader from '@/components/PageContentHeader/PageContentHeader';
 import { config } from '@/config/config';
-import { novelList } from '@/fetch/get';
 import { NovelItem, NovelListResponse, RoomStatus } from '@/shared';
 import useOnWheelHandle from '@/hooks/onWheelHandle';
-import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import NovelPageHeaderBackground from '@/images/novel-page-header-background.svg';
 
 import styles from './novel.module.scss';
@@ -84,22 +81,6 @@ const WorkSpace = ({ items, totalCount, size, page }: WordSpaceProps) => {
                 handleCurrentTab={handleClickTab}
               />
             </div>
-            {/* {!isSuccess &&
-              Array(6)
-                .fill(0)
-                .map((item, index) => (
-                  <Skeleton
-                    key={item + index.toString()}
-                    sx={{
-                      width: '1200px',
-                      height: '48px',
-                      padding: '0px',
-                      margin: '0px',
-                    }}
-                    animation="wave"
-                  />
-                ))} */}
-
             <Table tab={roomState} tableData={items ?? []} />
           </div>
         </div>

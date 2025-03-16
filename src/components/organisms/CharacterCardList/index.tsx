@@ -25,7 +25,7 @@ export default function CharacterCardList({ characters }: CharacterCardListProps
       {list.map((character, index) => (
         <div
           key={index}
-          className="w-[238px] min-h-[200px] p-[20px] bg-[#FFFFFFCC] flex flex-col items-center justify-start rounded-xl"
+          className="w-[238px] min-h-[200px] p-[20px] bg-white-opacity-50 focus-within:bg-[#FFFFFFCC] flex flex-col items-center justify-start rounded-xl"
         >
           <div className="w-full flex items-center gap-[8px]">
             <div
