@@ -3,6 +3,7 @@
 import StoryArc from '@/components/molecules/StoryArc';
 import WorkSpaceTabHeader from '@/components/organisms/WorkSpaceTabHeader';
 import { StoryArc as IStoryArc } from '@/shared';
+import { storyArcWrapper } from '@/shared/constant/storyArc';
 import callApi from '@/shared/utils/fetchWrapper';
 import { useSession } from 'next-auth/react';
 import { useParams } from 'next/navigation';
@@ -18,11 +19,25 @@ export default function PlanTemplate({ storyArcs }: PlanTemplateProps) {
   const { data: session } = useSession();
 
   const [editMode, setEditMode] = useState(false);
-  const [arcs, setArcs] = useState(storyArcs);
+  const [arcs, setArcs] = useState<IStoryArc[]>(storyArcs);
 
-  const handleChange = (index: number, newValue: string) => {
+  const handleChangeDescription = (index: number, newValue: string) => {
     setArcs(prevArcs =>
       prevArcs.map((arc, i) => (i === index ? { ...arc, description: newValue } : arc))
+    );
+  };
+
+  const handleChangeChapter = ({
+    key,
+    valueKey,
+    newValue,
+  }: {
+    key: 'INTRODUCTION' | 'DEVELOPMENT' | 'CRISIS' | 'CLIMAX' | 'RESOLUTION';
+    valueKey: 'firstChapterNumber' | 'lastChapterNumber';
+    newValue: number;
+  }) => {
+    setArcs(prevArcs =>
+      prevArcs.map((arc, i) => (arc.phase === key ? { ...arc, [valueKey]: newValue } : arc))
     );
   };
 
@@ -32,7 +47,11 @@ export default function PlanTemplate({ storyArcs }: PlanTemplateProps) {
         callApi({
           url: `/api/v1/novel-rooms/${roomId}/story-arcs/${arc.phase}`,
           method: 'PATCH',
-          body: { description: arc.description },
+          body: {
+            description: arc.description || storyArcWrapper[arc.phase].tip,
+            startChapterNumber: arc.firstChapterNumber,
+            endChapterNumber: arc.lastChapterNumber,
+          },
           token: session?.user?.token,
         });
       });
@@ -52,7 +71,8 @@ export default function PlanTemplate({ storyArcs }: PlanTemplateProps) {
             key={arc.phase}
             arc={arc}
             editMode={editMode}
-            onChange={newValue => handleChange(index, newValue)}
+            onChangeDescription={newValue => handleChangeDescription(index, newValue)}
+            handleChangeChapter={handleChangeChapter}
           />
         ))}
       </div>

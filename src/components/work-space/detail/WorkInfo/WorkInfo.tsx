@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CharacterInfoCard } from '@/components/work-space/detail/CharacterInfoCard/CharacterInfoCard';
 import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import { getCharactersInfo, novelRoomInfo } from '@/fetch/get';
@@ -39,10 +39,15 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
     editSynopsis,
     editTitle,
     editTags,
+    initEditTags,
     toggleEditMode,
     setEditDescription,
     setEditSynopsis,
   } = useNovelRoom();
+
+  useEffect(() => {
+    initEditTags(novelRoomInfo.tags);
+  }, []);
 
   const onClickEdit = async () => {
     if (editMode) {
@@ -78,8 +83,9 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
       );
 
       await Promise.all(characterRequests);
+      toggleEditMode();
+      setEditingCharacters(!editMode);
 
-      location.reload();
       return;
     }
 
@@ -108,7 +114,7 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
               content={novelRoomInfo.description}
               onChangeDescription={setEditDescription}
             />
-            <TagList tags={novelRoomInfo.tags} />
+            <TagList tags={editTags || []} />
           </div>
         </div>
         <CharacterCardList characters={characters} />

@@ -1,0 +1,27 @@
+.custom-scrollbar {
+  overflow-y: scroll;
+
+  /* 스크롤바 전체 크기 설정 (여백 포함) */
+  &::-webkit-scrollbar {
+      width: 24px;
+  }
+
+  /* 스크롤바 위/아래 버튼 숨기기 */
+  &::-webkit-scrollbar-button {
+      display: none;
+  }
+
+  /* 스크롤바의 움직이는 부분 (thumb) */
+  &::-webkit-scrollbar-thumb {
+      width: 8px; /* 스크롤바 자체 너비 */
+      background: #D9D9D9;
+      border-radius: 20px;
+      border: 8px solid transparent; /* 좌우 여백을 위한 border */
+      background-clip: padding-box; /* thumb 부분만 색상 적용 */
+  }
+
+  /* 스크롤바 트랙 (배경) */
+  &::-webkit-scrollbar-track {
+      background: transparent;
+  }
+}

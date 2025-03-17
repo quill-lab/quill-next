@@ -41,9 +41,7 @@ export default function TagList({ tags }: TagListProps) {
       }
     >
       <div className="flex gap-3.5 flex-wrap">
-        {tags.map(tag => (
-          <Tag key={tag} text={tag} />
-        ))}
+        {!editMode && tags.map(tag => <Tag key={tag} text={tag} />)}
 
         {editMode && (
           <>

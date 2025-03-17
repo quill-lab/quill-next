@@ -39,9 +39,9 @@ export interface Member {
 export interface StoryArc {
   id: string;
   description: string;
-  phase: string;
+  phase: 'INTRODUCTION' | 'DEVELOPMENT' | 'CRISIS' | 'CLIMAX' | 'RESOLUTION';
   phaseAlias: string;
-  firstChapterNumber: string;
-  lastChapterNumber: string;
+  firstChapterNumber: number;
+  lastChapterNumber: number;
   lastModifiedAt: string;
 }

@@ -22,8 +22,8 @@ export default function WorkSpaceTabHeader({ currentTab }: WorkSpaceTabHeaderPro
     },
     {
       name: '글쓰기',
-      alias: '',
-      url: '/',
+      alias: 'writing',
+      url: `/work-space/detail/${roomId}/writing`,
     },
     {
       name: '작품 회차',

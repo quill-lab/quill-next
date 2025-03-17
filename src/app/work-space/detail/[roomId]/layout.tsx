@@ -43,12 +43,13 @@ export default async function DetailRoomLayout({
         style={{
           boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
         }}
-        className="mt-[70px] w-[25%] h-[468px] bg-[#fff] rounded-[20px] flex flex-col items-center"
+        className="relative mt-[70px] w-[25%] h-[468px] bg-[#fff] rounded-[20px] flex flex-col items-center max-w-[300px]"
       >
         <div className="py-[16px]">
           <p className="text-[#2D2D2D] text-[16px] font-[400]">참여 작가 (5/5)</p>
         </div>
-        <div className="pt-[21.5px] pl-[32px] flex flex-col gap-[24px] items-start w-full">
+
+        <div className="pt-[21.5px] pl-[32px] flex flex-col gap-[24px] items-left w-full h-full">
           {members.map(member => (
             <div className="flex gap-[12px]">
               <Image src={'/images/avatar.png'} width={24} height={24} alt="avatar" />
@@ -59,6 +60,10 @@ export default async function DetailRoomLayout({
             </div>
           ))}
         </div>
+
+        <button className="w-full stiky bottom-0 left-0 bg-[#F8F8F8] py-[20px] text-center text-[#059EAF] text-[14px] font-[500] font-spoqa rounded-bl-[20px] rounded-br-[20px]">
+          작가 순서 관리
+        </button>
       </div>
       <div className="flex flex-col gap-[16px] w-full">
         <div className="flex flex-col gap-4 w-full">

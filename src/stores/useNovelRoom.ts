@@ -8,6 +8,7 @@ interface State {
   editSynopsis: string;
   editTags: string[];
 
+  initEditTags: (tags: string[]) => void;
   setLastChapterId: (id: number) => void;
   setEditMode: (bool: boolean) => void;
   toggleEditMode: () => void;
@@ -27,6 +28,10 @@ export const useNovelRoom = create<State>()(set => ({
   editTags: [],
   editDescription: '',
   editSynopsis: '',
+
+  initEditTags: (tags: string[]) => {
+    set({ editTags: tags });
+  },
 
   setLastChapterId: (id: number) => {
     set({ lastChapterId: id });

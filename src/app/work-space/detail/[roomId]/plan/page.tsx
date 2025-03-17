@@ -28,13 +28,11 @@ export default async function PlanPage({ params }: { params: { roomId: string } 
     redirect('/');
   }
 
-  const phaseOrder = ['INTRODUCTION', 'DEVELOPMENT', 'CRISIS', 'CLIMAX', 'RESOLUTION'];
+  // const phaseOrder = ['INTRODUCTION', 'DEVELOPMENT', 'CRISIS', 'CLIMAX', 'RESOLUTION'];
 
-  const sortedStoryArcs = storyArcs.sort(
-    (a, b) => phaseOrder.indexOf(a.phase) - phaseOrder.indexOf(b.phase)
-  );
+  // const sortedStoryArcs = storyArcs.sort(
+  //   (a, b) => phaseOrder.indexOf(a.phase) - phaseOrder.indexOf(b.phase)
+  // );
 
-  console.log(sortedStoryArcs);
-
-  return <PlanTemplate storyArcs={sortedStoryArcs} />;
+  return <PlanTemplate storyArcs={storyArcs} />;
 }
