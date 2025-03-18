@@ -13,20 +13,21 @@ import { CategorySelectProps } from './type';
  * @returns component
  */
 export default function CategorySelect(props: CategorySelectProps): ReactElement {
-  const { setNovel } = useCreateNovelPost();
+  const { category, setNovel } = useCreateNovelPost();
+
   return (
     <TooltipTextField style={props.style} compulsory={props.compulsory} categoryText="카테고리">
       <div>
         <div className={st.container}>
           {config.categorys.map(
-            (item: string, index): ReactElement => (
-              <label className={`${st.mt16} ${st.inputBox}`} key={item}>
+            (item: { name: string; alias: string }): ReactElement => (
+              <label className={`${st.mt16} ${st.inputBox}`} key={item.name}>
                 <input
                   type="radio"
                   name="category"
-                  onClick={() => setNovel({ category: index + 1 })}
+                  onClick={() => setNovel({ category: item.alias })}
                 />
-                <p className={st.ml8}>{item}</p>
+                <p className={st.ml8}>{item.name}</p>
               </label>
             )
           )}

@@ -93,7 +93,7 @@ export default function WorkSpaceCreateTemplate() {
       body: {
         title: title,
         maxContributors: type,
-        category: 'GENERAL',
+        category: category,
         description: subTitle,
         tags: novelTag,
         synopsis: summary || null,

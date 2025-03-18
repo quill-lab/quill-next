@@ -6,7 +6,7 @@ interface Novel {
   type: RoomType;
   title: string;
   subTitle: string;
-  category: number;
+  category: string;
   novelTag: string[];
   actor: string;
   summary: string;
@@ -17,7 +17,7 @@ const novel: Novel = {
   type: 2,
   title: '',
   subTitle: '',
-  category: 0,
+  category: '',
   novelTag: [],
   actor: '',
   summary: '',
