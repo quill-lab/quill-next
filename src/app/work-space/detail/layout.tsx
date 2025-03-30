@@ -4,7 +4,7 @@ export default function DetailedWorkSpaceLayout({ children }: { children: React.
   return (
     <div
       className={
-        "pt-[8px] pb-[72px] px-[124px] w-full bg-cover bg-[url('/images/back-image.svg')] min-h-screen flex flex-col gap-4 items-center overscroll-none"
+        'pt-[8px] pb-[72px] px-[124px] w-full bg-cover bg-[#9DE1E6] min-h-screen flex flex-col gap-4 items-center overscroll-none'
       }
     >
       <PageHeader />

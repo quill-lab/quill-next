@@ -1,6 +1,7 @@
 import React from 'react';
 import { CharacterInfo } from '@/interfaces';
 import './index.scss';
+import Image from 'next/image';
 
 type CharacterInfoCard = CharacterInfo;
 

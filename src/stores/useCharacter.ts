@@ -1,7 +1,9 @@
 // store/characterStore.ts
+import { generateId } from '@/utils/generateId';
 import create from 'zustand';
 
 type Character = {
+  id: string;
   name: string;
   description: string;
 };
@@ -9,30 +11,38 @@ type Character = {
 type CharacterStore = {
   state: boolean;
   list: Character[];
-  setEditingCharacters: (state: boolean) => void;
+  toggleEditingCharacters: () => void;
   addCharacter: () => void;
-  removeCharacter: (index: number) => void;
+  removeCharacter: (id: string) => void;
   updateCharacter: (index: number, field: 'name' | 'description', value: string) => void;
+  initialCharacters: (characters: Character[]) => void;
 };
 
 export const useCharacterStore = create<CharacterStore>(set => ({
   state: false,
   list: [],
 
-  setEditingCharacters: state => set({ state, list: [] }),
+  initialCharacters: (characters: Character[]) => {
+    set({ list: characters });
+  },
+
+  toggleEditingCharacters: () => set(state => ({ state: !state })),
 
   addCharacter: () =>
     set(state => ({
       list: [
         ...state.list,
-        { name: '등장인물 이름', description: '등장인물의 성격과 배경을 쉽게 설명해 주세요.' },
+        {
+          id: generateId(),
+          name: '등장인물 이름',
+          description: '등장인물의 성격과 배경을 쉽게 설명해 주세요.',
+        },
       ],
     })),
 
-  removeCharacter: index =>
+  removeCharacter: id =>
     set(state => {
-      const newList = [...state.list];
-      newList.splice(index, 1);
+      const newList = state.list.filter(character => character.id !== id);
       return { list: newList };
     }),
 

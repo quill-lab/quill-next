@@ -4,7 +4,7 @@ module.exports = {
     './src/**/*.{js,ts,tsx,jsx,mdx}',
     './pages/**/*.{js,ts,tsx,jsx}',
     './components/**/*.{js,ts,tsx,jsx}',
-    "./node_modules/@premieroctet/next-admin/**/*.{js,ts,jsx,tsx}",
+    './node_modules/@premieroctet/next-admin/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -17,7 +17,7 @@ module.exports = {
       },
       backgroundColor: {
         'admin-bg': '#ffffff',
-      }
+      },
     },
     colors: {
       white: '#ffffff',

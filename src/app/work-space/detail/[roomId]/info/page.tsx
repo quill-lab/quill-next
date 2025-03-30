@@ -1,5 +1,6 @@
 import { authOptions } from '@/authOptions';
 import { WorkInfo } from '@/components/work-space/detail/WorkInfo/WorkInfo';
+import { INIT_WORK_INFO } from '@/constants/initWorkInfo';
 import { CharacterInfo } from '@/interfaces';
 import { NovelChapter, NovelItem } from '@/shared';
 import { callApiResponse } from '@/shared/interface/api';
@@ -37,7 +38,13 @@ const WorkInfoPage = async ({ params }: WorkInfoPageProps) => {
     token: session?.user?.token,
   });
 
-  return <WorkInfo novelRoomInfo={novelRoomInfo} characters={characters} />;
+  const mappedNovelRoomInfo = {
+    ...novelRoomInfo,
+    synopsis: novelRoomInfo.synopsis || INIT_WORK_INFO.synopsis,
+    description: novelRoomInfo.description || INIT_WORK_INFO.description,
+  };
+
+  return <WorkInfo novelRoomInfo={mappedNovelRoomInfo} characters={characters} />;
 };
 
 export default WorkInfoPage;

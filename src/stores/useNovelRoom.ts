@@ -19,6 +19,8 @@ interface State {
   addTags: () => void;
   updateTags: (index: number, value: string) => void;
   removeTags: (index: number) => void;
+  initEditSynopsis: (synopsis: string) => void;
+  initEditDescription: (description: string) => void;
 }
 
 export const useNovelRoom = create<State>()(set => ({
@@ -47,6 +49,14 @@ export const useNovelRoom = create<State>()(set => ({
 
   setEditTags: (tags: string[]) => {
     set({ editTags: tags });
+  },
+
+  initEditSynopsis: (synopsis: string) => {
+    set({ editSynopsis: synopsis });
+  },
+
+  initEditDescription: (description: string) => {
+    set({ editDescription: description });
   },
 
   toggleEditMode: () => {

@@ -28,25 +28,26 @@ interface WorkInfoTemplateProps {
 
 export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) => {
   const params = useParams();
-  const router = useRouter();
   const roomId = params?.roomId;
   const { data: session } = useSession();
 
-  const { list: characterList, setEditingCharacters } = useCharacterStore();
+  const { list: characterList, toggleEditingCharacters } = useCharacterStore();
   const {
     editMode,
     editDescription,
     editSynopsis,
     editTitle,
     editTags,
+    initEditSynopsis,
+    initEditDescription,
     initEditTags,
     toggleEditMode,
-    setEditDescription,
-    setEditSynopsis,
   } = useNovelRoom();
 
   useEffect(() => {
     initEditTags(novelRoomInfo.tags);
+    initEditSynopsis(novelRoomInfo.synopsis || '작품의 줄거리를 적어주세요.');
+    initEditDescription(novelRoomInfo.description || '작품의 소개글을 적어주세요.');
   }, []);
 
   const onClickEdit = async () => {
@@ -61,36 +62,38 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
         url: `/api/v1/novel-rooms/${roomId}`,
         body: {
           title: editTitle || novelRoomInfo.title,
-          description: editDescription || novelRoomInfo.description,
+          description:
+            editDescription || novelRoomInfo.description || '작품의 소개글을 적어주세요.',
           tags: validateTags,
           category: novelRoomInfo.category.name,
-          synopsis: editSynopsis || novelRoomInfo.synopsis,
+          synopsis: editSynopsis || novelRoomInfo.synopsis || '작품의 줄거리를 적어주세요.',
         },
         method: 'PATCH',
         token: session?.user?.token,
       });
 
-      const characterRequests = characterList.map(character =>
-        callApi({
-          url: `/api/v1/novel-rooms/${roomId}/characters`,
-          body: {
-            name: character.name,
-            description: character.description,
-          },
-          method: 'POST',
-          token: session?.user?.token,
-        })
-      );
-
-      await Promise.all(characterRequests);
+      // await callApi({
+      //   url: `/api/v1/novel-rooms/${roomId}/characters`,
+      //   body: {
+      //     characters: characterList.map(character => {
+      //       return {
+      //         id: character.id,
+      //         name: character.name,
+      //         description: character.description,
+      //       };
+      //     }),
+      //   },
+      //   method: 'PUT',
+      //   token: session?.user?.token,
+      // });
       toggleEditMode();
-      setEditingCharacters(!editMode);
+      toggleEditingCharacters();
 
       return;
     }
 
     toggleEditMode();
-    setEditingCharacters(!editMode);
+    toggleEditingCharacters();
   };
 
   return (
@@ -110,9 +113,7 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
           <div className={'flex flex-col gap-3 w-full'}>
             <DescriptionContainer
               title="작품 소개"
-              isEditable={editMode}
-              content={novelRoomInfo.description}
-              onChangeDescription={setEditDescription}
+              content={novelRoomInfo.description || editDescription}
             />
             <TagList tags={editTags || []} />
           </div>
@@ -120,12 +121,7 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
         <CharacterCardList characters={characters} />
 
         <div className={'flex-1'}>
-          <DescriptionContainer
-            title="줄거리"
-            isEditable={editMode}
-            content={novelRoomInfo.synopsis}
-            onChangeDescription={setEditSynopsis}
-          />
+          <DescriptionContainer title="줄거리" content={novelRoomInfo.synopsis || editSynopsis} />
         </div>
       </div>
       {novelRoomInfo?.role === 'MAIN' && (
