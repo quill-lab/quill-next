@@ -9,7 +9,7 @@ interface TagListProps {
 }
 
 export default function TagList({ tags }: TagListProps) {
-  const { editMode, editTags, addTags, updateTags, removeTags } = useNovelRoom();
+  const { editMode, editTags, addTags, removeTags } = useNovelRoom();
 
   return (
     <div

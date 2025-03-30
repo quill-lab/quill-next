@@ -8,19 +8,30 @@ type EditTagProps = {
 };
 
 const EditTag = ({ text, index, isLast }: EditTagProps) => {
-  const { updateTags, addTags } = useNovelRoom();
+  const { updateTags, addTags, setIsTagFocused, isTagFocused } = useNovelRoom();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (isLast && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isLast]);
+  const calculateWidth = (text: string) => {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    if (!context) return 0;
+
+    context.font = '12px Spoqa Han Sans';
+    const metrics = context.measureText(text);
+    return Math.ceil(metrics.width);
+  };
 
   const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
     const input = e.currentTarget;
-    input.style.width = `${input.value.length}ch`;
+    const width = calculateWidth(input.value);
+    input.style.width = `${width + 20}px`;
   };
+
+  useEffect(() => {
+    if (isLast && inputRef.current && isTagFocused) {
+      inputRef.current.focus();
+    }
+  }, [isLast, isTagFocused]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' || e.key === ' ' || e.key === 'Tab') {
@@ -28,9 +39,17 @@ const EditTag = ({ text, index, isLast }: EditTagProps) => {
       if (e.currentTarget.value) {
         updateTags(index, e.currentTarget.value);
         addTags();
+        setIsTagFocused(true);
       }
     }
   };
+
+  useEffect(() => {
+    if (inputRef.current) {
+      const width = calculateWidth(text);
+      inputRef.current.style.width = `${width + 20}px`;
+    }
+  }, [text]);
 
   return (
     <div className={'bg-white rounded py-[6.5px] px-[18px] flex justify-center'}>
@@ -41,12 +60,12 @@ const EditTag = ({ text, index, isLast }: EditTagProps) => {
           defaultValue={text}
           type="text"
           className="w-auto min-w-[1ch] outline-none border-none p-0 box-border"
-          style={{ width: `${text.length}ch` }}
           onInput={handleInput}
           onKeyDown={handleKeyDown}
           onBlur={e => {
             if (e.currentTarget.value) {
               updateTags(index, e.currentTarget.value);
+              setIsTagFocused(false);
             }
           }}
         />

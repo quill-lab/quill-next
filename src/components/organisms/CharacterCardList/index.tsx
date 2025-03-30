@@ -6,20 +6,10 @@ import Image from 'next/image';
 import './custom-scrollbar.scss';
 import { useEffect } from 'react';
 
-interface CharacterCardListProps {
-  characters: [CharacterInfo];
-}
-
-export default function CharacterCardList({ characters }: CharacterCardListProps) {
+export default function CharacterCardList() {
   const { editMode } = useNovelRoom();
-  const { list, initialCharacters, addCharacter, removeCharacter, updateCharacter } =
-    useCharacterStore();
-
-  useEffect(() => {
-    initialCharacters(characters);
-  }, []);
-
-  console.log(characters);
+  const { list, addCharacter, removeCharacter, updateCharacter } = useCharacterStore();
+  console.log({ list });
 
   return (
     <div className={'flex gap-4 flex-wrap'}>
@@ -39,7 +29,7 @@ export default function CharacterCardList({ characters }: CharacterCardListProps
                 <div
                   contentEditable
                   className="w-full bg-[transparent] px-[4px] py-[4px] outline-none break-words whitespace-pre-wrap text-[#2D2D2D] text-[14px] font-[500]"
-                  onInput={e => updateCharacter(index, 'name', e.currentTarget.textContent || '')}
+                  onChange={e => updateCharacter(index, 'name', e.currentTarget.textContent || '')}
                 >
                   {character.name}
                 </div>
@@ -59,6 +49,7 @@ export default function CharacterCardList({ characters }: CharacterCardListProps
               description={character.description}
             />
           ))}
+
       {editMode && (
         <div
           onClick={addCharacter}

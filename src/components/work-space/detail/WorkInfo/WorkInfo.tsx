@@ -31,7 +31,7 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
   const roomId = params?.roomId;
   const { data: session } = useSession();
 
-  const { list: characterList, toggleEditingCharacters } = useCharacterStore();
+  const { list: characterList, toggleEditingCharacters, initialCharacters } = useCharacterStore();
   const {
     editMode,
     editDescription,
@@ -42,12 +42,18 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
     initEditDescription,
     initEditTags,
     toggleEditMode,
+    exitEditMode,
   } = useNovelRoom();
 
   useEffect(() => {
     initEditTags(novelRoomInfo.tags);
     initEditSynopsis(novelRoomInfo.synopsis || '작품의 줄거리를 적어주세요.');
     initEditDescription(novelRoomInfo.description || '작품의 소개글을 적어주세요.');
+    initialCharacters(characters);
+
+    return () => {
+      exitEditMode();
+    };
   }, []);
 
   const onClickEdit = async () => {
@@ -72,20 +78,19 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
         token: session?.user?.token,
       });
 
-      // await callApi({
-      //   url: `/api/v1/novel-rooms/${roomId}/characters`,
-      //   body: {
-      //     characters: characterList.map(character => {
-      //       return {
-      //         id: character.id,
-      //         name: character.name,
-      //         description: character.description,
-      //       };
-      //     }),
-      //   },
-      //   method: 'PUT',
-      //   token: session?.user?.token,
-      // });
+      console.log(characterList);
+
+      await callApi({
+        url: `/api/v1/novel-rooms/${roomId}/characters`,
+        body: {
+          characters: characterList.map(({ isNew, id, ...character }) => ({
+            ...character,
+            id: isNew ? undefined : id,
+          })),
+        },
+        method: 'PUT',
+        token: session?.user?.token,
+      });
       toggleEditMode();
       toggleEditingCharacters();
 
@@ -118,7 +123,7 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
             <TagList tags={editTags || []} />
           </div>
         </div>
-        <CharacterCardList characters={characters} />
+        <CharacterCardList />
 
         <div className={'flex-1'}>
           <DescriptionContainer title="줄거리" content={novelRoomInfo.synopsis || editSynopsis} />

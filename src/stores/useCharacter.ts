@@ -6,6 +6,7 @@ type Character = {
   id: string;
   name: string;
   description: string;
+  isNew?: boolean;
 };
 
 type CharacterStore = {
@@ -36,15 +37,15 @@ export const useCharacterStore = create<CharacterStore>(set => ({
           id: generateId(),
           name: '등장인물 이름',
           description: '등장인물의 성격과 배경을 쉽게 설명해 주세요.',
+          isNew: true,
         },
       ],
     })),
 
   removeCharacter: id =>
-    set(state => {
-      const newList = state.list.filter(character => character.id !== id);
-      return { list: newList };
-    }),
+    set(state => ({
+      list: state.list.filter(character => character.id !== id),
+    })),
 
   updateCharacter: (index, field, value) =>
     set(state => {

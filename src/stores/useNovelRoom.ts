@@ -7,6 +7,7 @@ interface State {
   editDescription: string;
   editSynopsis: string;
   editTags: string[];
+  isTagFocused: boolean;
 
   initEditTags: (tags: string[]) => void;
   setLastChapterId: (id: number) => void;
@@ -21,6 +22,8 @@ interface State {
   removeTags: (index: number) => void;
   initEditSynopsis: (synopsis: string) => void;
   initEditDescription: (description: string) => void;
+  exitEditMode: () => void;
+  setIsTagFocused: (isTagFocused: boolean) => void;
 }
 
 export const useNovelRoom = create<State>()(set => ({
@@ -30,6 +33,7 @@ export const useNovelRoom = create<State>()(set => ({
   editTags: [],
   editDescription: '',
   editSynopsis: '',
+  isTagFocused: false,
 
   initEditTags: (tags: string[]) => {
     set({ editTags: tags });
@@ -74,6 +78,7 @@ export const useNovelRoom = create<State>()(set => ({
   addTags: () => {
     set(state => ({
       editTags: [...state.editTags, ''],
+      isTagFocused: true,
     }));
   },
 
@@ -91,5 +96,13 @@ export const useNovelRoom = create<State>()(set => ({
       newTags.splice(index, 1);
       return { editTags: newTags };
     });
+  },
+
+  exitEditMode: () => {
+    set({ editMode: false });
+  },
+
+  setIsTagFocused: (isTagFocused: boolean) => {
+    set({ isTagFocused: isTagFocused });
   },
 }));
