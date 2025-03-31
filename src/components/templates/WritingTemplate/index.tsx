@@ -4,11 +4,17 @@ import ChapterItemList from '@/components/organisms/ChapterItemList';
 import WorkSpaceTabHeader from '@/components/organisms/WorkSpaceTabHeader';
 import Image from 'next/image';
 import './custom-scrollbar.scss';
+import MobileTabHeader from '@/components/molecules/MobileTabHeader';
 
 const WritingTemplate = () => {
   return (
     <div className="">
-      <WorkSpaceTabHeader currentTab="writing" />
+      <div className="hidden sm:block">
+        <WorkSpaceTabHeader currentTab="writing" />
+      </div>
+      <div className="block sm:hidden">
+        <MobileTabHeader currentTab="writing" />
+      </div>
 
       <div className="w-full">
         <div className="w-full mt-[8px] rounded-tl-[10px] rounded-tr-[10px] bg-[white] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] flex justify-between items-center py-[18px] px-[32px]">

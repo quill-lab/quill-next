@@ -12,12 +12,12 @@ export default function CharacterCardList() {
   console.log({ list });
 
   return (
-    <div className={'flex gap-4 flex-wrap'}>
+    <div className={'grid grid-cols-2 sm:flex gap-4 flex-wrap'}>
       {editMode
         ? list.map((character, index) => (
             <div
               key={character.name}
-              className="w-[238px] min-h-[200px] p-[20px] bg-white-opacity-50 focus-within:bg-[#FFFFFFCC] flex flex-col items-center justify-start rounded-xl"
+              className="w-full sm:w-[238px] min-h-[200px] p-[20px] bg-white-opacity-50 focus-within:bg-[#FFFFFFCC] flex flex-col items-center justify-start rounded-xl"
             >
               <div
                 className="w-full flex justify-end "
@@ -54,7 +54,7 @@ export default function CharacterCardList() {
         <div
           onClick={addCharacter}
           className={
-            'cursor-pointer w-[238px] min-h-[200px] p-[20px] bg-white-opacity-50 flex items-center justify-center rounded-xl'
+            'cursor-pointer w-full sm:w-[238px] min-h-[200px] p-[20px] bg-white-opacity-50 flex items-center justify-center rounded-xl'
           }
         >
           <Image src={'/images/add.png'} width={24} height={24} alt="add" />

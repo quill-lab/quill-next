@@ -10,7 +10,7 @@ export const DescriptionContainer = ({ title, content, date }: DescriptionContai
   const { editMode, setEditSynopsis } = useNovelRoom();
 
   return (
-    <div className="bg-white-opacity-50 rounded-[10px] py-4 px-8 relative w-full h-full overflow-y-auto min-h-[98px]">
+    <div className="bg-white-opacity-50 rounded-[10px] py-4 px-8 relative w-full min-h-[242px] sm:min-h-[0px] h-full overflow-y-auto min-h-[98px]">
       <div className={`pb-2 w-full ${date ? 'flex justify-between items-center' : ''}`}>
         <p className="text-sm text-black1">{title}</p>
         {date && <p className="text-[8px] text-blue1">{date}</p>}

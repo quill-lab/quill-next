@@ -20,6 +20,7 @@ import CharacterCardList from '@/components/organisms/CharacterCardList';
 import { useCharacterStore } from '@/stores/useCharacter';
 import { useNovelRoom } from '@/stores';
 import TagList from '@/components/organisms/TagList';
+import MobileTabHeader from '@/components/molecules/MobileTabHeader';
 
 interface WorkInfoTemplateProps {
   novelRoomInfo: NovelItem;
@@ -104,8 +105,13 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
   return (
     <div className={'flex flex-col gap-[18px] items-center w-full'}>
       <div className={'flex flex-col gap-[10px] w-full'}>
-        <WorkSpaceTabHeader currentTab="work-info" />
-        <div className={'flex gap-4 flex-grow'}>
+        <div className="hidden sm:block">
+          <WorkSpaceTabHeader currentTab="info" />
+        </div>
+        <div className="block sm:hidden">
+          <MobileTabHeader currentTab="info" />
+        </div>
+        <div className={'flex gap-4 flex-grow hidden sm:flex'}>
           <div className="relative w-full max-w-[189px] h-full min-h-[267px]">
             <Image
               src={'/images/default-book-cover.svg'}
@@ -122,6 +128,25 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
             />
             <TagList tags={editTags || []} />
           </div>
+        </div>
+
+        <div className="flex flex-col gap-[8px] sm:hidden">
+          <div className="w-full gap-[8px] min-h-[240px] flex">
+            <div className="relative w-full">
+              <Image
+                src={'/images/default-book-cover.svg'}
+                alt="북커버"
+                objectFit="cover"
+                className="rounded-[10px]"
+                fill
+              />
+            </div>
+            <DescriptionContainer
+              title="작품 소개"
+              content={novelRoomInfo.description || editDescription}
+            />
+          </div>
+          <TagList tags={editTags || []} />
         </div>
         <CharacterCardList />
 

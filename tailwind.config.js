@@ -18,6 +18,11 @@ module.exports = {
       backgroundColor: {
         'admin-bg': '#ffffff',
       },
+      screens: {
+        // sm: '986px',
+        sm: '800px',
+        md: '1080px',
+      },
     },
     colors: {
       white: '#ffffff',

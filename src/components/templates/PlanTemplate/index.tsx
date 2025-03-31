@@ -1,5 +1,6 @@
 'use client';
 
+import MobileTabHeader from '@/components/molecules/MobileTabHeader';
 import StoryArc from '@/components/molecules/StoryArc';
 import WorkSpaceTabHeader from '@/components/organisms/WorkSpaceTabHeader';
 import { StoryArc as IStoryArc } from '@/shared';
@@ -65,7 +66,12 @@ export default function PlanTemplate({ storyArcs }: PlanTemplateProps) {
   return (
     <div className="flex flex-col items-center">
       <div className="w-full flex flex-col gap-[8px]">
-        <WorkSpaceTabHeader currentTab="plan" />
+        <div className="hidden sm:block">
+          <WorkSpaceTabHeader currentTab="plan" />
+        </div>
+        <div className="block sm:hidden">
+          <MobileTabHeader currentTab="plan" />
+        </div>
         {arcs.map((arc, index) => (
           <StoryArc
             key={arc.phase}
