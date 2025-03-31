@@ -42,8 +42,8 @@ export default async function DetailRoomLayout({
 
   return (
     <div className="w-full flex items-center justify-center">
-      <div className="flex flex-col sm:items-center sm:flex-row gap-[40px] w-full max-w-[1400px]">
-        <div className="w-full max-w-[300px] hidden sm:block">
+      <div className="flex flex-col  sm:flex-row gap-[40px] w-full max-w-[1400px]">
+        <div className="w-full max-w-[300px] hidden sm:flex items-start">
           <ContributerList members={members} />
         </div>
         <div className="flex flex-col gap-[16px] w-full">
