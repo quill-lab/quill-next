@@ -12,12 +12,12 @@ export default function CharacterCardList() {
   console.log({ list });
 
   return (
-    <div className={'grid grid-cols-2 sm:flex gap-4 flex-wrap'}>
+    <div className={'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 flex-wrap'}>
       {editMode
         ? list.map((character, index) => (
             <div
               key={character.name}
-              className="w-full sm:w-[238px] min-h-[200px] p-[20px] bg-white-opacity-50 focus-within:bg-[#FFFFFFCC] flex flex-col items-center justify-start rounded-xl"
+              className="w-full min-h-[200px] p-[20px] bg-white-opacity-50 focus-within:bg-[#FFFFFFCC] flex flex-col items-center justify-start rounded-xl"
             >
               <div
                 className="w-full flex justify-end "

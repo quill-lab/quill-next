@@ -19,9 +19,9 @@ module.exports = {
         'admin-bg': '#ffffff',
       },
       screens: {
-        // sm: '986px',
         sm: '800px',
-        md: '1080px',
+        md: '1048px',
+        lg: '1140px',
       },
     },
     colors: {
