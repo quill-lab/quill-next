@@ -37,7 +37,7 @@ const MobileContributerList = ({ members }: MobileContributerListProps) => {
 
   return (
     <motion.div
-      className="block sm:hidden fixed w-full bottom-[0px] left-[0px] rounded-tl-[10px] rounded-tr-[10px] bg-[#F8F8F8] py-[8px] px-[24px] flex flex-col items-start"
+      className="block sm:hidden fixed cursor-pointer w-full bottom-[0px] left-[0px] rounded-tl-[10px] rounded-tr-[10px] bg-[#F8F8F8] py-[8px] px-[24px] flex flex-col items-start"
       initial={{ height: 50 }} // 초기 높이
       animate={{ height: isOpen ? '280px' : '50px' }}
       transition={{ duration: 0.3 }} // 애니메이션 속도
