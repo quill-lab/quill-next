@@ -7,7 +7,13 @@ import { CompletedLogoTextHeaderProps } from './type';
 // 안쓰는 중임
 export const CompletedLogoTextHeader = ({ title, description }: CompletedLogoTextHeaderProps) => (
   <header className={styles.header}>
-    <Image className={styles.headerLogo} src={'/images/login-logo.svg'} alt="logo" />
+    <Image
+      className={styles.headerLogo}
+      src={'/images/login-logo.svg'}
+      alt="logo"
+      width={30}
+      height={30}
+    />
     <h2 className={styles.headerTitle}>{title}</h2>
     <p className={styles.headerDescription}>{description}</p>
   </header>

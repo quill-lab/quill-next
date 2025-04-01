@@ -75,7 +75,7 @@ export default function Login() {
   return (
     <div className={st.container}>
       <div className={st.inputContainer}>
-        <Image src={'/images/login-logo.svg'} alt="작가의 정원 메인 로고" />
+        <Image src={'/images/login-logo.svg'} width={30} height={30} alt="작가의 정원 메인 로고" />
         <p className={st.text1}>
           <span>이야기에 상상력을 더하고</span>
           <br />
