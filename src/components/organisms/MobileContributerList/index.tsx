@@ -51,7 +51,12 @@ const MobileContributerList = ({ members }: MobileContributerListProps) => {
         >
           작가 순서 관리
         </div>
-        <Image src={'/images/tooltip.svg'} alt="tool-tip" width={12} height={10} />
+        <Image
+          src={isOpen ? '/images/tooltip-down.svg' : '/images/tooltip.svg'}
+          alt="tool-tip"
+          width={12}
+          height={10}
+        />
       </div>
 
       <div className="w-full flex flex-col items-center justify-center">
