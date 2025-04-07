@@ -1,11 +1,8 @@
-import { NextAdmin, PageProps } from "@premieroctet/next-admin";
-import { getNextAdminProps } from "@premieroctet/next-admin/appRouter";
-import { prisma } from "@/lib/prisma";
+import { NextAdmin, PageProps } from '@premieroctet/next-admin';
+import { getNextAdminProps } from '@premieroctet/next-admin/appRouter';
+import { prisma } from '@/lib/prisma';
 
-export default async function AdminPage({
-  params,
-  searchParams,
-}: PageProps) {
+export default async function AdminPage({ params, searchParams }: PageProps) {
   // Prisma Client 연결 테스트
   try {
     await prisma.$connect();
@@ -18,14 +15,14 @@ export default async function AdminPage({
   const props = await getNextAdminProps({
     params: params.nextadmin,
     searchParams,
-    basePath: "/admin",
-    apiBasePath: "/api/admin",
-    prisma
+    basePath: '/admin',
+    apiBasePath: '/api/admin',
+    prisma,
   });
 
   return (
-    <NextAdmin 
-      {...props} 
+    <NextAdmin
+      {...props}
       // models={{
       //   articles: {
       //     displayName: "게시글",

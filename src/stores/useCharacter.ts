@@ -32,7 +32,7 @@ export const useCharacterStore = create<CharacterStore>(set => ({
   addCharacter: () =>
     set(state => ({
       list: [
-        ...state.list,
+        ...(state.list && state.list.length > 0 ? state.list : []),
         {
           id: generateId(),
           name: '등장인물 이름',

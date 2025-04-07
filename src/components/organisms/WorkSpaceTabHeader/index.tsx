@@ -1,4 +1,6 @@
+import LoadingBar from '@/components/atoms/LoadingBar';
 import { useParams, useRouter } from 'next/navigation';
+import { useTransition } from 'react';
 
 interface WorkSpaceTabHeaderProps {
   currentTab: string;
@@ -7,6 +9,7 @@ interface WorkSpaceTabHeaderProps {
 export default function WorkSpaceTabHeader({ currentTab }: WorkSpaceTabHeaderProps) {
   const router = useRouter();
   const params = useParams();
+  const [isPending, startTransition] = useTransition();
   const roomId = params?.roomId;
 
   const tabHeader = [
@@ -37,18 +40,31 @@ export default function WorkSpaceTabHeader({ currentTab }: WorkSpaceTabHeaderPro
     },
   ];
 
+  const navigate = (url: string) => {
+    startTransition(() => {
+      router.push(url);
+    });
+  };
+
   return (
-    <div className="w-full flex gap-[14px] justify-center items-center">
-      {tabHeader.map(tab => (
-        <div
-          onClick={() => router.push(tab.url)}
-          className={`cursor-pointer w-full py-[15px] rounded-tl-[20px] rounded-tr-[20px] text-center font-spoqa text-[#2D2D2D] text-[14px] font-[500] ${
-            tab.alias === currentTab ? 'bg-[#fff]' : 'bg-white/80'
-          }`}
-        >
-          {tab.name}
+    <div className="relative">
+      {isPending && (
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <LoadingBar />
         </div>
-      ))}
+      )}
+      <div className="w-full flex gap-[14px] justify-center items-center">
+        {tabHeader.map(tab => (
+          <div
+            onClick={() => navigate(tab.url)}
+            className={`cursor-pointer w-full py-[15px] rounded-tl-[20px] rounded-tr-[20px] text-center font-spoqa text-[#2D2D2D] text-[14px] font-[500] ${
+              tab.alias === currentTab ? 'bg-[#fff]' : 'bg-white/80'
+            }`}
+          >
+            {tab.name}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

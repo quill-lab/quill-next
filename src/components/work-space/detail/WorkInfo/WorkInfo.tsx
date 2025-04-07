@@ -79,8 +79,6 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
         token: session?.user?.token,
       });
 
-      console.log(characterList);
-
       await callApi({
         url: `/api/v1/novel-rooms/${roomId}/characters`,
         body: {

@@ -1,5 +1,6 @@
 import { NextAuthOptions, User as NextAuthUser } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { prisma } from './lib/prisma';
 
 interface CustomUser extends NextAuthUser {
   token: string;
@@ -25,11 +26,13 @@ export const authOptions: NextAuthOptions = {
             headers: { 'Content-Type': 'application/json' },
           });
           const resData = await res.json();
+          const account = await prisma.accounts.findFirst({ where: { email: credentials?.email } });
 
           if (!res.ok) return null;
 
           return {
-            id: resData.userId ?? 'default-id',
+            id: account?.id ?? 'default-id',
+            email: account?.email,
             token: resData.token,
           } as CustomUser;
         } catch (error) {
@@ -43,12 +46,16 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.token = (user as CustomUser).token;
+        token.id = (user as CustomUser).id;
+        token.email = (user as CustomUser).email;
       }
       return token;
     },
     async session({ session, token }) {
       if (token) {
         session.user.token = token.token;
+        session.user.id = token.id;
+        session.user.email = token.email;
       }
       return session;
     },
@@ -58,10 +65,14 @@ export const authOptions: NextAuthOptions = {
 declare module 'next-auth' {
   interface User {
     token: string;
+    id: string;
+    email: string;
   }
 
   interface Session {
     user: {
+      id: string;
+      email: string;
       token: string;
     };
   }
@@ -70,5 +81,7 @@ declare module 'next-auth' {
 declare module 'next-auth/jwt' {
   interface JWT {
     token: string;
+    id: string;
+    email: string;
   }
 }

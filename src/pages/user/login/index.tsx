@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 
@@ -17,6 +18,7 @@ import { loginSchema } from '@/shared/utils/validation-schemas';
 import { useLoginUser } from '@/stores/useLoginUser';
 import { signIn } from 'next-auth/react';
 import callApi from '@/shared/utils/fetchWrapper';
+import { useState } from 'react';
 
 interface IFormInput {
   email?: string;
@@ -26,6 +28,7 @@ interface IFormInput {
 export default function Login() {
   const route = useRouter();
   const { email, password } = useLoginData();
+  const [isShowPassword, setIsShowPassword] = useState(false);
   const { setUser } = useLoginUser();
   const {
     register,
@@ -94,12 +97,20 @@ export default function Login() {
             )}
           </div>
           <div className={`${st.mt18} ${st.inputWrapper}`}>
-            <input
-              id="password"
-              type="password"
-              placeholder="비밀번호를 입력해 주세요."
-              {...register('password')}
-            />
+            <div className="relative">
+              <input
+                id="password"
+                type={isShowPassword ? 'text' : 'password'}
+                placeholder="비밀번호를 입력해 주세요."
+                {...register('password')}
+              />
+              <button
+                onClick={() => setIsShowPassword(prev => !prev)}
+                className="bg-red-500 absolute right-[20px] top-1/2 transform -translate-y-1/2"
+              >
+                {isShowPassword ? <FaEye /> : <FaEyeSlash />}
+              </button>
+            </div>
             {errors.password && (
               <span className={'text-error text-xs pt-1'}>{errors.password.message}</span>
             )}

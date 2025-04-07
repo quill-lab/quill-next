@@ -9,12 +9,11 @@ import { useEffect } from 'react';
 export default function CharacterCardList() {
   const { editMode } = useNovelRoom();
   const { list, addCharacter, removeCharacter, updateCharacter } = useCharacterStore();
-  console.log({ list });
 
   return (
     <div className={'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 flex-wrap'}>
-      {editMode
-        ? list.map((character, index) => (
+      {editMode && list?.length
+        ? list?.map((character, index) => (
             <div
               key={character.name}
               className="w-full min-h-[200px] p-[20px] bg-white-opacity-50 focus-within:bg-[#FFFFFFCC] flex flex-col items-center justify-start rounded-xl"
@@ -41,7 +40,8 @@ export default function CharacterCardList() {
               />
             </div>
           ))
-        : list?.map(character => (
+        : list?.length &&
+          list?.map(character => (
             <CharacterInfoCard
               key={character.id}
               id={character.id}
