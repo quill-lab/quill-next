@@ -107,13 +107,13 @@ export default function Login() {
               <span className={'text-error text-xs pt-1'}>{errors.password.message}</span>
             )}
           </div>
-          <button
+          {/* <button
             type="submit"
             disabled={status === 'pending'}
             className={`${st.loginBtn} ${st.mt21}`}
           >
             {status === 'pending' ? '로그인 중...' : '로그인'}
-          </button>
+          </button> */}
         </form>
         <div className={`${st.linkContainer} ${st.mt32}`}>
           <p className={st.text2}>
