@@ -2,7 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaEye, FaEyeSlash } from 'react-icons/fa6';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import type { IconType } from 'react-icons';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 
@@ -108,7 +109,7 @@ export default function Login() {
                 onClick={() => setIsShowPassword(prev => !prev)}
                 className="bg-red-500 absolute right-[20px] top-1/2 transform -translate-y-1/2"
               >
-                {isShowPassword ? <FaEye /> : <FaEyeSlash />}
+                {isShowPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
               </button>
             </div>
             {errors.password && (
