@@ -1,10 +1,8 @@
 import { CharacterInfoCard } from '@/components/work-space/detail/CharacterInfoCard/CharacterInfoCard';
-import { CharacterInfo } from '@/interfaces';
 import { useNovelRoom } from '@/stores';
 import { useCharacterStore } from '@/stores/useCharacter';
 import Image from 'next/image';
 import './custom-scrollbar.scss';
-import { useEffect } from 'react';
 
 export default function CharacterCardList() {
   const { editMode } = useNovelRoom();
@@ -15,7 +13,7 @@ export default function CharacterCardList() {
       {editMode && list?.length
         ? list?.map((character, index) => (
             <div
-              key={character.name}
+              key={character.id}
               className="w-full min-h-[200px] p-[20px] bg-white-opacity-50 focus-within:bg-[#FFFFFFCC] flex flex-col items-center justify-start rounded-xl"
             >
               <div
@@ -28,7 +26,10 @@ export default function CharacterCardList() {
                 <div
                   contentEditable
                   className="w-full bg-[transparent] px-[4px] py-[4px] outline-none break-words whitespace-pre-wrap text-[#2D2D2D] text-[14px] font-[500]"
-                  onChange={e => updateCharacter(index, 'name', e.currentTarget.textContent || '')}
+                  onBlur={e => {
+                    console.log('===================:', e.currentTarget.textContent);
+                    updateCharacter(index, 'name', e.currentTarget.textContent || '');
+                  }}
                 >
                   {character.name}
                 </div>
