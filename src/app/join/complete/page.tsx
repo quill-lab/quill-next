@@ -1,10 +1,12 @@
+'use client';
+
 import React from 'react';
 
 import { Completed } from '@/components/Completed/Completed';
 import { CompletedLogoTextHeader } from '@/components/CompletedLogoTextHeader/CompletedLogoTextHeader';
 
 import styles from './complete.module.scss';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const CreatedUser = () => {
   const route = useRouter();
