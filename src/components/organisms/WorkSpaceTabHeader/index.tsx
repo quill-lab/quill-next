@@ -48,11 +48,7 @@ export default function WorkSpaceTabHeader({ currentTab }: WorkSpaceTabHeaderPro
 
   return (
     <div className="relative">
-      {isPending && (
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <LoadingBar />
-        </div>
-      )}
+      {isPending && <LoadingBar />}
       <div className="w-full flex gap-[14px] justify-center items-center">
         {tabHeader.map(tab => (
           <div
