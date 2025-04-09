@@ -1,7 +1,9 @@
 'use client';
 
+import LoadingBar from '@/components/atoms/LoadingBar';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
+import { useTransition } from 'react';
 
 interface WorkSpaceTabHeaderProps {
   currentTab: string;
@@ -11,6 +13,7 @@ const MobileTabHeader = ({ currentTab }: WorkSpaceTabHeaderProps) => {
   const router = useRouter();
   const params = useParams();
   const roomId = params?.roomId;
+  const [isPending, startTransition] = useTransition();
 
   const tabHeader: { [key: string]: { name: string; url: string; index: number } } = {
     info: {
@@ -40,24 +43,31 @@ const MobileTabHeader = ({ currentTab }: WorkSpaceTabHeaderProps) => {
     },
   };
 
+  const transition = (url: string) => {
+    startTransition(() => {
+      router.push(url);
+    });
+  };
+
   const handlePrevTab = (index: number) => {
     if (index === 0) {
-      router.push(`/work-space/detail/${roomId}/author`);
+      transition(`/work-space/detail/${roomId}/author`);
     } else {
-      router.push(`/work-space/detail/${roomId}/${Object.keys(tabHeader)[index - 1]}`);
+      transition(`/work-space/detail/${roomId}/${Object.keys(tabHeader)[index - 1]}`);
     }
   };
 
   const handleNextTab = (index: number) => {
     if (index === Object.keys(tabHeader).length - 1) {
-      router.push(`/work-space/detail/${roomId}/info`);
+      transition(`/work-space/detail/${roomId}/info`);
     } else {
-      router.push(`/work-space/detail/${roomId}/${Object.keys(tabHeader)[index + 1]}`);
+      transition(`/work-space/detail/${roomId}/${Object.keys(tabHeader)[index + 1]}`);
     }
   };
 
   return (
-    <div className="flex justify-between items-center py-[8px] px-[24px] bg-[#fff] rounded-[10px]">
+    <div className="relative flex justify-between items-center py-[8px] px-[24px] bg-[#fff] rounded-[10px]">
+      {isPending && <LoadingBar />}
       <Image
         onClick={() => handlePrevTab(tabHeader[currentTab].index)}
         src={'/images/left-shevron.svg'}
