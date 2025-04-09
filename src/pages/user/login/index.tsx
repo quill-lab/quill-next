@@ -95,9 +95,18 @@ export default function Login() {
                 type={isShowPassword ? 'text' : 'password'}
                 placeholder="비밀번호를 입력해 주세요."
                 {...register('password')}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleSubmit(onSubmit)();
+                  }
+                }}
               />
               <button
-                onClick={() => setIsShowPassword(prev => !prev)}
+                onClick={e => {
+                  setIsShowPassword(prev => !prev);
+                }}
                 className="bg-red-500 absolute right-[20px] top-1/2 transform -translate-y-1/2"
               >
                 {isShowPassword ? <FaIcons.FaEye size={20} /> : <FaIcons.FaEyeSlash size={20} />}
