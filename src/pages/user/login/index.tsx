@@ -105,6 +105,8 @@ export default function Login() {
               />
               <button
                 onClick={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
                   setIsShowPassword(prev => !prev);
                 }}
                 className="bg-red-500 absolute right-[20px] top-1/2 transform -translate-y-1/2"
