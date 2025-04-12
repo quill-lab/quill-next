@@ -83,6 +83,13 @@ export default function Login() {
               type="text"
               placeholder="이메일을 입력해 주세요."
               {...register('email')}
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleSubmit(onSubmit)();
+                }
+              }}
             />
             {errors.email && (
               <span className={'text-error text-xs pt-1'}>{errors.email.message}</span>
