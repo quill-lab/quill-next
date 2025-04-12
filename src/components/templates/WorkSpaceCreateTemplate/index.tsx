@@ -3,7 +3,7 @@
 import { useCreateNovelPost } from '@/stores';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { config } from '@/config/config';
 import { createCharacter, createRecruitments, CreateRoom } from '@/fetch/post';
 import WorkSpace from '@/app/work-space/create/work-space';
@@ -14,6 +14,7 @@ import st from '@/app/work-space/create/work-space.module.scss';
 import { Tooltip, WorkspaceCreationModal } from '@/components';
 import { CreateRecruitments, CreateRoomArg } from '@/shared';
 import { useSession } from 'next-auth/react';
+import LoadingBar from '@/components/atoms/LoadingBar';
 
 const pageComponentsMap: Record<number, React.ReactNode> = {
   0: <WorkSpace />,
@@ -26,6 +27,7 @@ export default function WorkSpaceCreateTemplate() {
   const [pageIdx, setPageIdx] = useState(0);
   const [isModalOpen, setModalOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const {
     type,
@@ -89,31 +91,33 @@ export default function WorkSpaceCreateTemplate() {
 
   const handleClickModalConfirm = async () => {
     setModalOpen(false);
-    const createdRoom = await createRoom({
-      body: {
-        title: title,
-        maxContributors: type,
-        category: category,
-        description: subTitle,
-        tags: novelTag,
-        synopsis: summary || null,
-        coverImage: bookCover || null,
-      },
-      token: session?.user?.token!,
-    });
+    startTransition(async () => {
+      const createdRoom = await createRoom({
+        body: {
+          title: title,
+          maxContributors: type,
+          category: category,
+          description: subTitle,
+          tags: novelTag,
+          synopsis: summary || null,
+          coverImage: bookCover || null,
+        },
+        token: session?.user?.token!,
+      });
 
-    const createdRecruitment = await createRecruitmentsByRoomId({
-      roomId: createdRoom.id,
-      body: {
-        title: postTitle,
-        content: postContent,
-        link: openLink,
-      },
-      token: session?.user?.token!,
-    });
+      const createdRecruitment = await createRecruitmentsByRoomId({
+        roomId: createdRoom.id,
+        body: {
+          title: postTitle,
+          content: postContent,
+          link: openLink,
+        },
+        token: session?.user?.token!,
+      });
 
-    console.log(createdRecruitment);
-    route.replace('/work-space/create/complete');
+      console.log(createdRecruitment);
+      route.replace('/work-space/create/complete');
+    });
   };
 
   const handleClickModalCancel = () => {
@@ -122,11 +126,12 @@ export default function WorkSpaceCreateTemplate() {
 
   return (
     <>
-      <div className={st.container}>
+      <div className={`${st.container} relative`}>
+        {isPending && <LoadingBar />}
         <div className={`${st.contentContainer} mt-36`}>{pageComponentsMap[pageIdx]}</div>
         <div className={'flex justify-center items-center mt-8'}>
           <button type="button" className={`${st.nextBtn} blue-btn`} onClick={handleClickButton}>
-            {pageIdx === 0 ? '다음' : '완료'}
+            {type === 1 ? '완료' : '다음'}
           </button>
           <div className={'relative'}>
             <Image
