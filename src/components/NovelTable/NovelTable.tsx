@@ -4,8 +4,6 @@ import { dateChanger } from '@/shared/utils/dateChange';
 import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
 import { NovelItem, NovelPost } from '@/shared';
-
-import styles from './NovelTable.module.scss';
 import { NovelTableProps } from './type';
 import Link from 'next/link';
 
@@ -43,7 +41,7 @@ const ActiveTabTableBody = ({ item }: { item: NovelItem }) => {
   return (
     <tr
       key={item.id}
-      className="text-[#2D2D2D] text-[14px] font-[500]"
+      className="h-12 text-[#2D2D2D] text-[14px] font-medium border-b border-gray-100 transition-all duration-200 ease-in-out cursor-pointer hover:text-blue-500"
       onClick={() => onClickTableItem(item.id)}
     >
       <td style={{ width: '11.75rem' }}>{item.category.alias}</td>
@@ -80,16 +78,16 @@ function PendingTabTableBody({ item }: { item: NovelItem }) {
   };
 
   return (
-    <tr key={item.id} onClick={() => onClickTableItem(item.id)}>
-      {/* <td style={{ width: '11.75rem' }}>{item.category.name}</td> */}
+    <tr
+      key={item.id}
+      className="h-12 text-[#2D2D2D] text-[14px] font-medium border-b border-gray-100 transition-all duration-200 ease-in-out cursor-pointer hover:text-blue-500"
+      onClick={() => onClickTableItem(item.id)}
+    >
       <td style={{ width: '15rem' }}>{item.title}</td>
       <td style={{ width: '9rem' }}>{dateChanger(item.createdAt)}</td>
       <td style={{ width: '9.25rem' }}>{dateChanger(item.completedAt)}</td>
       <td style={{ width: '11.75rem' }}>{dateChanger(item.exitedAt)}</td>
       <td style={{ width: '9rem' }}>승인대기</td>
-      {/* <td style={{ width: '6rem' }}>{item.currentAttendCnt}/5</td>
-      <td style={{ width: '9rem' }}>{item.currentWriter}</td>
-      <td style={{ width: '6rem' }}>{item.status}</td> */}
     </tr>
   );
 }
@@ -116,11 +114,13 @@ export const NovelTable = ({ tableData, tab }: NovelTableProps) => {
   };
 
   return (
-    <table className={styles.table}>
-      <thead>
+    <table className="min-w-full text-center text-[14px] border-collapse">
+      <thead className="border-b border-gray-300">
         <tr>
           {tabHeaders.map(name => (
-            <th key={name}>{name}</th>
+            <th key={name} className="h-12 font-medium">
+              {name}
+            </th>
           ))}
         </tr>
       </thead>
