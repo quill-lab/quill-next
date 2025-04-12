@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useTransition } from 'react';
 import { CharacterInfoCard } from '@/components/work-space/detail/CharacterInfoCard/CharacterInfoCard';
 import { useQueryWrap } from '@/hooks/reactQeuryWrapper';
 import { getCharactersInfo, novelRoomInfo } from '@/fetch/get';
@@ -21,6 +21,7 @@ import { useCharacterStore } from '@/stores/useCharacter';
 import { useNovelRoom } from '@/stores';
 import TagList from '@/components/organisms/TagList';
 import MobileTabHeader from '@/components/molecules/MobileTabHeader';
+import LoadingBar from '@/components/atoms/LoadingBar';
 
 interface WorkInfoTemplateProps {
   novelRoomInfo: NovelItem;
@@ -31,6 +32,7 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
   const params = useParams();
   const roomId = params?.roomId;
   const { data: session } = useSession();
+  const [isPending, startTransition] = useTransition();
 
   const { list: characterList, toggleEditingCharacters, initialCharacters } = useCharacterStore();
   const {
@@ -65,33 +67,35 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
         validateTags = novelRoomInfo.tags;
       }
 
-      await callApi({
-        url: `/api/v1/novel-rooms/${roomId}`,
-        body: {
-          title: editTitle || novelRoomInfo.title,
-          description:
-            editDescription || novelRoomInfo.description || '작품의 소개글을 적어주세요.',
-          tags: validateTags,
-          category: novelRoomInfo.category.name,
-          synopsis: editSynopsis || novelRoomInfo.synopsis || '작품의 줄거리를 적어주세요.',
-        },
-        method: 'PATCH',
-        token: session?.user?.token,
-      });
+      startTransition(async () => {
+        await callApi({
+          url: `/api/v1/novel-rooms/${roomId}`,
+          body: {
+            title: editTitle || novelRoomInfo.title,
+            description:
+              editDescription || novelRoomInfo.description || '작품의 소개글을 적어주세요.',
+            tags: validateTags,
+            category: novelRoomInfo.category.name,
+            synopsis: editSynopsis || novelRoomInfo.synopsis || '작품의 줄거리를 적어주세요.',
+          },
+          method: 'PATCH',
+          token: session?.user?.token,
+        });
 
-      await callApi({
-        url: `/api/v1/novel-rooms/${roomId}/characters`,
-        body: {
-          characters: characterList.map(({ isNew, id, ...character }) => ({
-            ...character,
-            id: isNew ? undefined : id,
-          })),
-        },
-        method: 'PUT',
-        token: session?.user?.token,
+        await callApi({
+          url: `/api/v1/novel-rooms/${roomId}/characters`,
+          body: {
+            characters: characterList.map(({ isNew, id, ...character }) => ({
+              ...character,
+              id: isNew ? undefined : id,
+            })),
+          },
+          method: 'PUT',
+          token: session?.user?.token,
+        });
+        toggleEditMode();
+        toggleEditingCharacters();
       });
-      toggleEditMode();
-      toggleEditingCharacters();
 
       return;
     }
@@ -102,6 +106,7 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
 
   return (
     <div className={'flex flex-col gap-[18px] items-center w-full'}>
+      {isPending && <LoadingBar />}
       <div className={'flex flex-col gap-[10px] w-full'}>
         <div className="hidden sm:block">
           <WorkSpaceTabHeader currentTab="info" />
