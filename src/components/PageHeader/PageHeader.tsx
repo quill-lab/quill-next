@@ -62,9 +62,13 @@ export const PageHeader = () => {
             onClick={handleClickLogo}
             className="cursor-pointer"
           />
-          <div className="">웹소설</div>
-          <div onClick={() => router.push('/work-space')}>소설공방</div>
-          <div onClick={() => router.push('/recruit')}>작가모집</div>
+          <div className="cursor-pointer">웹소설</div>
+          <div className="cursor-pointer" onClick={() => router.push('/work-space')}>
+            소설공방
+          </div>
+          <div className="cursor-pointer" onClick={() => router.push('/recruit')}>
+            작가모집
+          </div>
         </div>
         <div className="w-full flex items-center justify-end gap-[44px]">
           <Notice
