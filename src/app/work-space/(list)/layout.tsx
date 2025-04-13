@@ -10,7 +10,7 @@ export default function DetailedWorkSpaceLayout({ children }: { children: React.
       </div>
 
       {/* MobileHeader for smaller screens */}
-      <div className="w-full block sm:hidden bg-[#9CE1E6] pt-[8px]">
+      <div className="w-full block sm:hidden bg-[#9CE1E6] pt-[8px] px-[16px]">
         <MobileHeader />
       </div>
       <div className="flex gap-10">{children}</div>
