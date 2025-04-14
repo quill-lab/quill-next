@@ -30,8 +30,8 @@ export default function WorkSpaceTabHeader({ currentTab }: WorkSpaceTabHeaderPro
     },
     {
       name: '작품 회차',
-      alias: '',
-      url: '/',
+      alias: 'episode',
+      url: `/work-space/detail/${roomId}/episode`,
     },
     {
       name: '작가 관리',

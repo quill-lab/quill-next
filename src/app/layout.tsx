@@ -1,4 +1,3 @@
-// RootLayout.tsx
 import './globals.css';
 import { ClientProviders } from './clientProvider';
 import { getSession, SessionProvider } from 'next-auth/react';
