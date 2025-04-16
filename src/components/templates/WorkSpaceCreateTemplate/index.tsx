@@ -115,7 +115,6 @@ export default function WorkSpaceCreateTemplate() {
         token: session?.user?.token!,
       });
 
-      console.log(createdRecruitment);
       route.replace('/work-space/create/complete');
     });
   };

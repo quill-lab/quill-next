@@ -10,7 +10,7 @@ export default function DetailedWorkSpaceLayout({ children }: { children: React.
     <Suspense fallback={<LoadingBar />}>
       <div
         className={
-          'pt-[8px] sm:pb-[72px] px-[16px] w-full bg-cover bg-[#9DE1E6] min-h-screen flex flex-col gap-4 items-center justify-start sm:justify-center overscroll-none'
+          'pt-[8px] sm:pb-[72px] px-[16px] w-full bg-cover bg-[#9DE1E6] min-h-screen flex flex-col gap-4 items-center justify-start overscroll-none'
         }
       >
         {/* PageHeader for larger screens */}

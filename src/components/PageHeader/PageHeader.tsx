@@ -11,7 +11,11 @@ import { storageKey } from '@/constants';
 import { useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 
-export const PageHeader = () => {
+interface PageHeaderProps {
+  bg?: string;
+}
+
+export const PageHeader = ({ bg = 'transparent' }: PageHeaderProps) => {
   const [search, setSearch] = useState<string>('');
   const router = useRouter();
   const [visibleAlarm, setVisibleAlarm] = useState<boolean>(false);
@@ -52,7 +56,10 @@ export const PageHeader = () => {
     <header
       className={`flex w-full max-w-[1400px] justify-center items-center h-32 text-4 font-[500] bg-transparent`}
     >
-      <div className="flex justify-between text-[#059EAF] px-[44px] w-full items-center h-16 rounded-full border border-[#059EAF] bg-gray-200 bg-opacity-50">
+      <div
+        className="flex justify-between text-[#059EAF] px-[44px] w-full items-center h-16 rounded-full border border-[#059EAF] bg-gray-200 bg-opacity-50"
+        style={{ backgroundColor: bg }}
+      >
         <div className="w-full flex items-center gap-[44px]">
           <Image
             src={'/images/login-logo.svg'}
