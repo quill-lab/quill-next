@@ -52,6 +52,18 @@
             "null"
           ],
           "format": "date-time"
+        },
+        "contributor_group_recruitments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/contributor_group_recruitments"
+          }
+        },
+        "recruitment_user_likes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/recruitment_user_like"
+          }
         }
       },
       "required": [
@@ -384,15 +396,15 @@
             "null"
           ]
         },
-        "contributor_group_id": {
+        "like": {
           "type": [
-            "string",
+            "integer",
             "null"
           ]
         },
-        "author_id": {
+        "view": {
           "type": [
-            "string",
+            "integer",
             "null"
           ]
         },
@@ -402,10 +414,59 @@
             "null"
           ],
           "format": "date-time"
+        },
+        "contributor_group": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/contributor_groups"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "author": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/accounts"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "recruitment_user_likes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/recruitment_user_like"
+          }
+        }
+      },
+      "required": []
+    },
+    "recruitment_user_like": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "user": {
+          "$ref": "#/definitions/accounts"
+        },
+        "recruitment": {
+          "$ref": "#/definitions/contributor_group_recruitments"
         }
       },
       "required": [
-        "id"
+        "user_id",
+        "recruitment_id"
       ]
     },
     "contributor_groups": {
@@ -488,6 +549,12 @@
               "type": "null"
             }
           ]
+        },
+        "recruitments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/contributor_group_recruitments"
+          }
         }
       },
       "required": [
@@ -558,9 +625,7 @@
           ]
         }
       },
-      "required": [
-        "id"
-      ]
+      "required": []
     },
     "contributors": {
       "type": "object",
@@ -925,6 +990,9 @@
     },
     "contributor_group_recruitments": {
       "$ref": "#/definitions/contributor_group_recruitments"
+    },
+    "recruitment_user_like": {
+      "$ref": "#/definitions/recruitment_user_like"
     },
     "contributor_groups": {
       "$ref": "#/definitions/contributor_groups"

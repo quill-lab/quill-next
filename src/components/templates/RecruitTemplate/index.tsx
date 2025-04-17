@@ -5,7 +5,11 @@ import { PageHeader } from '@/components/PageHeader/PageHeader';
 import Image from 'next/image';
 import React from 'react';
 
-const RecruitTemplate = () => {
+interface RecruitTemplateProps {
+  recruitList: IRecruitCard[];
+}
+
+const RecruitTemplate = ({ recruitList }: RecruitTemplateProps) => {
   return (
     <div className="w-full min-h-screen flex flex-col">
       <div className="w-full flex flex-col items-center justify-start">
@@ -31,7 +35,7 @@ const RecruitTemplate = () => {
         </div>
       </div>
       <div className="flex flex-col mt-[48px] px-[200px] pb-[72px] flex-grow">
-        <RecruitCardList />
+        <RecruitCardList recruitCardList={recruitList} />
       </div>
     </div>
   );

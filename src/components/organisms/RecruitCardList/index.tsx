@@ -5,9 +5,11 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import Pagination from 'react-js-pagination';
 
-interface RecruitCardListProps {}
+interface RecruitCardListProps {
+  recruitCardList: IRecruitCard[];
+}
 
-const RecruitCardList = ({}: RecruitCardListProps) => {
+const RecruitCardList = ({ recruitCardList }: RecruitCardListProps) => {
   const router = useRouter();
   const pageSize = 6;
 
@@ -21,20 +23,29 @@ const RecruitCardList = ({}: RecruitCardListProps) => {
   return (
     <div>
       <div className="w-full grid grid-cols-2 gap-x-4 gap-y-6 place-items-center">
-        <RecruitCard />
-        <RecruitCard />
-        <RecruitCard />
-        <RecruitCard />
-        <RecruitCard />
-        <RecruitCard />
+        {recruitCardList.map(recruitCard => (
+          <RecruitCard
+            recruitData={{
+              id: recruitCard.id,
+              created_at: recruitCard.created_at,
+              title: recruitCard.title,
+              content: recruitCard.content,
+              link: recruitCard.link,
+              like: recruitCard.like,
+              view: recruitCard.view,
+              author: recruitCard.author,
+              contributor_group: recruitCard.contributor_group,
+            }}
+          />
+        ))}
       </div>
       <Pagination
         innerClass="cus-pagination"
         itemClass="cus-pagination-li"
         activePage={page + 1}
         itemsCountPerPage={pageSize}
-        totalItemsCount={totalCount ?? 0}
-        pageRangeDisplayed={5}
+        totalItemsCount={recruitCardList.length}
+        pageRangeDisplayed={6}
         prevPageText="‹"
         nextPageText="›"
         onChange={pageNumber => handleClickPagination(pageNumber)}

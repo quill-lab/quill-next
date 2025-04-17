@@ -15,6 +15,7 @@ import { Tooltip, WorkspaceCreationModal } from '@/components';
 import { CreateRecruitments, CreateRoomArg } from '@/shared';
 import { useSession } from 'next-auth/react';
 import LoadingBar from '@/components/atoms/LoadingBar';
+import { createRecruimentAction } from './action';
 
 const pageComponentsMap: Record<number, React.ReactNode> = {
   0: <WorkSpace />,
@@ -105,14 +106,21 @@ export default function WorkSpaceCreateTemplate() {
         token: session?.user?.token!,
       });
 
-      const createdRecruitment = await createRecruitmentsByRoomId({
-        roomId: createdRoom.id,
-        body: {
-          title: postTitle,
-          content: postContent,
-          link: openLink,
-        },
-        token: session?.user?.token!,
+      // const createdRecruitment = await createRecruitmentsByRoomId({
+      //   roomId: createdRoom.id,
+      //   body: {
+      //     title: postTitle,
+      //     content: postContent,
+      //     link: openLink,
+      //   },
+      //   token: session?.user?.token!,
+      // });
+      await createRecruimentAction({
+        title: postTitle,
+        content: postContent,
+        link: openLink,
+        contributorGroupId: createdRoom.id,
+        authorId: session?.user?.id || '',
       });
 
       route.replace('/work-space/create/complete');
