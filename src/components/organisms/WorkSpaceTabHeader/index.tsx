@@ -60,6 +60,7 @@ export default function WorkSpaceTabHeader({ currentTab }: WorkSpaceTabHeaderPro
         const admin = participatingAuthors.find(author => author.role === 'MAIN');
         if (admin?.id !== session?.user?.id) {
           toast.error('공방의 관리자만 접근할 수 있는 페이지입니다.');
+          return;
         }
       }
       router.push(url);
