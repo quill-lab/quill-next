@@ -91,8 +91,21 @@ const RecruitDetailTemplate = ({ recruitData }: RecruitDetailTemplateProps) => {
       recruitData.id,
       session?.user?.email
     );
-    if (result?.statusCode === 400) {
+
+    if (result?.code === 'A110') {
+      toast.error('이미 참여한 공방에는 신청할 수 없습니다.');
+    }
+
+    if (result?.code === 'A111') {
+      toast.error('이미 신청한 공방에는 신청할 수 없습니다.');
+    }
+
+    if (result?.code === 'A112') {
       toast.error('자신의 모집 공고에는 참가를 할 수 없습니다.');
+    }
+
+    if (result?.code === 'A113') {
+      toast.error('정원이 가득찬 공방입니다.');
     }
   };
 

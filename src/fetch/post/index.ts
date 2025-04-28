@@ -19,8 +19,8 @@ const method = 'POST';
 
 export function checkUserEmail(email: string) {
   return callApi<{ data: { result: boolean } }>({
-    url: `${config.apiUrl.user}/check-email`,
-    method,
+    url: `/api/v1/auth/check-email`,
+    method: 'POST',
     body: { email },
   });
 }
@@ -48,7 +48,7 @@ export function loginApi({ email, password }: LoginApiArg) {
 export function signUp({ email, password, nickname }: SignUpRequestModel) {
   return callApi<{ data: { accessToken: string } }>({
     url: config.apiUrl.signUp,
-    body: { email, password, nickname },
+    body: { email, password, name: nickname },
     method,
   });
 }

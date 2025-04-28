@@ -96,6 +96,18 @@ export const NovelTable = ({ tableData, tab }: NovelTableProps) => {
 
   const renderTableBody = () => {
     if (tab === 'attending') {
+      if (tableData.length === 0) {
+        return (
+          <div className={'flex w-full justify-center text-gray1 font-medium text-sm pt-4'}>
+            참여 신청 중인 소설공방이 없습니다.
+            <Link href={'/recruit'} className={'text-blue2 ml-1'}>
+              작가모집
+            </Link>
+            에서 원하는 소설공방을 찾아보세요.
+          </div>
+        );
+      }
+
       return tableData.map(item => <ActiveTabTableBody key={item.id} item={item} />);
     }
 

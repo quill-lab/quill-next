@@ -1,9 +1,14 @@
 'use client';
 
 import LoadingBar from '@/components/atoms/LoadingBar';
+import { callApiResponse } from '@/shared/interface/api';
+import { IParticipatingAuthor } from '@/shared/interface/author';
+import callApi from '@/shared/utils/fetchWrapper';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { useTransition } from 'react';
+import { toast } from 'react-toastify';
 
 interface WorkSpaceTabHeaderProps {
   currentTab: string;
@@ -11,6 +16,7 @@ interface WorkSpaceTabHeaderProps {
 
 const MobileTabHeader = ({ currentTab }: WorkSpaceTabHeaderProps) => {
   const router = useRouter();
+  const { data: session } = useSession();
   const params = useParams();
   const roomId = params?.roomId;
   const [isPending, startTransition] = useTransition();
@@ -36,22 +42,34 @@ const MobileTabHeader = ({ currentTab }: WorkSpaceTabHeaderProps) => {
       url: `/work-space/detail/${roomId}/episode`,
       index: 3,
     },
-    author: {
+    management: {
       name: '작가 관리',
-      url: `/work-space/detail/${roomId}/author`,
+      url: `/work-space/detail/${roomId}/management`,
       index: 4,
     },
   };
 
   const transition = (url: string) => {
-    startTransition(() => {
+    startTransition(async () => {
+      if (url.includes('/management')) {
+        const participatingAuthors: IParticipatingAuthor[] & callApiResponse = await callApi({
+          url: `/api/v1/novel-rooms/${roomId}/participants`,
+          method: 'GET',
+          token: session?.user?.token,
+        });
+
+        const admin = participatingAuthors.find(author => author.role === 'MAIN');
+        if (admin?.id !== session?.user?.id) {
+          toast.error('공방의 관리자만 접근할 수 있는 페이지입니다.');
+        }
+      }
       router.push(url);
     });
   };
 
   const handlePrevTab = (index: number) => {
     if (index === 0) {
-      transition(`/work-space/detail/${roomId}/author`);
+      transition(`/work-space/detail/${roomId}/management`);
     } else {
       transition(`/work-space/detail/${roomId}/${Object.keys(tabHeader)[index - 1]}`);
     }

@@ -47,6 +47,5 @@ export default async function EpisodePage({ params }: EpisodeInterface) {
   });
 
   const { data: episodes } = await client.query({ query: GET_EPISODES });
-  console.log({ episodes });
   return <EpisodeTemplate />;
 }

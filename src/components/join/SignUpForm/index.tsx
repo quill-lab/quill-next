@@ -13,6 +13,8 @@ import FormInput from '../../FormInput/FormInput';
 import FormInputWithButton from '../../FormInputWithButton/FormInputWithButton';
 import styles from './SignUpForm.module.scss';
 import { storageKey } from '@/constants';
+import callApi from '@/shared/utils/fetchWrapper';
+import { signIn } from 'next-auth/react';
 
 type SignUpFormValueKeys = keyof SignUpFormValues;
 
@@ -56,19 +58,26 @@ export const SignUpForm = () => {
   //   queryFn: () => userList(),
   //   placeholderData: keepPreviousData,
   // });
-  const { mutate, status, isError } = useMutation({
+  const { mutateAsync, status, isError } = useMutation({
     mutationKey: ['auth/joinUser'],
     mutationFn: signUp,
-    onSuccess: (data: { data: { accessToken: string } }) => {
-      localStorage.setItem(storageKey, `${data.data.accessToken}`);
-      route.replace('/join/complete');
+    onSuccess: async (data: { data: { accessToken: string } }) => {
+      const res = await signIn('credentials', {
+        redirect: true,
+        email: getValues('email'),
+        password: getValues('password'),
+        callbackUrl: '/join/complete', // 로그인 성공 시 리다이렉트할 경로
+      });
+
+      console.log('complete!!!!!');
+      // route.replace('/join/complete');
     },
   });
 
-  const onSubmit: SubmitHandler<SignUpFormValues> = data => {
+  const onSubmit: SubmitHandler<SignUpFormValues> = async data => {
     try {
       if (isValidEmail && isValidNickname) {
-        mutate({
+        await mutateAsync({
           email: data.email,
           password: data.password,
           nickname: data.nickname,
@@ -83,9 +92,13 @@ export const SignUpForm = () => {
 
   const handleEmailDuplicatedButton = async (): Promise<void> => {
     const email = getValues('email');
-    const isDuplicatEmail = (await checkUserEmail(email)).data;
-    const { result } = isDuplicatEmail;
-    if (result) {
+    const { isDuplicated } = await callApi<{ isDuplicated: boolean }>({
+      url: `/api/v1/auth/check-email`,
+      method: 'POST',
+      body: { email },
+    });
+
+    if (isDuplicated) {
       setIsDuplicatedEmail(true);
     } else {
       setIsDuplicatedEmail(false);
@@ -95,9 +108,13 @@ export const SignUpForm = () => {
 
   const handleNicknameButton = async (): Promise<void> => {
     const nickname = getValues('nickname');
-    const isDuplicatedNickname = (await checkUserNickname(nickname)).data;
-    const { result } = isDuplicatedNickname;
-    if (result) {
+    const { isDuplicated } = await callApi<{ isDuplicated: boolean }>({
+      url: `/api/v1/auth/check-nickname`,
+      method: 'POST',
+      body: { name: nickname },
+    });
+    console.log(isDuplicated);
+    if (isDuplicated) {
       setIsDuplicatedNickname(true);
     } else {
       setIsDuplicatedNickname(false);

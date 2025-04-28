@@ -99,8 +99,8 @@ const WorkSpace = ({ items, totalCount, size, page }: WordSpaceProps) => {
         </p>
       </div>
 
-      <main className="flex flex-col items-center pt-[50px]">
-        <div>
+      <main className="flex w-full flex-col items-center pt-[50px]">
+        <div className="w-full max-w-[1200px]">
           <InformationText
             text="참여 중인 소설공방으로 입장 할 수 있습니다."
             type={InformationTextType.primary}

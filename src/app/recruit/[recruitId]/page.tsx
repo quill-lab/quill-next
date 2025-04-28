@@ -30,6 +30,10 @@ const RecruitDetailPage = async ({ params }: { params: { recruitId: string } }) 
   const session = await getServerSession(authOptions);
   const recruitId = params.recruitId;
 
+  if (!session?.user?.token) {
+    redirect('/');
+  }
+
   if (!recruitId) {
     redirect('/recruit');
   }

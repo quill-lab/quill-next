@@ -1,6 +1,8 @@
 'use server';
 
+import { authOptions } from '@/authOptions';
 import { prisma } from '@/lib/prisma';
+import { getServerSession } from 'next-auth';
 import nodemailer from 'nodemailer';
 
 export const toggleLike = async (user_id = '', recruitment_id: string) => {
@@ -60,7 +62,8 @@ export const submitJoinRecruitment = async (
   recruitment_id: string,
   user_email = ''
 ) => {
-  console.log({ user_email });
+  const session = await getServerSession(authOptions);
+
   const contributorGroupRecruitments = await prisma.contributor_group_recruitments.findFirst({
     where: {
       id: recruitment_id,
@@ -68,6 +71,12 @@ export const submitJoinRecruitment = async (
     select: {
       contributor_group_id: true,
       author: true,
+      contributor_group: {
+        select: {
+          max_contributor_count: true,
+          contributor_count: true,
+        },
+      },
     },
   });
 
@@ -75,15 +84,52 @@ export const submitJoinRecruitment = async (
     return;
   }
 
+  // 자신의 공고인지 확인 후 맞다면 400 리턴
   if (contributorGroupRecruitments?.author?.email === user_email) {
-    return { statusCode: 400 };
+    return { code: 'A112' };
+  }
+
+  const [isJoined, isApplied] = await Promise.all([
+    // 이미 속해있는 공방인지 확인
+    prisma.contributor_requests.findFirst({
+      where: {
+        contributor_group_id: contributorGroupRecruitments.contributor_group_id || '',
+        account_id: session?.user?.id,
+        status: 'APPROVED',
+      },
+    }),
+
+    // 이미 처리한 공방인지 확인
+    prisma.contributor_requests.findFirst({
+      where: {
+        contributor_group_id: contributorGroupRecruitments.contributor_group_id || '',
+        account_id: session?.user?.id,
+        status: 'REQUESTED',
+      },
+    }),
+  ]);
+
+  if (isJoined) {
+    return { code: 'A110' };
+  }
+
+  if (isApplied) {
+    return { code: 'A111' };
+  }
+
+  // 정원이 가득찬 공방인지 확인
+  if (
+    contributorGroupRecruitments.contributor_group?.max_contributor_count ===
+    contributorGroupRecruitments.contributor_group?.contributor_count
+  ) {
+    return { code: 'A113' };
   }
 
   await prisma.contributor_requests.create({
     data: {
       account_id: user_id,
-      contributor_group_id: contributorGroupRecruitments?.contributor_group_id,
-      status: 'pending',
+      contributor_group_id: contributorGroupRecruitments?.contributor_group_id ?? '',
+      status: 'REQUESTED',
     },
   });
 
