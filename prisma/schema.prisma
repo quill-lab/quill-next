@@ -17,23 +17,23 @@ datasource db {
 }
 
 model accounts {
-  id           String    @id(map: "pk_accounts") @db.Uuid
-  created_at DateTime? @default(now()) @db.Timestamp(6)
-  updated_at   DateTime? @db.Timestamp(6)
-  deleted_at   DateTime? @db.Timestamp(6)
-  email        String?   @db.VarChar(255)
-  password     String?   @db.VarChar(255)
-  name         String?   @db.VarChar(255)
-  persisted_at DateTime? @db.Timestamp(6)
-
+  id                             String                           @id(map: "pk_accounts") @db.Uuid
+  created_at                     DateTime?                        @default(now()) @db.Timestamp(6)
+  updated_at                     DateTime?                        @db.Timestamp(6)
+  deleted_at                     DateTime?                        @db.Timestamp(6)
+  email                          String?                          @db.VarChar(255)
+  password                       String?                          @db.VarChar(255)
+  name                           String?                          @db.VarChar(255)
+  persisted_at                   DateTime?                        @db.Timestamp(6)
   contributor_group_recruitments contributor_group_recruitments[] @relation("AccountRecruitments")
-  recruitment_user_likes        recruitment_user_like[]
-}
+  recruitment_user_likes         recruitment_user_like[]
 
+  @@index([email], map: "idx_account_email")
+}
 
 model chapter_metadata {
   id            String    @id(map: "pk_chapter_metadata") @db.Uuid
-  created_at DateTime? @default(now()) @db.Timestamp(6)
+  created_at    DateTime? @default(now()) @db.Timestamp(6)
   persisted_at  DateTime? @db.Timestamp(6)
   updated_at    DateTime? @db.Timestamp(6)
   deleted_at    DateTime? @db.Timestamp(6)
@@ -43,36 +43,39 @@ model chapter_metadata {
 }
 
 model chapter_texts {
-  id           String    @id(map: "pk_chapter_texts") @db.Uuid
-  created_at DateTime? @default(now()) @db.Timestamp(6)
-  updated_at   DateTime? @db.Timestamp(6)
-  deleted_at   DateTime? @db.Timestamp(6)
-  content      String?
-  chapter_id   String?   @db.Uuid
-  account_id   String?   @db.Uuid
-  persisted_at DateTime? @db.Timestamp(6)
-  chapters     chapters? @relation(fields: [chapter_id], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "fk_chapter_text_chapter")
+  id             String    @id(map: "pk_chapter_texts") @db.Uuid
+  created_at     DateTime? @default(now()) @db.Timestamp(6)
+  updated_at     DateTime? @db.Timestamp(6)
+  deleted_at     DateTime? @db.Timestamp(6)
+  content        String?
+  chapter_id     String    @db.Uuid
+  account_id     String    @db.Uuid
+  persisted_at   DateTime? @db.Timestamp(6)
+  contributor_id String    @db.Uuid
+  status         String?   @db.VarChar(255)
+  chapters       chapters  @relation(fields: [chapter_id], references: [id], onDelete: Cascade, map: "fk_chapter_text_chapter")
 }
 
 model chapters {
-  id             String          @id(map: "pk_chapters") @db.Uuid
-  created_at DateTime? @default(now()) @db.Timestamp(6)
-  updated_at     DateTime?       @db.Timestamp(6)
-  deleted_at     DateTime?       @db.Timestamp(6)
-  title          String?         @db.VarChar(255)
-  description    String?
-  novel_id       String?         @db.Uuid
-  approved_at    DateTime?       @db.Timestamp(6)
-  chapter_number Int?
-  status         String?         @db.VarChar(255)
-  persisted_at   DateTime?       @db.Timestamp(6)
-  chapter_texts  chapter_texts[]
-  novels         novels?         @relation("chaptersTonovels", fields: [novel_id], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "fk_chapter_novel")
+  id              String            @id(map: "pk_chapters") @db.Uuid
+  created_at      DateTime?         @default(now()) @db.Timestamp(6)
+  updated_at      DateTime?         @db.Timestamp(6)
+  deleted_at      DateTime?         @db.Timestamp(6)
+  title           String?           @db.VarChar(255)
+  description     String?
+  novel_id        String            @db.Uuid
+  approved_at     DateTime?         @db.Timestamp(6)
+  chapter_number  Int?
+  status          String?           @db.VarChar(255)
+  persisted_at    DateTime?         @db.Timestamp(6)
+  chapter_authors chapter_authors[]
+  chapter_texts   chapter_texts[]
+  novels          novels            @relation("chaptersTonovels", fields: [novel_id], references: [id], onDelete: Cascade, map: "fk_chapter_novel")
 }
 
 model characters {
   id              String    @id(map: "pk_characters") @db.Uuid
-  created_at DateTime? @default(now()) @db.Timestamp(6)
+  created_at      DateTime? @default(now()) @db.Timestamp(6)
   updated_at      DateTime? @db.Timestamp(6)
   deleted_at      DateTime? @db.Timestamp(6)
   name            String    @db.VarChar(255)
@@ -82,82 +85,79 @@ model characters {
   novel_id        String?   @db.Uuid
   priority        Int?
   persisted_at    DateTime? @db.Timestamp(6)
-  novels          novels?   @relation("charactersTonovels", fields: [novel_id], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "fk_characters_on_novel")
+  novels          novels?   @relation("charactersTonovels", fields: [novel_id], references: [id], onDelete: Cascade, map: "fk_characters_on_novel")
 }
 
 model contributor_group_recruitments {
-  id                   String    @id(map: "pk_contributor_group_recruitments") @default(uuid()) @db.Uuid
-  created_at DateTime? @default(now()) @db.Timestamp(6)
-  updated_at           DateTime? @db.Timestamp(6)
-  deleted_at           DateTime? @db.Timestamp(6)
-  title                String?   @db.VarChar(255)
-  content              String?   @db.VarChar(255)
-  link                 String?   @db.VarChar(255)
-  like                 Int?     
-  view                 Int?
-  contributor_group_id String?   @db.Uuid
-  author_id            String?   @db.Uuid
-  persisted_at         DateTime? @db.Timestamp(6)
-
-  contributor_group contributor_groups? @relation(fields: [contributor_group_id], references: [id])
-  author            accounts?           @relation("AccountRecruitments", fields: [author_id], references: [id]) 
-  recruitment_user_likes        recruitment_user_like[]
+  id                     String                  @id(map: "pk_contributor_group_recruitments") @default(uuid()) @db.Uuid
+  created_at             DateTime?               @default(now()) @db.Timestamp(6)
+  updated_at             DateTime?               @db.Timestamp(6)
+  deleted_at             DateTime?               @db.Timestamp(6)
+  title                  String?                 @db.VarChar(255)
+  content                String?                 @db.VarChar(255)
+  link                   String?                 @db.VarChar(255)
+  contributor_group_id   String?                 @db.Uuid
+  author_id              String?                 @db.Uuid
+  persisted_at           DateTime?               @db.Timestamp(6)
+  like                   Int?
+  view                   Int?
+  status                 String?                 @db.VarChar(255)
+  author                 accounts?               @relation("AccountRecruitments", fields: [author_id], references: [id])
+  contributor_group      contributor_groups?     @relation(fields: [contributor_group_id], references: [id])
+  recruitment_user_likes recruitment_user_like[]
 }
 
 model recruitment_user_like {
-  id                      String    @id(map: "pk_recruitment_user_like") @default(uuid()) @db.Uuid
-  created_at              DateTime? @default(now()) @db.Timestamp(6)
-  user_id                 String    @db.Uuid
-  recruitment_id          String    @db.Uuid
-
-  user                    accounts  @relation(fields: [user_id], references: [id])
-  recruitment             contributor_group_recruitments @relation(fields: [recruitment_id], references: [id])
+  id             String                         @id(map: "pk_recruitment_user_like") @default(uuid()) @db.Uuid
+  created_at     DateTime?                      @default(now()) @db.Timestamp(6)
+  user_id        String                         @db.Uuid
+  recruitment_id String                         @db.Uuid
+  recruitment    contributor_group_recruitments @relation(fields: [recruitment_id], references: [id])
+  user           accounts                       @relation(fields: [user_id], references: [id])
 }
 
-
 model contributor_groups {
-  id                    String                 @id(map: "pk_contributor_groups") @db.Uuid
-  created_at DateTime? @default(now()) @db.Timestamp(6)
-  updated_at            DateTime?              @db.Timestamp(6)
-  deleted_at            DateTime?              @db.Timestamp(6)
+  id                    String                           @id(map: "pk_contributor_groups") @db.Uuid
+  created_at            DateTime?                        @default(now()) @db.Timestamp(6)
+  updated_at            DateTime?                        @db.Timestamp(6)
+  deleted_at            DateTime?                        @db.Timestamp(6)
   max_contributor_count Int?
   contributor_count     Int?
-  status                Int?                   @db.SmallInt
-  novel_id              String?                @db.Uuid
-  completed_at          DateTime?              @db.Timestamp(6)
-  persisted_at          DateTime?              @db.Timestamp(6)
-  contributor_requests  contributor_requests[] @relation("contributorRequestsToGroups")
-  contributors          contributors[]         @relation("contributorsToGroups")
-  novels                novels?                @relation("contributorGroupsTonovels", fields: [novel_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-  recruitments contributor_group_recruitments[]
+  status                Int?                             @db.SmallInt
+  novel_id              String                           @db.Uuid
+  completed_at          DateTime?                        @db.Timestamp(6)
+  persisted_at          DateTime?                        @db.Timestamp(6)
+  recruitments          contributor_group_recruitments[]
+  novels                novels                           @relation("contributorGroupsTonovels", fields: [novel_id], references: [id], onDelete: Cascade)
+  contributor_requests  contributor_requests[]           @relation("contributorRequestsToGroups")
+  contributors          contributors[]                   @relation("contributorsToGroups")
 }
 
 model contributor_requests {
-  id                   String    @id(map: "pk_contributor_requests") @default(uuid()) @db.Uuid
-  created_at DateTime? @default(now()) @db.Timestamp(6)
+  id                   String             @id(map: "pk_contributor_requests") @default(uuid()) @db.Uuid
+  created_at           DateTime?          @default(now()) @db.Timestamp(6)
   updated_at           DateTime?          @db.Timestamp(6)
   deleted_at           DateTime?          @db.Timestamp(6)
-  contributor_group_id String?            @db.Uuid
-  account_id           String?            @db.Uuid
+  contributor_group_id String             @db.Uuid
+  account_id           String             @db.Uuid
   status               String?            @db.VarChar(255)
   approved_at          DateTime?          @db.Timestamp(6)
   persisted_at         DateTime?          @db.Timestamp(6)
-  contributor_groups   contributor_groups? @relation("contributorRequestsToGroups", fields: [contributor_group_id], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "fk_contributor_request_contributor_group")
+  rejected_at          DateTime?          @db.Timestamp(6)
+  contributor_groups   contributor_groups @relation("contributorRequestsToGroups", fields: [contributor_group_id], references: [id], onDelete: Cascade, map: "fk_contributor_request_contributor_group")
 }
 
 model contributors {
   id                   String             @id(map: "pk_contributors") @db.Uuid
-  created_at DateTime? @default(now()) @db.Timestamp(6)
+  created_at           DateTime?          @default(now()) @db.Timestamp(6)
   updated_at           DateTime?          @db.Timestamp(6)
   deleted_at           DateTime?          @db.Timestamp(6)
-  account_id           String?            @db.Uuid
+  account_id           String             @db.Uuid
   role                 String?            @db.VarChar(255)
   writing_order        Int?
-  contributor_group_id String?            @db.Uuid
+  contributor_group_id String             @db.Uuid
   persisted_at         DateTime?          @db.Timestamp(6)
-  is_current_writer    Boolean?
-  contributor_groups   contributor_groups? @relation("contributorsToGroups", fields: [contributor_group_id], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "fk_contributor_contributor_group")
+  contributor_groups   contributor_groups @relation("contributorsToGroups", fields: [contributor_group_id], references: [id], onDelete: Cascade, map: "fk_contributor_contributor_group")
 }
 
 model flyway_schema_history {
@@ -177,43 +177,56 @@ model flyway_schema_history {
 
 model novel_tags {
   id           String    @id(map: "pk_novel_tags") @db.Uuid
-  created_at DateTime? @default(now()) @db.Timestamp(6)
+  created_at   DateTime? @default(now()) @db.Timestamp(6)
   updated_at   DateTime? @db.Timestamp(6)
   deleted_at   DateTime? @db.Timestamp(6)
   name         String    @db.VarChar(255)
   novel_id     String?   @db.Uuid
   persisted_at DateTime? @db.Timestamp(6)
-  novels       novels?   @relation("novelTagsTonovels", fields: [novel_id], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "fk_novel_tag_novel")
+  novels       novels?   @relation("novelTagsTonovels", fields: [novel_id], references: [id], onDelete: Cascade, map: "fk_novel_tag_novel")
 }
 
 model novels {
-  id                String                @id(map: "pk_novels") @db.Uuid
-  created_at DateTime? @default(now()) @db.Timestamp(6)
-  updated_at        DateTime?             @db.Timestamp(6)
-  deleted_at        DateTime?             @db.Timestamp(6)
-  title             String                @db.VarChar(255)
-  description       String?
-  cover_image       String?               @db.VarChar(255)
-  synopsis          String?
-  category          String                @db.VarChar(255)
-  persisted_at      DateTime?             @db.Timestamp(6)
-  chapters          chapters[]            @relation("chaptersTonovels")
-  characters        characters[]          @relation("charactersTonovels")
-  novel_tags        novel_tags[]          @relation("novelTagsTonovels")
-  story_arcs        story_arcs[]          @relation("storyArcsTonovels")
+  id                 String               @id(map: "pk_novels") @db.Uuid
+  created_at         DateTime?            @default(now()) @db.Timestamp(6)
+  updated_at         DateTime?            @db.Timestamp(6)
+  deleted_at         DateTime?            @db.Timestamp(6)
+  title              String               @db.VarChar(255)
+  description        String?
+  cover_image        String?              @db.VarChar(255)
+  synopsis           String?
+  category           String               @db.VarChar(255)
+  persisted_at       DateTime?            @db.Timestamp(6)
+  chapters           chapters[]           @relation("chaptersTonovels")
+  characters         characters[]         @relation("charactersTonovels")
   contributor_groups contributor_groups[] @relation("contributorGroupsTonovels")
+  novel_tags         novel_tags[]         @relation("novelTagsTonovels")
+  story_arcs         story_arcs[]         @relation("storyArcsTonovels")
 }
 
 model story_arcs {
   id                   String    @id(map: "pk_story_arcs") @db.Uuid
-  created_at DateTime? @default(now()) @db.Timestamp(6)
+  created_at           DateTime? @default(now()) @db.Timestamp(6)
   updated_at           DateTime? @db.Timestamp(6)
   deleted_at           DateTime? @db.Timestamp(6)
   description          String?
   phase                String    @db.VarChar(255)
-  novel_id             String?   @db.Uuid
+  novel_id             String    @db.Uuid
   end_chapter_number   Int?
   start_chapter_number Int?
   persisted_at         DateTime? @db.Timestamp(6)
-  novels               novels?   @relation("storyArcsTonovels", fields: [novel_id], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "fk_story_arcs_on_novel")
+  novels               novels    @relation("storyArcsTonovels", fields: [novel_id], references: [id], onDelete: Cascade, map: "fk_story_arcs_on_novel")
+}
+
+model chapter_authors {
+  id                String    @id(map: "pk_chapter_authors") @db.Uuid
+  created_at        DateTime? @db.Timestamp(6)
+  persisted_at      DateTime? @db.Timestamp(6)
+  updated_at        DateTime? @db.Timestamp(6)
+  deleted_at        DateTime? @db.Timestamp(6)
+  chapter_id        String    @db.Uuid
+  contributor_id    String    @db.Uuid
+  account_id        String    @db.Uuid
+  is_current_writer Boolean
+  chapters          chapters  @relation(fields: [chapter_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_chapter_author_chapter")
 }
