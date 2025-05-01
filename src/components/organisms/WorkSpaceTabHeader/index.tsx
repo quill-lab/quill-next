@@ -8,6 +8,7 @@ import { useSession } from 'next-auth/react';
 import { useParams, useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { toast } from 'react-toastify';
+import { getAdminAccountId } from './action';
 
 interface WorkSpaceTabHeaderProps {
   currentTab: string;
@@ -51,18 +52,11 @@ export default function WorkSpaceTabHeader({ currentTab }: WorkSpaceTabHeaderPro
   const navigate = (url: string, alias: string) => {
     startTransition(async () => {
       if (alias === 'management') {
-        const participatingAuthors: IParticipatingAuthor[] & callApiResponse = await callApi({
-          url: `/api/v1/novel-rooms/${roomId}/participants`,
-          method: 'GET',
-          token: session?.user?.token,
-        });
+        const { adminAccountId } = await getAdminAccountId(roomId);
 
-        console.log(participatingAuthors[0].id);
-        console.log(session?.user?.id);
-        const admin = participatingAuthors.find(author => author.role === 'MAIN');
-        if (admin?.id !== session?.user?.id) {
-          // toast.error('공방의 관리자만 접근할 수 있는 페이지입니다.');
-          // return;
+        if (adminAccountId !== session?.user?.id) {
+          toast.error('공방의 관리자만 접근할 수 있는 페이지입니다.');
+          return;
         }
       }
       router.push(url);

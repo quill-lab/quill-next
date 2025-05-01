@@ -1,6 +1,7 @@
 'use client';
 
 import LoadingBar from '@/components/atoms/LoadingBar';
+import { getAdminAccountId } from '@/components/organisms/WorkSpaceTabHeader/action';
 import { callApiResponse } from '@/shared/interface/api';
 import { IParticipatingAuthor } from '@/shared/interface/author';
 import callApi from '@/shared/utils/fetchWrapper';
@@ -52,14 +53,13 @@ const MobileTabHeader = ({ currentTab }: WorkSpaceTabHeaderProps) => {
   const transition = (url: string) => {
     startTransition(async () => {
       if (url.includes('/management')) {
-        const participatingAuthors: IParticipatingAuthor[] & callApiResponse = await callApi({
-          url: `/api/v1/novel-rooms/${roomId}/participants`,
-          method: 'GET',
-          token: session?.user?.token,
-        });
+        const { adminAccountId } = await getAdminAccountId(roomId);
 
-        const admin = participatingAuthors.find(author => author.role === 'MAIN');
-        if (admin?.id !== session?.user?.id) {
+        if (adminAccountId !== session?.user?.id) {
+          toast.error('공방의 관리자만 접근할 수 있는 페이지입니다.');
+          return;
+        }
+        if (adminAccountId !== session?.user?.id) {
           toast.error('공방의 관리자만 접근할 수 있는 페이지입니다.');
           return;
         }
