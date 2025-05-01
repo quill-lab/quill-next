@@ -17,27 +17,36 @@ const ApplicantAuthor = ({ applicantAuthor }: ApplicantAuthorProps) => {
   const params = useParams();
   const roomId = params?.roomId;
   const [isApplyPending, startApplyTransition] = useTransition();
+  const [isDeclinePending, startDeclineTransition] = useTransition();
   const { data: session } = useSession();
 
   const handleApply = async (requesterId: string) => {
-    // contributor_requests에서 해당 유저 status 변경 --> ""
-    // 해당 contributor_groups에 해당 유저 추가
     startApplyTransition(async () => {
       await callApi({
         url: `/api/v1/novel-rooms/${roomId}/join-requests/${requesterId}/approve`,
         method: 'POST',
         token: session?.user?.token,
+      }).then(() => {
+        router.refresh();
       });
-
-      router.refresh();
     });
   };
 
-  const handleDecline = () => {};
+  const handleDecline = async (requesterId: string) => {
+    startDeclineTransition(async () => {
+      await callApi({
+        url: `/api/v1/novel-rooms/${roomId}/join-requests/${requesterId}/reject`,
+        method: 'POST',
+        token: session?.user?.token,
+      }).then(() => {
+        router.refresh();
+      });
+    });
+  };
 
   return (
     <div className="rounded-[10px] w-full overflow-hidden">
-      {isApplyPending && <LoadingBar />}
+      {(isApplyPending || isDeclinePending) && <LoadingBar />}
       <div className="flex justify-between px-[24px] items-center py-[8px] bg-[#fff] bg-opacity-[0.7] w-full">
         <div className="w-full" />
         <h3 className="w-full text-[#2D2D2D] text-center text-[14px] font-[500]">신청 작가</h3>
@@ -81,7 +90,10 @@ const ApplicantAuthor = ({ applicantAuthor }: ApplicantAuthorProps) => {
                       >
                         승인
                       </button>
-                      <button className="rounded-[10px] py-[8px] px-[48px] bg-[#fff] text-[#959595] text-center text-[14px] font-[400]">
+                      <button
+                        onClick={() => handleDecline(author.id)}
+                        className="rounded-[10px] py-[8px] px-[48px] bg-[#fff] text-[#959595] text-center text-[14px] font-[400]"
+                      >
                         반려
                       </button>
                     </div>

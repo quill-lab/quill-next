@@ -1,12 +1,32 @@
+'use client';
+
 import { IParticipatingAuthor } from '@/shared/interface/author';
+import callApi from '@/shared/utils/fetchWrapper';
 import dayjs from 'dayjs';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 interface ParticipatingAuthorsProps {
   participatingAuthors: IParticipatingAuthor[];
 }
 
 const ParticipatingAuthors = ({ participatingAuthors }: ParticipatingAuthorsProps) => {
+  const { data: session } = useSession();
+  const params = useParams();
+  const roomId = params?.roomId;
+
+  const handleExpel = async (id: string) => {
+    await callApi({
+      url: `/api/v1/novel-rooms/${roomId}/contributors/${id}`,
+      method: 'DELETE',
+      token: session?.user?.token,
+    });
+
+    toast.success('강퇴가 성공적으로 이루어졌습니다.');
+  };
+
   return (
     <div className="rounded-[10px] w-full overflow-hidden">
       <div className="py-[16px] bg-[#fff] bg-opacity-[0.7] w-full">
@@ -42,7 +62,12 @@ const ParticipatingAuthors = ({ participatingAuthors }: ParticipatingAuthorsProp
                 <td className="py-[8px]">
                   <div className="flex justify-center items-center">
                     {author.role !== 'MAIN' && (
-                      <button className="group bg-[#fff] px-[16px] py-[8px] rounded-[10px] flex items-center gap-[10px]">
+                      <button
+                        onClick={() => {
+                          handleExpel(author.id);
+                        }}
+                        className="group bg-[#fff] px-[16px] py-[8px] rounded-[10px] flex items-center gap-[10px]"
+                      >
                         <p className="text-[14px] text-[#2d2d2d] group-hover:text-[#059EAF]">
                           강제 퇴장
                         </p>

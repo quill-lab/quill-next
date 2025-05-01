@@ -15,13 +15,11 @@ export default function DropDownBox({}) {
   const params = useParams();
   const novelId = params?.roomId;
   const searchParams = useSearchParams();
-  const sortOption = searchParams?.get('sort');
+  const sortOption = searchParams?.get('sort') ?? 'asc';
 
   const sortOptionList: { name: string; alias: string }[] = [
-    { name: 'Profile', alias: '프로필' },
-    { name: 'Billing', alias: '요금제' },
-    { name: 'Team', alias: '팀' },
-    { name: 'Subscription', alias: '구독' },
+    { name: 'asc', alias: '처음부터' },
+    { name: 'desc', alias: '마지막부터' },
   ];
 
   const isValidSortOption = (inputOption: string) => {
@@ -40,11 +38,13 @@ export default function DropDownBox({}) {
         {isValidSortOption(sortOption || '') ? mappingOption(sortOption!) : '처음부터'}
         <Image src={'/images/bottom-polygon.svg'} width={10} height={8} alt="show_more" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-white border-none flex flex-col items-center justify-center px-[0] rounded-[10px]">
-        <DropdownMenuSeparator />
+      <DropdownMenuContent className="min-w-[112px] bg-white border-none flex flex-col items-center justify-center pb-[16px] pt-[12px] mt-[0px] rounded-[10px]">
+        <DropdownMenuSeparator className="flex flex-col items-center justify-center py-[0px] mt-[0px]" />
         {sortOptionList.map(option => (
           <DropdownMenuItem
-            className="cursor-pointer"
+            className={`cursor-pointer ${
+              sortOption === option.name ? 'text-[#2d2d2d]' : 'text-[#A6A6A6]'
+            }`}
             onClick={() => router.push(`/work-space/detail/${novelId}/episode?sort=${option.name}`)}
           >
             {option.alias}

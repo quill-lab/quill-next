@@ -1,5 +1,6 @@
 import { authOptions } from '@/authOptions';
 import EpisodeTemplate from '@/components/templates/EpisodeTemplate';
+import { Chapter } from '@/shared/interface/chapter';
 import { ApolloClient, gql, HttpLink, InMemoryCache, useQuery } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { getServerSession } from 'next-auth';
@@ -11,15 +12,22 @@ interface EpisodeInterface {
 }
 
 const GET_EPISODES = gql`
-  query GET_EPISODES {
-    chaptersConnection(contributorGroupId: "01956640-6e5c-748e-83a3-4c4c78b7e3e3") {
+  query GET_EPISODES($contributorGroupId: ID!) {
+    chaptersConnection(contributorGroupId: $contributorGroupId) {
       nodes {
         id
         episode
         title
-        editedAt
         status
-        approvedAt
+        currentAuthor {
+          id
+          name
+        }
+        metadata {
+          viewCount
+          commentCount
+          likeCount
+        }
       }
     }
   }
@@ -27,7 +35,8 @@ const GET_EPISODES = gql`
 
 export default async function EpisodePage({ params }: EpisodeInterface) {
   const session = await getServerSession(authOptions);
-
+  const roomId = params?.roomId;
+  console.log({ token: session?.user?.token });
   const authLink = setContext((_, { headers }) => {
     return {
       headers: {
@@ -46,6 +55,26 @@ export default async function EpisodePage({ params }: EpisodeInterface) {
     cache: new InMemoryCache(),
   });
 
-  const { data: episodes } = await client.query({ query: GET_EPISODES });
-  return <EpisodeTemplate />;
+  const { data: episodes } = await client.query({
+    query: GET_EPISODES,
+    variables: {
+      contributorGroupId: roomId,
+    },
+  });
+
+  const formmatedEpisodes = episodes.chaptersConnection.nodes.map((episode: Chapter) => {
+    return {
+      id: episode.id,
+      episode: episode.episode,
+      title: episode.title,
+      editedAt: episode.editedAt ?? new Date(),
+      status: episode.status,
+      approvedAt: episode.approvedAt ?? new Date(),
+      currentAuthor: episode.currentAuthor ?? null,
+      metadata: episode.metadata,
+    };
+  });
+
+  console.log({ episodes: episodes.chaptersConnection.nodes });
+  return <EpisodeTemplate episodes={formmatedEpisodes} />;
 }

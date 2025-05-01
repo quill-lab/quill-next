@@ -27,6 +27,7 @@ const ManagementPage = async ({ params }: { params: { roomId: string } }) => {
     token: session?.user?.token,
   });
 
+  console.log({ participatingAuthors });
   if (participatingAuthors.statusCode && participatingAuthors.statusCode === 404) {
     redirect('/work-space');
   }
