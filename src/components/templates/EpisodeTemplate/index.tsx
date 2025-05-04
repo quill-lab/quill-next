@@ -115,7 +115,7 @@ export default function EpisodeTemplate({ episodes }: EpisodeTemplateInterface) 
             작품 보러 가기
           </button>
         </div>
-        <div className="w-full px-[76px]">
+        <div className="w-full">
           <EpisodeList episodes={episodes} />
         </div>
       </div>

@@ -33,6 +33,7 @@ export const authOptions: NextAuthOptions = {
           return {
             id: account?.id ?? 'default-id',
             email: account?.email,
+            name: account?.name,
             token: resData.token,
           } as CustomUser;
         } catch (error) {
@@ -48,14 +49,17 @@ export const authOptions: NextAuthOptions = {
         token.token = (user as CustomUser).token;
         token.id = (user as CustomUser).id;
         token.email = (user as CustomUser).email;
+        token.name = (user as CustomUser).name;
       }
       return token;
     },
+
     async session({ session, token }) {
       if (token) {
         session.user.token = token.token;
         session.user.id = token.id;
         session.user.email = token.email;
+        session.user.name = token.name;
       }
       return session;
     },
@@ -66,6 +70,7 @@ declare module 'next-auth' {
   interface User {
     token: string;
     id: string;
+    name: string; // ✅ 추가
     email: string;
   }
 
@@ -74,6 +79,7 @@ declare module 'next-auth' {
       id: string;
       email: string;
       token: string;
+      name: string; // ✅ 추가
     };
   }
 }
@@ -83,5 +89,6 @@ declare module 'next-auth/jwt' {
     token: string;
     id: string;
     email: string;
+    name: string; // ✅ 추가
   }
 }

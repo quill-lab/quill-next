@@ -33,11 +33,6 @@ export default function WorkSpaceTabHeader({ currentTab }: WorkSpaceTabHeaderPro
       url: `/work-space/detail/${roomId}/plan`,
     },
     {
-      name: '글쓰기',
-      alias: 'writing',
-      url: `/work-space/detail/${roomId}/writing`,
-    },
-    {
       name: '작품 회차',
       alias: 'episode',
       url: `/work-space/detail/${roomId}/episode`,

@@ -33,11 +33,6 @@ const MobileTabHeader = ({ currentTab }: WorkSpaceTabHeaderProps) => {
       url: `/work-space/detail/${roomId}/plan`,
       index: 1,
     },
-    writing: {
-      name: '글쓰기',
-      url: `/work-space/detail/${roomId}/writing`,
-      index: 2,
-    },
     episode: {
       name: '작품 회차',
       url: `/work-space/detail/${roomId}/episode`,

@@ -1,6 +1,6 @@
 import { authOptions } from '@/authOptions';
 import EpisodeTemplate from '@/components/templates/EpisodeTemplate';
-import { Chapter } from '@/shared/interface/chapter';
+import { Chapter, ChapterFormatted } from '@/shared/interface/chapter';
 import { ApolloClient, gql, HttpLink, InMemoryCache, useQuery } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { getServerSession } from 'next-auth';
@@ -8,6 +8,9 @@ import { getServerSession } from 'next-auth';
 interface EpisodeInterface {
   params: {
     roomId: string;
+  };
+  searchParams: {
+    sort: string;
   };
 }
 
@@ -33,10 +36,11 @@ const GET_EPISODES = gql`
   }
 `;
 
-export default async function EpisodePage({ params }: EpisodeInterface) {
+export default async function EpisodePage({ params, searchParams }: EpisodeInterface) {
   const session = await getServerSession(authOptions);
   const roomId = params?.roomId;
-  console.log({ token: session?.user?.token });
+  const sort = searchParams?.sort;
+
   const authLink = setContext((_, { headers }) => {
     return {
       headers: {
@@ -62,7 +66,7 @@ export default async function EpisodePage({ params }: EpisodeInterface) {
     },
   });
 
-  const formmatedEpisodes = episodes.chaptersConnection.nodes.map((episode: Chapter) => {
+  const formattedEpisodes = episodes.chaptersConnection.nodes.map((episode: Chapter) => {
     return {
       id: episode.id,
       episode: episode.episode,
@@ -75,6 +79,10 @@ export default async function EpisodePage({ params }: EpisodeInterface) {
     };
   });
 
-  console.log({ episodes: episodes.chaptersConnection.nodes });
-  return <EpisodeTemplate episodes={formmatedEpisodes} />;
+  const sortedFormattedEpisodes =
+    sort === 'asc'
+      ? formattedEpisodes.sort((a: ChapterFormatted, b: ChapterFormatted) => a.episode - b.episode)
+      : formattedEpisodes.sort((a: ChapterFormatted, b: ChapterFormatted) => b.episode - a.episode);
+
+  return <EpisodeTemplate episodes={sortedFormattedEpisodes} />;
 }
