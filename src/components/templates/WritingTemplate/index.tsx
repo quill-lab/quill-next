@@ -17,7 +17,7 @@ import { Member } from '@/shared';
 import { notififyDiscordRequestPublication } from './action';
 
 interface WritingTemplateProps {
-  chapter: ChapterText[];
+  chapter: { title: string; chapterTitle: string; chapterNumber: number; chapters: ChapterText[] };
   draftText: DraftText;
   adminAccount: Member;
 }
@@ -93,7 +93,9 @@ const WritingTemplate = ({ chapter, draftText, adminAccount }: WritingTemplatePr
         <div className="w-full">
           <div className="w-full mt-[8px] rounded-tl-[10px] rounded-tr-[10px] bg-[white] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] flex justify-between items-center py-[18px] px-[32px]">
             <div className="flex items-center gap-[]">
-              <h2 className="text-[#2D2D2D] font-spoqa text-[16px] font-[500]">1화 적극적 어필</h2>
+              <h2 className="text-[#2D2D2D] font-spoqa text-[16px] font-[500]">
+                {chapter.chapterNumber}화 {chapter.chapterTitle}
+              </h2>
             </div>
             {isSaving || isPendingSaveContent ? (
               <Image src={'/images/isSaving.svg'} width={40} height={40} alt="is saving" />
@@ -121,11 +123,11 @@ const WritingTemplate = ({ chapter, draftText, adminAccount }: WritingTemplatePr
           <div className="w-full h-[16px] rounded-bl-[10px] rounded-br-[10px] bg-[#077D8A] shadow-[0px 4px 4px 0px rgba(0, 0, 0, 0.25)]" />
         </div>
         <div className="px-[24px] pb-[28px]">
-          <ChapterItemList chapter={chapter} draftText={draftText} />
+          <ChapterItemList chapter={chapter.chapters} draftText={draftText} />
         </div>
       </div>
       <div className="w-full mt-[18px] flex gap-[36px] items-center justify-center">
-        {chapter[chapter.length - 1].authorName === session?.user?.name && (
+        {chapter.chapters[chapter.chapters.length - 1].authorName === session?.user?.name && (
           <button
             onClick={handleFinalizeText}
             className="rounded-[62px] bg-[#059EAF] py-[16px] px-[68px] text-[#e7f6f8] text-center text-[14px] font-[500] text-spoqa"

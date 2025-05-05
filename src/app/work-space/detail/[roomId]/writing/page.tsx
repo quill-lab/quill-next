@@ -1,5 +1,6 @@
 import { authOptions } from '@/authOptions';
 import WritingTemplate from '@/components/templates/WritingTemplate';
+import { prisma } from '@/lib/prisma';
 import { Member } from '@/shared';
 import { callApiResponse } from '@/shared/interface/api';
 import { ChapterText, DraftText } from '@/shared/interface/chapter';
@@ -8,6 +9,7 @@ import { ApolloClient, gql, HttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
+import { getChapter } from './action';
 
 interface WritingPageProps {
   searchParams: {
@@ -34,7 +36,7 @@ const WritingPage = async ({ params, searchParams }: WritingPageProps) => {
     redirect(`/work-space/detail/${roomId}/info`);
   }
 
-  const [chapterTexts, draftText, members] = await Promise.all([
+  const [chapterTexts, draftText, members, chapterInfo] = await Promise.all([
     callApi<{ items: ChapterText[] } & callApiResponse>({
       url: `/api/v1/novel-rooms/${roomId}/chapters/${chapterId}/texts`,
       method: 'GET',
@@ -50,6 +52,7 @@ const WritingPage = async ({ params, searchParams }: WritingPageProps) => {
       method: 'GET',
       token: session?.user?.token,
     }),
+    await getChapter(chapterId),
   ]);
 
   if (chapterTexts.statusCode && chapterTexts.statusCode === 401) {
@@ -87,8 +90,20 @@ const WritingPage = async ({ params, searchParams }: WritingPageProps) => {
       new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
   );
 
+  const mappingChapter = {
+    title: chapterInfo?.novels.title || '',
+    chapterTitle: chapterInfo?.title || '',
+    chapterNumber: chapterInfo?.chapter_number || 0,
+    chapters: chapterText.map(chapter => ({
+      id: chapter.id,
+      content: chapter.content,
+      authorName: chapter.authorName,
+      createdAt: chapter.createdAt,
+    })),
+  };
+
   return (
-    <WritingTemplate chapter={chapterText} draftText={draftText} adminAccount={adminAccount!} />
+    <WritingTemplate chapter={mappingChapter} draftText={draftText} adminAccount={adminAccount!} />
   );
 };
 
