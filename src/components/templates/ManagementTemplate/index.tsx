@@ -8,9 +8,14 @@ import React from 'react';
 interface ManagementTemplateProps {
   applicantAuthor: IApplicantAuthor[];
   participatingAuthors: IParticipatingAuthor[];
+  recruitment: { id: string };
 }
 
-const ManagementTemplate = ({ applicantAuthor, participatingAuthors }: ManagementTemplateProps) => {
+const ManagementTemplate = ({
+  applicantAuthor,
+  participatingAuthors,
+  recruitment,
+}: ManagementTemplateProps) => {
   return (
     <div>
       <div className="sm:hidden">
@@ -22,7 +27,7 @@ const ManagementTemplate = ({ applicantAuthor, participatingAuthors }: Managemen
 
       <div className="mt-[8px] w-full flex flex-col items-center justify-center gap-[16px]">
         <ParticipatingAuthors participatingAuthors={participatingAuthors} />
-        <ApplicantAuthor applicantAuthor={applicantAuthor} />
+        <ApplicantAuthor applicantAuthor={applicantAuthor} recruitment={recruitment} />
       </div>
     </div>
   );

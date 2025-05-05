@@ -125,10 +125,7 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
             />
           </div>
           <div className={'flex flex-col gap-3 w-full'}>
-            <DescriptionContainer
-              title="작품 소개"
-              content={novelRoomInfo.description || editDescription}
-            />
+            <DescriptionContainer title="줄거리" content={novelRoomInfo.synopsis || editSynopsis} />
             <TagList tags={editTags || []} />
           </div>
         </div>
@@ -144,18 +141,11 @@ export const WorkInfo = ({ novelRoomInfo, characters }: WorkInfoTemplateProps) =
                 fill
               />
             </div>
-            <DescriptionContainer
-              title="작품 소개"
-              content={novelRoomInfo.description || editDescription}
-            />
+            <DescriptionContainer title="줄거리" content={novelRoomInfo.synopsis || editSynopsis} />
           </div>
           <TagList tags={editTags || []} />
         </div>
         <CharacterCardList />
-
-        <div className={'flex-1'}>
-          <DescriptionContainer title="줄거리" content={novelRoomInfo.synopsis || editSynopsis} />
-        </div>
       </div>
       {novelRoomInfo?.role === 'MAIN' && (
         <button

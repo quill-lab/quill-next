@@ -10,9 +10,10 @@ import { useTransition } from 'react';
 
 interface ApplicantAuthorProps {
   applicantAuthor: IApplicantAuthor[];
+  recruitment: { id: string };
 }
 
-const ApplicantAuthor = ({ applicantAuthor }: ApplicantAuthorProps) => {
+const ApplicantAuthor = ({ applicantAuthor, recruitment }: ApplicantAuthorProps) => {
   const router = useRouter();
   const params = useParams();
   const roomId = params?.roomId;
@@ -51,7 +52,10 @@ const ApplicantAuthor = ({ applicantAuthor }: ApplicantAuthorProps) => {
         <div className="w-full" />
         <h3 className="w-full text-[#2D2D2D] text-center text-[14px] font-[500]">신청 작가</h3>
         <div className="w-full flex justify-end items-center">
-          <button className="rounded-[100px] bg-[#fff] py-[8px] px-[32px] text-[#059EAF] text-[12px] font-[500] text-center">
+          <button
+            onClick={() => router.push(`/recruit/${recruitment.id}`)}
+            className="rounded-[100px] bg-[#fff] py-[8px] px-[32px] text-[#059EAF] text-[12px] font-[500] text-center"
+          >
             모집 게시글 이동
           </button>
         </div>

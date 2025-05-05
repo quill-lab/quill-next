@@ -1,7 +1,7 @@
 import ManagementTemplate from '@/components/templates/ManagementTemplate';
 import { redirect } from 'next/navigation';
 import React from 'react';
-import { getApplicantAuthor } from './action';
+import { getApplicantAuthor, getRecruitmentId } from './action';
 import callApi from '@/shared/utils/fetchWrapper';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/authOptions';
@@ -26,16 +26,18 @@ const ManagementPage = async ({ params }: { params: { roomId: string } }) => {
     method: 'GET',
     token: session?.user?.token,
   });
+  const recruitment = await getRecruitmentId(roomId);
 
-  console.log({ participatingAuthors });
   if (participatingAuthors.statusCode && participatingAuthors.statusCode === 404) {
     redirect('/work-space');
   }
 
+  console.log({ recruitment: recruitment[0]?.id });
   return (
     <ManagementTemplate
       applicantAuthor={applicantAuthor}
       participatingAuthors={participatingAuthors}
+      recruitment={recruitment[0]}
     />
   );
 };

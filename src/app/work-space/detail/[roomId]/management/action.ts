@@ -38,3 +38,26 @@ export const getApplicantAuthor = async (roomId: string) => {
   }));
   return formattedApplicantAuthor;
 };
+
+export const getRecruitmentId = async (roomId: string) => {
+  const recruitments = await prisma.contributor_groups.findFirst({
+    where: {
+      id: roomId,
+    },
+    select: {
+      recruitments: {
+        select: {
+          id: true,
+        },
+      },
+    },
+  });
+
+  const formattedRecruitments = recruitments!.recruitments.map(recruitment => {
+    return {
+      id: recruitment.id ?? '',
+    };
+  });
+
+  return formattedRecruitments;
+};

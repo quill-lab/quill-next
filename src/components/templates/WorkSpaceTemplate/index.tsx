@@ -13,8 +13,10 @@ import { NovelItem, NovelListResponse, RoomStatus } from '@/shared';
 import useOnWheelHandle from '@/hooks/onWheelHandle';
 import NovelPageHeaderBackground from '@/images/novel-page-header-background.svg';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import dayjs from 'dayjs';
 
-const TAB_NAMES = ['참여중', '참여 신청'];
+const TAB_NAMES = ['참여', '참여 신청'];
 
 interface WordSpaceProps {
   items: NovelItem[];
@@ -113,7 +115,54 @@ const WorkSpace = ({ items, totalCount, size, page }: WordSpaceProps) => {
                 handleCurrentTab={handleClickTab}
               />
             </div>
-            <Table tab={roomState} tableData={items ?? []} />
+            {/* <Table tab={roomState} tableData={items ?? []} /> */}
+
+            <div className="flex flex-wrap gap-[24px] mt-[24px]">
+              {items.length &&
+                items.map(item => (
+                  <div
+                    className="flex cursor-pointer justify-center items-center rounded-[10px] border border-[0.6px] border-[#D9D9D9]"
+                    style={{ boxShadow: '0px 4px 6px 0px rgba(63, 63, 63, 0.25)' }}
+                    onClick={() => router.push(`/work-space/detail/${item.id}/info`)}
+                  >
+                    <div className="relative w-[174px] h-full">
+                      <Image src={'/images/book-cover-1.png'} fill alt="book cover" />
+                    </div>
+                    <div className="w-full py-[16px] px-[16px] gap-[60px] flex flex-col">
+                      <div className="w-full flex flex-col gap-[24px]">
+                        <div className="w-full flex justify-between items-center">
+                          <p className="w-full text-[#059EAF] text-[14px] font-spoqa text-[14px] font-[500]">
+                            {'연재중'}
+                          </p>
+                          <p className="w-full text-[#959595] text-[14px] font-spoqa font-[500]">
+                            {item.category.alias}
+                          </p>
+                        </div>
+                        <div>
+                          <h3 className="w-full text-[#2D2D2D] text-[20px] font-[700] font-spoqa">
+                            {item.title}
+                          </h3>
+                          <p className="w-full mt-[4px] text-[#959595] font-spoqa text-[14px] font-[500]">
+                            {item.role}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-[4px] max-w-[154px]">
+                        <div className="py-[8px] px-[24px] flex justify-between items-center rounded-[100px] border border-[0.6px] border-[#059EAF] text-[12px] text-[#059EAF] font-[500] font-spoqa">
+                          <p>개설일</p>
+                          <p>{dayjs(item.createdAt).format('YYYY.M.D')}</p>
+                        </div>
+                        <div className="py-[8px] px-[36px] flex justify-between items-center rounded-[100px] border border-[0.6px] border-[#059EAF] text-[12px] text-[#059EAF] font-[500] font-spoqa">
+                          <p>정원</p>
+                          <p>
+                            {item.contributorCount}/{item.maxContributorCount}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
 

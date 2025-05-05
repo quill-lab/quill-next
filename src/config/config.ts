@@ -89,7 +89,7 @@ export const config = {
     // 작가참여리스트
     recruitment: '/recruit',
   },
-  pageSize: 5,
+  pageSize: 6,
   categorys: [
     { name: '일반', alias: 'GENERAL' },
     { name: '로맨스/드라마', alias: 'ROMANCE_DRAMA' },
