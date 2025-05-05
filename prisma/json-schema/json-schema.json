@@ -64,12 +64,6 @@
           "items": {
             "$ref": "#/definitions/recruitment_user_like"
           }
-        },
-        "contributor_requests": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/contributor_requests"
-          }
         }
       },
       "required": [
@@ -596,6 +590,9 @@
           ],
           "format": "date-time"
         },
+        "account_id": {
+          "type": "string"
+        },
         "status": {
           "type": [
             "string",
@@ -625,9 +622,6 @@
         },
         "contributor_groups": {
           "$ref": "#/definitions/contributor_groups"
-        },
-        "account": {
-          "$ref": "#/definitions/accounts"
         }
       },
       "required": [
@@ -1001,6 +995,12 @@
         "is_current_writer": {
           "type": "boolean"
         },
+        "writing_order": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
         "chapters": {
           "$ref": "#/definitions/chapters"
         }
@@ -1011,6 +1011,76 @@
         "contributor_id",
         "account_id",
         "is_current_writer"
+      ]
+    },
+    "chapter_publication_requests": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "persisted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "deleted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "chapter_id": {
+          "type": "string"
+        },
+        "requester_id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "reviewer_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "comment": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reviewed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "chapter_id",
+        "requester_id",
+        "status"
       ]
     }
   },
@@ -1060,6 +1130,9 @@
     },
     "chapter_authors": {
       "$ref": "#/definitions/chapter_authors"
+    },
+    "chapter_publication_requests": {
+      "$ref": "#/definitions/chapter_publication_requests"
     }
   }
 }

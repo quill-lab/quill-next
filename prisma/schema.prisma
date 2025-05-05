@@ -28,8 +28,6 @@ model accounts {
   contributor_group_recruitments contributor_group_recruitments[] @relation("AccountRecruitments")
   recruitment_user_likes         recruitment_user_like[]
 
-  contributor_requests           contributor_requests[]           @relation("AccountContributorRequests")
-
   @@index([email], map: "idx_account_email")
 }
 
@@ -147,8 +145,6 @@ model contributor_requests {
   persisted_at         DateTime?          @db.Timestamp(6)
   rejected_at          DateTime?          @db.Timestamp(6)
   contributor_groups   contributor_groups @relation("contributorRequestsToGroups", fields: [contributor_group_id], references: [id], onDelete: Cascade, map: "fk_contributor_request_contributor_group")
-
-  account              accounts           @relation("AccountContributorRequests", fields: [account_id], references: [id])
 }
 
 model contributors {
@@ -232,5 +228,20 @@ model chapter_authors {
   contributor_id    String    @db.Uuid
   account_id        String    @db.Uuid
   is_current_writer Boolean
+  writing_order     Int?
   chapters          chapters  @relation(fields: [chapter_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_chapter_author_chapter")
+}
+
+model chapter_publication_requests {
+  id           String    @id(map: "pk_chapter_publication_requests") @db.Uuid
+  created_at   DateTime? @db.Timestamp(6)
+  persisted_at DateTime? @db.Timestamp(6)
+  updated_at   DateTime? @db.Timestamp(6)
+  deleted_at   DateTime? @db.Timestamp(6)
+  chapter_id   String    @db.Uuid
+  requester_id String    @db.Uuid
+  status       String    @db.VarChar(255)
+  reviewer_id  String?   @db.Uuid
+  comment      String?   @db.VarChar(255)
+  reviewed_at  DateTime? @db.Timestamp(6)
 }

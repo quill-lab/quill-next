@@ -9,30 +9,46 @@ import { ChapterText, DraftText } from '@/shared/interface/chapter';
 import { useWriting } from '@/stores/useWriting';
 import dayjs from 'dayjs';
 import callApi from '@/shared/utils/fetchWrapper';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useTransition } from 'react';
+import LoadingBar from '@/components/atoms/LoadingBar';
+import { Member } from '@/shared';
+import { notififyDiscordRequestPublication } from './action';
 
 interface WritingTemplateProps {
   chapter: ChapterText[];
   draftText: DraftText;
+  adminAccount: Member;
 }
 
-const WritingTemplate = ({ chapter, draftText }: WritingTemplateProps) => {
+const WritingTemplate = ({ chapter, draftText, adminAccount }: WritingTemplateProps) => {
   const { data: session } = useSession();
+  const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
 
   const [isPendingSaveContent, startSaveContent] = useTransition();
+  const [isPendingFinalizeContent, startFinalizeContent] = useTransition();
+  const [isPendingPublish, startPublish] = useTransition();
   const roomId = params?.roomId;
   const chapterId = searchParams?.get('episode');
   const { isSaving, draftContent } = useWriting();
 
   const handleFinalizeText = async () => {
-    await callApi({
-      url: `/api/v1/novel-rooms/${roomId}/chapters/${chapterId}/finalize`,
-      method: 'POST',
-      token: session?.user?.token,
+    startFinalizeContent(async () => {
+      await callApi({
+        url: `/api/v1/novel-rooms/${roomId}/chapters/${chapterId}/draft-text`,
+        method: 'PATCH',
+        token: session?.user.token,
+        body: { content: draftContent },
+      });
+
+      await callApi({
+        url: `/api/v1/novel-rooms/${roomId}/chapters/${chapterId}/finalize`,
+        method: 'POST',
+        token: session?.user?.token,
+      });
     });
   };
 
@@ -47,8 +63,32 @@ const WritingTemplate = ({ chapter, draftText }: WritingTemplateProps) => {
     });
   };
 
+  const handleRequestPublication = async () => {
+    startPublish(async () => {
+      await callApi({
+        url: `/api/v1/novel-rooms/${roomId}/chapters/${chapterId}/finalize`,
+        method: 'POST',
+        token: session?.user?.token,
+      });
+
+      await callApi({
+        url: `/api/v1/novel-rooms/${roomId}/chapters/${chapterId}/publication-requests`,
+        method: 'POST',
+        token: session?.user?.token,
+      });
+
+      await notififyDiscordRequestPublication({
+        chapterId: chapterId || '',
+        title: '국밥집 막내아들',
+        episodeTitle: '국밥집 열었음',
+        episode: 5,
+      }).then(() => router.push(`/work-space/detail/${roomId}/episode`));
+    });
+  };
+
   return (
     <div className="flex flex-col items-center">
+      {(isPendingFinalizeContent || isPendingPublish) && <LoadingBar />}
       <div className="w-full bg-[#E7F6F880]">
         <div className="w-full">
           <div className="w-full mt-[8px] rounded-tl-[10px] rounded-tr-[10px] bg-[white] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] flex justify-between items-center py-[18px] px-[32px]">
@@ -84,12 +124,24 @@ const WritingTemplate = ({ chapter, draftText }: WritingTemplateProps) => {
           <ChapterItemList chapter={chapter} draftText={draftText} />
         </div>
       </div>
-      <button
-        onClick={handleFinalizeText}
-        className="mt-[18px] rounded-[62px] bg-[#059EAF] py-[16px] px-[68px] text-[#e7f6f8] text-center text-[14px] font-[500] text-spoqa"
-      >
-        차례 끝내기
-      </button>
+      <div className="w-full mt-[18px] flex gap-[36px] items-center justify-center">
+        {chapter[chapter.length - 1].authorName === session?.user?.name && (
+          <button
+            onClick={handleFinalizeText}
+            className="rounded-[62px] bg-[#059EAF] py-[16px] px-[68px] text-[#e7f6f8] text-center text-[14px] font-[500] text-spoqa"
+          >
+            차례 끝내기
+          </button>
+        )}
+        {adminAccount.nickname === session?.user?.name && (
+          <button
+            onClick={handleRequestPublication}
+            className="bg-[#E7F6F8] py-[16px] px-[68px] text-[#059EAF] text-center text-[14px] font-[500] text-spoqa rounded-[62px]"
+          >
+            검토 후 연재
+          </button>
+        )}
+      </div>
     </div>
   );
 };

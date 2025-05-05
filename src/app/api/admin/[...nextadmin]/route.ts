@@ -1,66 +1,100 @@
-import { NextResponse } from "next/server";
-import { createHandler  } from "@premieroctet/next-admin/appHandler";
-import { prisma } from "@/lib/prisma";
-import { sendEmail } from "@/shared/utils/email";
+import { createHandler } from '@premieroctet/next-admin/appHandler';
+import { prisma } from '@/lib/prisma';
+import { sendEmail } from '@/shared/utils/email'; // 이메일 보내는 함수
+import { NextAdminOptions } from '@premieroctet/next-admin';
 
-interface UpdateEvent {
-  params: {
-    model: string;
-    data: {
-      title?: string;
-      updated_by_id?: number;
-    };
-    where: {
-      id: number;
-    };
-  };
-}
+export const options: NextAdminOptions = {
+  model: {
+    chapters: {
+      title: 'Chapters',
+      toString: chapter => `${chapter.title}`,
+      edit: {
+        display: ['title', 'status', 'content'],
+        hooks: {
+          async afterDb(data, mode, request) {
+            const chapterId = request.url?.split('chapters/')[1];
 
-const {run} = createHandler({
+            if (data.data.status === 'REQUESTED') {
+              const novel = await prisma.chapters.findFirst({
+                where: {
+                  id: data.data.id,
+                },
+                select: {
+                  chapter_number: true,
+                  novels: {
+                    select: {
+                      title: true,
+                      contributor_groups: {
+                        select: {
+                          id: true,
+                          contributors: {
+                            where: {
+                              role: 'MAIN',
+                            },
+                            select: {
+                              account_id: true,
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              });
+
+              const account = await prisma.accounts.findFirst({
+                where: {
+                  id: novel?.novels?.contributor_groups[0]?.contributors[0]?.account_id,
+                },
+                select: {
+                  email: true,
+                },
+              });
+
+              const mailOptions = {
+                from: process.env.GMAIL_USER,
+                to: account?.email,
+                subject: `${novel?.novels?.title} 연재 승인`,
+                html: `
+                <div style="font-family: Arial, sans-serif; line-height: 1.5;">
+                  <h2>${novel?.novels?.title} - ${novel?.chapter_number}회차 연재가 승인되었습니다</h2>
+                  <p>확인하시려면 아래 버튼을 클릭해주세요:</p>
+                  <a href="https://quill-next-two.vercel.app/work-space/detail${novel?.novels?.contributor_groups[0]?.id}/episode" 
+                     target="_blank"
+                     style="
+                       display: inline-block;
+                       padding: 10px 20px;
+                       background-color: #4CAF50;
+                       color: white;
+                       text-decoration: none;
+                       border-radius: 5px;
+                     ">
+                    지원자 확인하기
+                  </a>
+                </div>
+              `,
+              };
+
+              sendEmail(mailOptions);
+            }
+            return data;
+          },
+        },
+      },
+    },
+  },
+};
+
+const { run, router } = createHandler({
+  async onRequest(req, ctx) {
+    console.log({ req, ctx: await ctx.params });
+  },
   prisma,
-  apiBasePath: "/api/admin",
-  // @ts-ignore
-  hooks: {
-    beforeUpdate: async (event: UpdateEvent) => {
-      const { model, data, where } = event.params;
-      
-      if (model === 'articles') {
-        // // 이전 article 데이터 가져오기
-        // const previousArticle = await prisma.articles.findUnique({
-        //   where: { id: where.id },
-        //   include: {
-        //     admin_users_articles_created_by_idToadmin_users: true,
-        //     admin_users_articles_updated_by_idToadmin_users: true
-        //   }
-        // });
-
-        // if (previousArticle) {
-        //   const updatedBy = data.updated_by_id ? 
-        //     await prisma.admin_users.findUnique({ where: { id: data.updated_by_id } }) : 
-        //     previousArticle.admin_users_articles_updated_by_idToadmin_users;
-        //   const createdBy = previousArticle.admin_users_articles_created_by_idToadmin_users;
-
-        //   if (updatedBy && createdBy && updatedBy.id !== createdBy.id && createdBy.email) {
-        //     const emailContent = `
-        //       <h2>게시글이 수정되었습니다</h2>
-        //       <p>제목: ${data.title || previousArticle.title}</p>
-        //       <p>수정자: ${updatedBy.firstname} ${updatedBy.lastname}</p>
-        //       <p>수정일시: ${new Date().toLocaleString()}</p>
-        //     `;
-
-        //     await sendEmail({
-        //       to: createdBy.email,
-        //       subject: '[Garden of Writer] 게시글이 수정되었습니다',
-        //       html: emailContent
-        //     });
-        //   }
-        // }
-      }
-    }
-  }
+  options,
+  apiBasePath: '/api/admin',
 });
 
 export const GET = run;
 export const POST = run;
 export const PUT = run;
-export const DELETE = run; 
+export const DELETE = run;

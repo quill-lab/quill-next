@@ -84,7 +84,9 @@ export const PageHeader = ({ bg = 'transparent' }: PageHeaderProps) => {
             handleAlarmItem={handleAlarmItem}
           />
           <div onClick={() => router.push('/')}>내정보</div>
-          <div onClick={handleClickLogout}>로그아웃</div>
+          <div className="cursor-pointer" onClick={handleClickLogout}>
+            로그아웃
+          </div>
         </div>
       </div>
     </header>

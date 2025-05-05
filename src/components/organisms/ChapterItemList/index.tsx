@@ -16,15 +16,13 @@ const ChapterItemList = ({ chapter, draftText }: ChapterItemListProps) => {
   return (
     <div className="w-full mt-[10px] flex flex-col gap-[16px] rounded-[10px] shadow-[0px 4px 4px 0px rgba(0, 0, 0, 0.25)] bg-[rgba(255, 255, 255, 0.50)]">
       {chapter.length ? (
-        [...chapter]
-          .reverse()
-          .map((item, index) => (
-            <ChapterItem
-              key={item.id}
-              text={item.content}
-              isEdited={item.authorName === session?.user?.name && index === chapter.length - 1}
-            />
-          ))
+        chapter.map((item, index) => (
+          <ChapterItem
+            key={item.id}
+            text={item.content}
+            isEdited={item.authorName === session?.user?.name && index === chapter.length - 1}
+          />
+        ))
       ) : (
         <ChapterItem draftText={draftText} isEdited />
       )}

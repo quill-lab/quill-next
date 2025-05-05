@@ -8,25 +8,23 @@ interface EmailOptions {
 
 export async function sendEmail({ to, subject, html }: EmailOptions) {
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
-    secure: true,
+    service: 'gmail',
     auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
+      user: process.env.GMAIL_USER, // .env에 설정
+      pass: process.env.GMAIL_PASS,
     },
   });
-
   try {
     await transporter.sendMail({
-      from: process.env.SMTP_FROM,
+      from: process.env.GMAIL_USER,
       to,
       subject,
       html,
     });
+    console.log(`📧 메일 전송 성공: to=${to}, subject=${subject}`);
     return true;
   } catch (error) {
-    console.error('Failed to send email:', error);
+    console.error('📧 메일 전송 실패:', error);
     return false;
   }
-} 
+}
