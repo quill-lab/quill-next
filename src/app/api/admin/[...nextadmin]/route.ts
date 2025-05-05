@@ -53,7 +53,7 @@ export const options: NextAdminOptions = {
 
               const mailOptions = {
                 from: process.env.GMAIL_USER,
-                to: account?.email,
+                to: account?.email || '',
                 subject: `${novel?.novels?.title} 연재 승인`,
                 html: `
                 <div style="font-family: Arial, sans-serif; line-height: 1.5;">
