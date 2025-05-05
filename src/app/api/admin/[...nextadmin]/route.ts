@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { sendEmail } from '@/shared/utils/email'; // 이메일 보내는 함수
 import { NextAdminOptions } from '@premieroctet/next-admin';
 
-export const options: NextAdminOptions = {
+const options: NextAdminOptions = {
   model: {
     chapters: {
       title: 'Chapters',
