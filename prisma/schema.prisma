@@ -26,6 +26,7 @@ model accounts {
   name                           String?                          @db.VarChar(255)
   persisted_at                   DateTime?                        @db.Timestamp(6)
   contributor_group_recruitments contributor_group_recruitments[] @relation("AccountRecruitments")
+  contributor_requests contributor_requests[] @relation("AccountToContributorRequests")
   recruitment_user_likes         recruitment_user_like[]
 
   @@index([email], map: "idx_account_email")
@@ -145,6 +146,7 @@ model contributor_requests {
   persisted_at         DateTime?          @db.Timestamp(6)
   rejected_at          DateTime?          @db.Timestamp(6)
   contributor_groups   contributor_groups @relation("contributorRequestsToGroups", fields: [contributor_group_id], references: [id], onDelete: Cascade, map: "fk_contributor_request_contributor_group")
+  account accounts @relation("AccountToContributorRequests", fields: [account_id], references: [id])
 }
 
 model contributors {

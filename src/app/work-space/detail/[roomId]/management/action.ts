@@ -8,6 +8,7 @@ export const getApplicantAuthor = async (roomId: string) => {
       contributor_group_id: roomId,
       status: 'REQUESTED',
     },
+
     select: {
       id: true,
       created_at: true,

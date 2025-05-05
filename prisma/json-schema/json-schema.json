@@ -59,6 +59,12 @@
             "$ref": "#/definitions/contributor_group_recruitments"
           }
         },
+        "contributor_requests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/contributor_requests"
+          }
+        },
         "recruitment_user_likes": {
           "type": "array",
           "items": {
@@ -590,9 +596,6 @@
           ],
           "format": "date-time"
         },
-        "account_id": {
-          "type": "string"
-        },
         "status": {
           "type": [
             "string",
@@ -622,6 +625,9 @@
         },
         "contributor_groups": {
           "$ref": "#/definitions/contributor_groups"
+        },
+        "account": {
+          "$ref": "#/definitions/accounts"
         }
       },
       "required": [
