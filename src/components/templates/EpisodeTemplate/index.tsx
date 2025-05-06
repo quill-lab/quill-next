@@ -30,6 +30,7 @@ export default function EpisodeTemplate({ episodes }: EpisodeTemplateInterface) 
   const roomId = params?.roomId;
   const [title, setTitle] = useState('');
   const [isCreateChapterPending, startCreateChapterTransition] = useTransition();
+  const [isMoveToViewerPending, startMoveToViewerTransition] = useTransition();
 
   const handleCreateChapter = () => {
     startCreateChapterTransition(async () => {
@@ -50,6 +51,12 @@ export default function EpisodeTemplate({ episodes }: EpisodeTemplateInterface) 
     });
   };
 
+  const handleMoveViewer = () => {
+    startMoveToViewerTransition(() => {
+      router.push(`/novel/${roomId}`);
+    });
+  };
+
   return (
     <div>
       <div className="sm:hidden">
@@ -58,7 +65,7 @@ export default function EpisodeTemplate({ episodes }: EpisodeTemplateInterface) 
       <div className="hidden sm:block">
         <WorkSpaceTabHeader currentTab="/episode" />
       </div>
-      {isCreateChapterPending && <LoadingBar />}
+      {(isCreateChapterPending || isMoveToViewerPending) && <LoadingBar />}
       <div className="mt-[8px] w-full bg-[white] bg-opacity-50 rounded-b-[10px]">
         <div className="pt-[24px] px-[24px]">
           <Dialog>
@@ -111,7 +118,10 @@ export default function EpisodeTemplate({ episodes }: EpisodeTemplateInterface) 
         <div className="px-[24px] pt-[24px] pb-[16px] flex justify-between items-center">
           <DropDownBox />
 
-          <button className="bg-[white] bg-opacity-50 rounded-[100px] px-[16px] py-[8px] text-[#059eaf] text-[12px] font-[500] font-[spoqa] flex gap-[4px]">
+          <button
+            onClick={handleMoveViewer}
+            className="bg-[white] bg-opacity-50 rounded-[100px] px-[16px] py-[8px] text-[#059eaf] text-[12px] font-[500] font-[spoqa] flex gap-[4px]"
+          >
             작품 보러 가기
           </button>
         </div>

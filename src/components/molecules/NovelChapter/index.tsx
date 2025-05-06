@@ -1,8 +1,9 @@
 'use client';
 
+import LoadingBar from '@/components/atoms/LoadingBar';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useTransition } from 'react';
 
 interface NovelChapterProps {
   id: string;
@@ -17,13 +18,21 @@ interface NovelChapterProps {
 const NovelChapter = ({ id, chapterNubmer, title, like, view, comment }: NovelChapterProps) => {
   const router = useRouter();
   const params = useParams();
+  const [isPending, startTransition] = useTransition();
   const roomId = params?.roomId;
+
+  const handleMoveEpisode = () => {
+    startTransition(() => {
+      router.push(`/novel/${roomId}/episode/${id}`);
+    });
+  };
 
   return (
     <div
-      onClick={() => router.push(`/novel/${roomId}/episode/${id}`)}
+      onClick={handleMoveEpisode}
       className="cursor-pointer border-t border-t-[0.5px] border-[#D9D9D9] pt-[8px] pb-[4px] pl-[28px]"
     >
+      {isPending && <LoadingBar />}
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-[80px]">
           <p className="text-[#2D2D2D] text-[16px] font-[500]">{chapterNubmer}</p>
