@@ -69,7 +69,6 @@ export const SignUpForm = () => {
         callbackUrl: '/join/complete', // 로그인 성공 시 리다이렉트할 경로
       });
 
-      console.log('complete!!!!!');
       // route.replace('/join/complete');
     },
   });

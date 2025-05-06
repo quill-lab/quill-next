@@ -1,7 +1,11 @@
+'use client';
+
 import Image from 'next/image';
+import { useParams, useRouter } from 'next/navigation';
 import React from 'react';
 
 interface NovelChapterProps {
+  id: string;
   chapterNubmer: string;
   title: string;
   like: number;
@@ -10,9 +14,16 @@ interface NovelChapterProps {
   // createdAt: string;
 }
 
-const NovelChapter = ({ chapterNubmer, title, like, view, comment }: NovelChapterProps) => {
+const NovelChapter = ({ id, chapterNubmer, title, like, view, comment }: NovelChapterProps) => {
+  const router = useRouter();
+  const params = useParams();
+  const roomId = params?.roomId;
+
   return (
-    <div className="border-t border-t-[0.5px] border-[#D9D9D9] pt-[8px] pb-[4px] pl-[28px]">
+    <div
+      onClick={() => router.push(`/novel/${roomId}/episode/${id}`)}
+      className="cursor-pointer border-t border-t-[0.5px] border-[#D9D9D9] pt-[8px] pb-[4px] pl-[28px]"
+    >
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-[80px]">
           <p className="text-[#2D2D2D] text-[16px] font-[500]">{chapterNubmer}</p>

@@ -70,6 +70,12 @@
           "items": {
             "$ref": "#/definitions/recruitment_user_like"
           }
+        },
+        "contributors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/contributors"
+          }
         }
       },
       "required": [
@@ -662,9 +668,6 @@
           ],
           "format": "date-time"
         },
-        "account_id": {
-          "type": "string"
-        },
         "role": {
           "type": [
             "string",
@@ -683,6 +686,9 @@
             "null"
           ],
           "format": "date-time"
+        },
+        "account": {
+          "$ref": "#/definitions/accounts"
         },
         "contributor_groups": {
           "$ref": "#/definitions/contributor_groups"

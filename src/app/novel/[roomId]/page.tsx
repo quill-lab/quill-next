@@ -1,11 +1,15 @@
 import { authOptions } from '@/authOptions';
 import NovelTemplate from '@/components/templates/NovelTemplate';
+import { NovelItem } from '@/shared';
+import { callApiResponse } from '@/shared/interface/api';
 import { Chapter } from '@/shared/interface/chapter';
 import callApi from '@/shared/utils/fetchWrapper';
 import { ApolloClient, gql, HttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 import React from 'react';
+import { getNovelAuthorList } from './action';
 
 interface Novel {
   params: {
@@ -41,7 +45,10 @@ const GET_EPISODES = gql`
 const NovelPage = async ({ params, searchParams }: Novel) => {
   const session = await getServerSession(authOptions);
   const roomId = params?.roomId;
-  const sort = searchParams?.sort;
+
+  if (!session?.user?.token) {
+    redirect('/');
+  }
 
   const authLink = setContext((_, { headers }) => {
     return {
@@ -61,27 +68,49 @@ const NovelPage = async ({ params, searchParams }: Novel) => {
     cache: new InMemoryCache(),
   });
 
-  const { data: episodes } = await client.query({
-    query: GET_EPISODES,
-    variables: {
-      contributorGroupId: roomId,
-    },
-  });
+  try {
+    const [episodes, novelInfo, novelAuthorList] = await Promise.all([
+      await client.query({
+        query: GET_EPISODES,
+        variables: {
+          contributorGroupId: roomId,
+        },
+      }),
+      await callApi<NovelItem & callApiResponse>({
+        url: `/api/v1/novel-rooms/${roomId}`,
+        method: 'GET',
+        token: session?.user?.token,
+      }),
+      await getNovelAuthorList(roomId),
+    ]);
 
-  const formattedEpisodes = episodes.chaptersConnection.nodes.map((episode: Chapter) => {
-    return {
-      id: episode.id,
-      episode: episode.episode,
-      title: episode.title,
-      editedAt: episode.editedAt ?? new Date(),
-      status: episode.status,
-      approvedAt: episode.approvedAt ?? new Date(),
-      currentAuthor: episode.currentAuthor ?? null,
-      metadata: episode.metadata,
-    };
-  });
+    if (novelInfo.statusCode && novelInfo.statusCode === 401) {
+      redirect('/');
+    }
 
-  return <NovelTemplate episodes={formattedEpisodes} />;
+    const formattedEpisodes = episodes.data.chaptersConnection.nodes.map((episode: Chapter) => {
+      return {
+        id: episode.id,
+        episode: episode.episode,
+        title: episode.title,
+        editedAt: episode.editedAt ?? new Date(),
+        status: episode.status,
+        approvedAt: episode.approvedAt ?? new Date(),
+        currentAuthor: episode.currentAuthor ?? null,
+        metadata: episode.metadata,
+      };
+    });
+
+    return (
+      <NovelTemplate
+        episodes={formattedEpisodes}
+        novelInfo={novelInfo}
+        authorList={novelAuthorList!}
+      />
+    );
+  } catch (e) {
+    redirect('/');
+  }
 };
 
 export default NovelPage;

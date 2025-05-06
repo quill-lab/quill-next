@@ -28,6 +28,7 @@ model accounts {
   contributor_group_recruitments contributor_group_recruitments[] @relation("AccountRecruitments")
   contributor_requests contributor_requests[] @relation("AccountToContributorRequests")
   recruitment_user_likes         recruitment_user_like[]
+  contributors                   contributors[]                   @relation("AccountContributors")
 
   @@index([email], map: "idx_account_email")
 }
@@ -159,6 +160,7 @@ model contributors {
   writing_order        Int?
   contributor_group_id String             @db.Uuid
   persisted_at         DateTime?          @db.Timestamp(6)
+  account              accounts           @relation("AccountContributors", fields: [account_id], references: [id])
   contributor_groups   contributor_groups @relation("contributorsToGroups", fields: [contributor_group_id], references: [id], onDelete: Cascade, map: "fk_contributor_contributor_group")
 }
 

@@ -69,7 +69,9 @@ export const PageHeader = ({ bg = 'transparent' }: PageHeaderProps) => {
             onClick={handleClickLogo}
             className="cursor-pointer"
           />
-          <div className="cursor-pointer">웹소설</div>
+          <div className="cursor-pointer" onClick={() => router.push('/main')}>
+            웹소설
+          </div>
           <div className="cursor-pointer" onClick={() => router.push('/work-space')}>
             소설공방
           </div>

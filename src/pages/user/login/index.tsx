@@ -53,13 +53,13 @@ export default function Login() {
           redirect: false,
           email: data.email,
           password: data.password,
-          callbackUrl: '/work-space', // 로그인 성공 시 리다이렉트할 경로
+          callbackUrl: '/main',
         });
 
         if (res?.error) {
           alert('로그인에 실패하였습니다. 다시 시도해주세요.'); // 로그인 실패 시 알림 표시
         } else {
-          route.replace('/work-space');
+          route.replace('/main');
         }
         // mutate({ email: data.email, password: data.password });
       });
