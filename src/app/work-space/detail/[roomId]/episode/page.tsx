@@ -22,6 +22,7 @@ const GET_EPISODES = gql`
         episode
         title
         status
+        approvedAt
         currentAuthor {
           id
           name
@@ -73,7 +74,7 @@ export default async function EpisodePage({ params, searchParams }: EpisodeInter
       title: episode.title,
       editedAt: episode.editedAt ?? new Date(),
       status: episode.status,
-      approvedAt: episode.approvedAt ?? new Date(),
+      approvedAt: episode.approvedAt,
       currentAuthor: episode.currentAuthor ?? null,
       metadata: episode.metadata,
     };

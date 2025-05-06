@@ -14,7 +14,7 @@ const options: NextAdminOptions = {
           async afterDb(data, mode, request) {
             const chapterId = request.url?.split('chapters/')[1];
 
-            if (data.data.status === 'REQUESTED') {
+            if (data.data.status === 'APPROVED') {
               const novel = await prisma.chapters.findFirst({
                 where: {
                   id: data.data.id,

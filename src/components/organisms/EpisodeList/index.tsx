@@ -54,7 +54,7 @@ const EpisodeList = ({ episodes }: EpisodeListProps) => {
             <td>{episode.title}</td>
             <td>{dayjs(episode.editedAt).format('YYYY.M.D')}</td>
             <td>{matchStatus[episode.status]}</td>
-            <td>{dayjs(episode.approvedAt).format('YYYY.M.D')}</td>
+            <td>{episode.approvedAt ? dayjs(episode.approvedAt).format('YYYY.M.D') : '-'}</td>
             <td>{episode.metadata.viewCount}</td>
             <td>{episode.metadata.commentCount}</td>
             <td>{episode.metadata.likeCount}</td>
