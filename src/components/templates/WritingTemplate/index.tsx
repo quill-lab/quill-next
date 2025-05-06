@@ -48,7 +48,7 @@ const WritingTemplate = ({ chapter, draftText, adminAccount }: WritingTemplatePr
         url: `/api/v1/novel-rooms/${roomId}/chapters/${chapterId}/finalize`,
         method: 'POST',
         token: session?.user?.token,
-      });
+      }).then(() => router.push(`/work-space/detail/${roomId}/episode`));
     });
   };
 

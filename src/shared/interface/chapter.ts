@@ -3,7 +3,7 @@ export interface Chapter {
   episode: string;
   title: string;
   editedAt: Date;
-  status: 'IN_PROGRESS' | 'REQUESTED' | 'APPROVED' | 'CANCELLED' | 'REJECTED';
+  status: 'IN_PROGRESS' | 'REQUESTED' | 'APPROVED' | 'CANCELLED' | 'REJECTED' | 'DRAFT';
   approvedAt: Date;
   currentAuthor: { id: string; name: string };
   metadata: { viewCount: number; commentCount: number; likeCount: number };

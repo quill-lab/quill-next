@@ -12,6 +12,15 @@ const EpisodeList = ({ episodes }: EpisodeListProps) => {
   const params = useParams();
   const roomId = params?.roomId;
 
+  const matchStatus = {
+    IN_PROGRESS: '작성중',
+    REQUESTED: '연재 검토중',
+    APPROVED: '연재완료',
+    REJECTED: '연재거절',
+    CANCELLED: '연재취소',
+    DRAFT: '작성중',
+  };
+
   return (
     <table className="w-full">
       <thead className="w-full text-center">
@@ -44,7 +53,7 @@ const EpisodeList = ({ episodes }: EpisodeListProps) => {
             <td className="px-[24px] py-[16px]">{episode.episode}</td>
             <td>{episode.title}</td>
             <td>{dayjs(episode.editedAt).format('YYYY.M.D')}</td>
-            <td>{episode.status}</td>
+            <td>{matchStatus[episode.status]}</td>
             <td>{dayjs(episode.approvedAt).format('YYYY.M.D')}</td>
             <td>{episode.metadata.viewCount}</td>
             <td>{episode.metadata.commentCount}</td>

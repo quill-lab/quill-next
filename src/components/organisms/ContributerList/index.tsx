@@ -1,32 +1,63 @@
 'use client';
 
-import React, { useState } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Member } from '@/shared';
+import { useSession } from 'next-auth/react';
+import { useParams, useSearchParams } from 'next/navigation';
+import { ChapterText } from '@/shared/interface/chapter';
+import callApi from '@/shared/utils/fetchWrapper';
+import { callApiResponse } from '@/shared/interface/api';
 
 interface ContributerListProps {
   members: Member[];
 }
 
 const ContributerList = ({ members }: ContributerListProps) => {
-  const [draggedMembers, setDraggedMembers] = useState(members);
+  const { data: session } = useSession();
+  const params = useParams();
+  const searchParams = useSearchParams();
+  const roomId = params?.roomId;
+  const chapterId = searchParams?.get('episode');
+  const [chapterTexts, setChapterTexts] =
+    useState<{ id: string; content: string; authorName: string; createdAt: Date }[]>();
 
-  // 드래그가 끝난 후 순서 변경 함수
-  const handleOnDragEnd = (result: any) => {
-    const { destination, source } = result;
+  console.log({ chapterTexts });
 
-    if (!destination) return;
+  useEffect(() => {
+    const getChapterTexts = async () => {
+      const chapterTexts = await callApi<{ items: ChapterText[] } & callApiResponse>({
+        url: `/api/v1/novel-rooms/${roomId}/chapters/${chapterId}/texts`,
+        method: 'GET',
+        token: session?.user?.token,
+      });
 
-    // 순서가 바뀌지 않은 경우
-    if (destination.index === source.index) return;
+      const chapterText = chapterTexts.items.sort(
+        (a: ChapterText, b: ChapterText) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      );
 
-    const updatedMembers = Array.from(draggedMembers);
-    const [removed] = updatedMembers.splice(source.index, 1);
-    updatedMembers.splice(destination.index, 0, removed);
+      const mappingChapter = chapterText.map(chapter => ({
+        id: chapter.id,
+        content: chapter.content,
+        authorName: chapter.authorName,
+        createdAt: chapter.createdAt,
+      }));
 
-    setDraggedMembers(updatedMembers);
-  };
+      const sortedChapterTexts = mappingChapter?.sort(
+        (a: ChapterText, b: ChapterText) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      );
+
+      setChapterTexts(sortedChapterTexts);
+    };
+
+    getChapterTexts();
+    console.log({ chapterId });
+    if (chapterId === null) {
+      setChapterTexts([]);
+    }
+  }, [chapterId]);
 
   return (
     <div
@@ -36,47 +67,29 @@ const ContributerList = ({ members }: ContributerListProps) => {
       className="w-full relative mt-[70px] h-[468px] bg-[#fff] rounded-[20px] flex flex-col items-center"
     >
       <div className="py-[16px]">
-        <p className="text-[#2D2D2D] text-[16px] font-[400]">참여 작가 (5/5)</p>
+        <p className="text-[#2D2D2D] text-[16px] font-[400]">
+          참여 작가 ({members.length}/{members.length})
+        </p>
       </div>
 
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="members-list">
-          {provided => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              className="pt-[21.5px] pl-[32px] flex flex-col gap-[24px] items-left w-full h-full"
-            >
-              {draggedMembers.map((member, index) => (
-                <Draggable key={member.id} draggableId={member.id.toString()} index={index}>
-                  {provided => (
-                    <div
-                      className="flex gap-[12px]"
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <Image src={'/images/avatar.png'} width={24} height={24} alt="avatar" />
-                      <p>{member.nickname}</p>
-                      {member.role === 'MAIN' && (
-                        <Image
-                          src={'/images/novel-room-admin.svg'}
-                          width={16}
-                          height={16}
-                          alt="admin"
-                        />
-                      )}
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <div className="pt-[21.5px] pl-[32px] flex flex-col gap-[24px] items-left w-full h-full overflow-auto">
+        {members.map(member => (
+          <div key={member.id} className="flex gap-[12px] items-center">
+            <Image src={'/images/avatar.png'} width={24} height={24} alt="avatar" />
+            <p>{member.nickname}</p>
+            {member.role === 'MAIN' && (
+              <Image src={'/images/novel-room-admin.svg'} width={16} height={16} alt="admin" />
+            )}
+            {chapterTexts &&
+              chapterTexts?.length > 0 &&
+              chapterTexts[chapterTexts.length - 1].authorName === member.nickname && (
+                <Image src={'/images/pencil.svg'} width={12} height={18} alt="pencil" />
+              )}
+          </div>
+        ))}
+      </div>
 
-      <button className="w-full stiky bottom-0 left-0 bg-[#F8F8F8] py-[20px] text-center text-[#059EAF] text-[14px] font-[500] font-spoqa rounded-bl-[20px] rounded-br-[20px]">
+      <button className="w-full sticky bottom-0 left-0 bg-[#F8F8F8] py-[20px] text-center text-[#059EAF] text-[14px] font-[500] font-spoqa rounded-bl-[20px] rounded-br-[20px]">
         작가 순서 관리
       </button>
     </div>
