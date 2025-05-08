@@ -16,29 +16,58 @@ const RecruitCard = ({ recruitData }: RecruitCardProps) => {
       className="w-full py-[16px] px-[28px] flex flex-col items-start justify-center bg-[#FAFAFA] rounded-[10px] border border-[0.5px] border-[#D9D9D9] cursor-pointer"
     >
       <div className="flex justify-start items-center gap-[8px]">
-        <div className="bg-[#1CB09E] px-[12px] py-[4px] rounded-[100px]">
-          <p className="text-[#fff] font-[400] text-[8px] text-center">모집중</p>
-        </div>
+        {recruitData.contributor_group.max_contributor_count ===
+        recruitData.contributor_group.contributor_count ? (
+          <div className="bg-[#FF9200] px-[12px] py-[4px] rounded-[100px]">
+            <p className="text-[#fff] font-[400] text-[8px] text-center">모집완료</p>
+          </div>
+        ) : (
+          <div className="bg-[#1CB09E] px-[12px] py-[4px] rounded-[100px]">
+            <p className="text-[#fff] font-[400] text-[8px] text-center">모집중</p>
+          </div>
+        )}
         <p className="text-[#959595] text-[14px] font-[500] font-spoqa">
           {dayjs(recruitData.created_at).format('YYYY.MM.DD') ?? '2023.05.02'}
         </p>
       </div>
-      <p className="mt-[24px] text-[#2D2D2D] text-[22px] font-[700] font-spoqa">
-        {recruitData.title}
-      </p>
+      {recruitData.contributor_group.max_contributor_count ===
+      recruitData.contributor_group.contributor_count ? (
+        <p className="mt-[24px] text-[#DCDCDC] text-[22px] font-[700] font-spoqa">
+          {recruitData.title}
+        </p>
+      ) : (
+        <p className="mt-[24px] text-[#2D2D2D] text-[22px] font-[700] font-spoqa">
+          {recruitData.title}
+        </p>
+      )}
       <div className="mt-[16px] flex items-center gap-[68px]">
         <div className="flex gap-[16px] items-center">
           <p className="text-[#959595] text-[14px] font-[500] font-spoqa">제목</p>
-          <p className="text-[#2D2D2D] text-[14px] font-[700] font-spoqa">
-            {recruitData.contributor_group.novels.title}
-          </p>
+          {recruitData.contributor_group.max_contributor_count ===
+          recruitData.contributor_group.contributor_count ? (
+            <p className="text-[#DCDCDC] text-[14px] font-[700] font-spoqa">
+              {recruitData.contributor_group.novels.title}
+            </p>
+          ) : (
+            <p className="text-[#2D2D2D] text-[14px] font-[700] font-spoqa">
+              {recruitData.contributor_group.novels.title}
+            </p>
+          )}
         </div>
         <div className="flex gap-[16px] items-center">
-          <p className="text-[#959595] text-[14px] font-[500] font-spoqa">작가 인원</p>
-          <p className="text-[#2D2D2D] text-[14px] font-[700] font-spoqa">
-            {recruitData.contributor_group.contributor_count}/
-            {recruitData.contributor_group.max_contributor_count}
-          </p>
+          <p className="text-[#DCDCDC] text-[14px] font-[500] font-spoqa">작가 인원</p>
+          {recruitData.contributor_group.max_contributor_count ===
+          recruitData.contributor_group.contributor_count ? (
+            <p className="text-[#2D2D2D] text-[14px] font-[700] font-spoqa">
+              {recruitData.contributor_group.contributor_count}/
+              {recruitData.contributor_group.max_contributor_count}
+            </p>
+          ) : (
+            <p className="text-[#2D2D2D] text-[14px] font-[700] font-spoqa">
+              {recruitData.contributor_group.contributor_count}/
+              {recruitData.contributor_group.max_contributor_count}
+            </p>
+          )}
         </div>
       </div>
       <div className="mt-[16px] w-full flex justify-between items-center">
