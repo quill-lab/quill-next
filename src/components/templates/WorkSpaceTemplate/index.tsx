@@ -118,7 +118,7 @@ const WorkSpace = ({ items, totalCount, size, page }: WordSpaceProps) => {
             {/* <Table tab={roomState} tableData={items ?? []} /> */}
 
             <div className="flex flex-wrap gap-[24px] mt-[24px]">
-              {items.length &&
+              {items.length > 0 ? (
                 items.map(item => (
                   <div
                     className="flex cursor-pointer justify-center items-center rounded-[10px] border border-[0.6px] border-[#D9D9D9]"
@@ -161,7 +161,10 @@ const WorkSpace = ({ items, totalCount, size, page }: WordSpaceProps) => {
                       </div>
                     </div>
                   </div>
-                ))}
+                ))
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>
