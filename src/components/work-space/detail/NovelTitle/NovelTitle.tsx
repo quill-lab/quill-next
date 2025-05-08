@@ -29,7 +29,7 @@ export const NovelTitle = ({ title, status, category }: NovelTitleProps) => {
           <p className="text-lg font-medium text-black1">{title}</p>
         )}
 
-        <p className={'text-xs  font-medium text-black1'}>{category?.name || ''}</p>
+        <p className={'text-xs  font-medium text-black1'}>{category?.alias || ''}</p>
       </div>
       <p className="text-gray-900 text-center text-[16px] font-medium">
         {getNovelRoomStatus(status || 'prepare')}
