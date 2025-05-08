@@ -74,6 +74,7 @@ const NovelPage = async ({ params, searchParams }: Novel) => {
         query: GET_EPISODES,
         variables: {
           contributorGroupId: roomId,
+          status: 'APPROVED',
         },
       }),
       await callApi<NovelItem & callApiResponse>({

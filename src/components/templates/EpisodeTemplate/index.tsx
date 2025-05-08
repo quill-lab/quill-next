@@ -34,15 +34,10 @@ export default function EpisodeTemplate({ episodes }: EpisodeTemplateInterface) 
 
   const handleCreateChapter = () => {
     startCreateChapterTransition(async () => {
-      const createdChapter = await callApi<{ id: string }>({
+      await callApi<{ id: string }>({
         url: `/api/v1/novel-rooms/${roomId}/chapters`,
         method: 'POST',
-        token: session?.user?.token,
-      });
-      await callApi({
-        url: `/api/v1/novel-rooms/${roomId}/chapters/${createdChapter.id}`,
-        body: { title: title },
-        method: 'PATCH',
+        body: { title },
         token: session?.user?.token,
       }).then(() => {
         setTitle('');
