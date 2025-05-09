@@ -1,12 +1,12 @@
+'use client';
+
 import NovelTag from '@/components/molecules/NovelTag';
 import React from 'react';
 
-const NovelTagSection = () => {
+const NovelTagSection = ({ tags }: { tags: string[] }) => {
   return (
     <div className="flex gap-[8px] items-center">
-      <NovelTag text="#스릴러로맨스" />
-      <NovelTag text="#마지막반전" />
-      <NovelTag text="#분위기있는" />
+      {tags.length && tags?.map(tag => <NovelTag text={tag} />)}
     </div>
   );
 };

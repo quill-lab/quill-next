@@ -1,6 +1,7 @@
+'use client';
+
 import NovelChapter from '@/components/molecules/NovelChapter';
 import NovelSortDropBox from '@/components/molecules/NovelSortDropBox';
-import NovelTag from '@/components/molecules/NovelTag';
 import NovelTagSection from '@/components/organisms/NovelTagSection';
 import { PageHeader } from '@/components/PageHeader/PageHeader';
 import { NovelItem } from '@/shared';
@@ -19,6 +20,8 @@ const NovelTemplate = ({ episodes, novelInfo, authorList }: NovelTemplateProps) 
     const mainAuthor = authorList.find(author => author.role === 'MAIN');
     return `${mainAuthor?.name} 외${authorList.length}명`;
   };
+
+  console.log('tags: ', novelInfo.tags);
 
   return (
     <div className="w-full flex flex-col items-center justify-center">
@@ -53,7 +56,7 @@ const NovelTemplate = ({ episodes, novelInfo, authorList }: NovelTemplateProps) 
               <p className="mt-[8px] text-[#2D2D2D] text-[14px] font-[700]">한줄소개</p>
               <p className="text-[#959595] text-[14px] font-[500]">{novelInfo.synopsis}</p>
               <div className="mt-[8px]">
-                <NovelTagSection />
+                <NovelTagSection tags={novelInfo.tags.slice(0, 3)} />
               </div>
             </div>
           </div>
