@@ -91,6 +91,10 @@ const WritingPage = async ({ params, searchParams }: WritingPageProps) => {
     redirect('/');
   }
 
+  if (chapterInfo?.status !== 'DRAFT') {
+    redirect(`/work-space/detail/${roomId}/episode`);
+  }
+
   const adminAccount = members.find(member => member.role === 'MAIN');
 
   const chapterText = chapterTexts.items.sort(

@@ -13,6 +13,7 @@ type NovelTitleProps = {
 export const NovelTitle = ({ title, status, category }: NovelTitleProps) => {
   const { editMode, setEditTitle } = useNovelRoom();
 
+  console.log({ status });
   return (
     <div
       className={`flex w-full h-14 rounded-[10px] flex-row items-center justify-between py-4 px-8 rounded-[10px] bg-white/50`}

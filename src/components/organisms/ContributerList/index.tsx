@@ -22,8 +22,6 @@ const ContributerList = ({ members }: ContributerListProps) => {
   const [chapterTexts, setChapterTexts] =
     useState<{ id: string; content: string; authorName: string; createdAt: Date }[]>();
 
-  console.log({ chapterTexts });
-
   useEffect(() => {
     const getChapterTexts = async () => {
       const chapterTexts = await callApi<{ items: ChapterText[] } & callApiResponse>({
@@ -32,12 +30,12 @@ const ContributerList = ({ members }: ContributerListProps) => {
         token: session?.user?.token,
       });
 
-      const chapterText = chapterTexts.items.sort(
+      const chapterText = chapterTexts?.items?.sort(
         (a: ChapterText, b: ChapterText) =>
           new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       );
 
-      const mappingChapter = chapterText.map(chapter => ({
+      const mappingChapter = chapterText?.map(chapter => ({
         id: chapter.id,
         content: chapter.content,
         authorName: chapter.authorName,
@@ -53,7 +51,6 @@ const ContributerList = ({ members }: ContributerListProps) => {
     };
 
     getChapterTexts();
-    console.log({ chapterId });
     if (chapterId === null) {
       setChapterTexts([]);
     }

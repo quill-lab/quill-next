@@ -59,17 +59,26 @@ const EpisodeList = ({ episodes }: EpisodeListProps) => {
             <td>{episode.metadata.commentCount}</td>
             <td>{episode.metadata.likeCount}</td>
             <td>{episode.currentAuthor?.name}</td>
-            <td>
-              <button
-                onClick={() =>
-                  router.push(`/work-space/detail/${roomId}/writing?episode=${episode.id}`)
-                }
-                className="flex justify-center items-center gap-[4px] py-[4px] px-[12px] bg-[#fff] rounded-[6px] border border-[0.6px] border-[#D9D9D9]"
-              >
-                <p className="text-[#787774] text-center font-spoqa text-[12px] font-[500]">입장</p>
-                <Image src={'/images/right-arrow.svg'} width={10} height={7.5} alt="right-arrow" />
-              </button>
-            </td>
+            {episode.status === 'DRAFT' && (
+              <td>
+                <button
+                  onClick={() =>
+                    router.push(`/work-space/detail/${roomId}/writing?episode=${episode.id}`)
+                  }
+                  className="flex justify-center items-center gap-[4px] py-[4px] px-[12px] bg-[#fff] rounded-[6px] border border-[0.6px] border-[#D9D9D9]"
+                >
+                  <p className="text-[#787774] text-center font-spoqa text-[12px] font-[500]">
+                    입장
+                  </p>
+                  <Image
+                    src={'/images/right-arrow.svg'}
+                    width={10}
+                    height={7.5}
+                    alt="right-arrow"
+                  />
+                </button>
+              </td>
+            )}
           </tr>
         ))}
       </tbody>
