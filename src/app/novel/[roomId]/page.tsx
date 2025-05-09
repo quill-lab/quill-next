@@ -2,7 +2,7 @@ import { authOptions } from '@/authOptions';
 import NovelTemplate from '@/components/templates/NovelTemplate';
 import { NovelItem } from '@/shared';
 import { callApiResponse } from '@/shared/interface/api';
-import { Chapter } from '@/shared/interface/chapter';
+import { Chapter, ChapterFormatted } from '@/shared/interface/chapter';
 import callApi from '@/shared/utils/fetchWrapper';
 import { ApolloClient, gql, HttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
@@ -45,6 +45,7 @@ const GET_EPISODES = gql`
 const NovelPage = async ({ params, searchParams }: Novel) => {
   const session = await getServerSession(authOptions);
   const roomId = params?.roomId;
+  const sort = searchParams?.sort;
 
   if (!session?.user?.token) {
     redirect('/');
@@ -103,9 +104,18 @@ const NovelPage = async ({ params, searchParams }: Novel) => {
         };
       });
 
+    const sortedFormattedEpisodes =
+      sort === 'asc'
+        ? formattedEpisodes.sort(
+            (a: ChapterFormatted, b: ChapterFormatted) => a.episode - b.episode
+          )
+        : formattedEpisodes.sort(
+            (a: ChapterFormatted, b: ChapterFormatted) => b.episode - a.episode
+          );
+
     return (
       <NovelTemplate
-        episodes={formattedEpisodes}
+        episodes={sortedFormattedEpisodes}
         novelInfo={novelInfo}
         authorList={novelAuthorList!}
       />

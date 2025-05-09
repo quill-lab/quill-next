@@ -1,4 +1,5 @@
 import NovelChapter from '@/components/molecules/NovelChapter';
+import NovelSortDropBox from '@/components/molecules/NovelSortDropBox';
 import NovelTag from '@/components/molecules/NovelTag';
 import NovelTagSection from '@/components/organisms/NovelTagSection';
 import { PageHeader } from '@/components/PageHeader/PageHeader';
@@ -63,10 +64,7 @@ const NovelTemplate = ({ episodes, novelInfo, authorList }: NovelTemplateProps) 
             <div className="px-[68px] py-[16px] rounded-tl-[20px] rounded-tr-[20px] bg-[#059EAF] text-[#fff] flex justify-center items-center text-[14px] font-[500]">
               회차 정보
             </div>
-            <div className="py-[8px] px-[20px] rounded-[100px] bg-[#FAFAFA] flex items-center gap-[4px]">
-              <p className="text-[#2D2D2D] text-[12px] font-[500]">첫화부터</p>
-              <Image src={'/images/tool-tip-novel.svg'} width={10} height={8} alt="tool tip" />
-            </div>
+            <NovelSortDropBox />
           </div>
           {episodes.map(episode => (
             <NovelChapter

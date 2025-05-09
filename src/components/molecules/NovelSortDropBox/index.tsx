@@ -1,5 +1,8 @@
 'use client';
 
+import { useParams, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import React, { useTransition } from 'react';
 import LoadingBar from '@/components/atoms/LoadingBar';
 import {
   DropdownMenu,
@@ -9,10 +12,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Image from 'next/image';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { useTransition } from 'react';
 
-export default function DropDownBox({}) {
+const NovelSortDropBox = () => {
   const router = useRouter();
   const params = useParams();
   const novelId = params?.roomId;
@@ -38,9 +39,9 @@ export default function DropDownBox({}) {
   return (
     <DropdownMenu>
       {isPending && <LoadingBar />}
-      <DropdownMenuTrigger className="bg-[white] bg-opacity-50 rounded-[100px] border-none outline-none px-[16px] py-[8px] text-[#059eaf] text-[12px] font-[500] font-[spoqa] flex gap-[4px]">
+      <DropdownMenuTrigger className="bg-[white] bg-opacity-50 rounded-[100px] border-none outline-none px-[16px] py-[8px] text-[#2D2D2D] text-[12px] font-[500] font-[spoqa] flex gap-[4px]">
         {isValidSortOption(sortOption || '') ? mappingOption(sortOption!) : '마지막부터'}
-        <Image src={'/images/bottom-polygon.svg'} width={10} height={8} alt="show_more" />
+        <Image src={'/images/tool-tip-novel.svg'} width={10} height={8} alt="tool tip" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="min-w-[112px] bg-white border-none flex flex-col items-center justify-center pb-[16px] pt-[12px] mt-[0px] rounded-[10px]">
         <DropdownMenuSeparator className="flex flex-col items-center justify-center py-[0px] mt-[0px]" />
@@ -51,7 +52,7 @@ export default function DropDownBox({}) {
             }`}
             onClick={() =>
               startTransition(() => {
-                router.push(`/work-space/detail/${novelId}/episode?sort=${option.name}`);
+                router.push(`/novel/${novelId}?sort=${option.name}`);
               })
             }
           >
@@ -61,4 +62,6 @@ export default function DropDownBox({}) {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+};
+
+export default NovelSortDropBox;
