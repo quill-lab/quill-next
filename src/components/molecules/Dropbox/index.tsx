@@ -21,7 +21,7 @@ export default function DropDownBox({}) {
   const [isPending, startTransition] = useTransition();
 
   const sortOptionList: { name: string; alias: string }[] = [
-    { name: 'desc', alias: '마지막부터' },
+    { name: 'desc', alias: '최신화부터' },
     { name: 'asc', alias: '처음부터' },
   ];
 
@@ -39,7 +39,7 @@ export default function DropDownBox({}) {
     <DropdownMenu>
       {isPending && <LoadingBar />}
       <DropdownMenuTrigger className="bg-[white] bg-opacity-50 rounded-[100px] border-none outline-none px-[16px] py-[8px] text-[#059eaf] text-[12px] font-[500] font-[spoqa] flex gap-[4px]">
-        {isValidSortOption(sortOption || '') ? mappingOption(sortOption!) : '마지막부터'}
+        {isValidSortOption(sortOption || '') ? mappingOption(sortOption!) : '최신화부터'}
         <Image src={'/images/bottom-polygon.svg'} width={10} height={8} alt="show_more" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="min-w-[112px] bg-white border-none flex flex-col items-center justify-center pb-[16px] pt-[12px] mt-[0px] rounded-[10px]">
