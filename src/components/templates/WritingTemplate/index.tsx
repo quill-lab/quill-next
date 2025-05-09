@@ -1,20 +1,18 @@
 'use client';
 
+import LoadingBar from '@/components/atoms/LoadingBar';
 import ChapterItemList from '@/components/organisms/ChapterItemList';
-import WorkSpaceTabHeader from '@/components/organisms/WorkSpaceTabHeader';
-import Image from 'next/image';
-import './custom-scrollbar.scss';
-import MobileTabHeader from '@/components/molecules/MobileTabHeader';
+import { Member } from '@/shared';
 import { ChapterText, DraftText } from '@/shared/interface/chapter';
+import callApi from '@/shared/utils/fetchWrapper';
 import { useWriting } from '@/stores/useWriting';
 import dayjs from 'dayjs';
-import callApi from '@/shared/utils/fetchWrapper';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
-import LoadingBar from '@/components/atoms/LoadingBar';
-import { Member } from '@/shared';
 import { notififyDiscordRequestPublication } from './action';
+import './custom-scrollbar.scss';
 
 interface WritingTemplateProps {
   chapter: { title: string; chapterTitle: string; chapterNumber: number; chapters: ChapterText[] };

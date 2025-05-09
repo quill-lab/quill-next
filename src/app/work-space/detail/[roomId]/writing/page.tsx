@@ -1,12 +1,9 @@
 import { authOptions } from '@/authOptions';
 import WritingTemplate from '@/components/templates/WritingTemplate';
-import { prisma } from '@/lib/prisma';
 import { Member } from '@/shared';
 import { callApiResponse } from '@/shared/interface/api';
 import { ChapterText, DraftText } from '@/shared/interface/chapter';
 import callApi from '@/shared/utils/fetchWrapper';
-import { ApolloClient, gql, HttpLink, InMemoryCache } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { getChapter } from './action';
@@ -20,8 +17,6 @@ interface WritingPageProps {
   };
 }
 
-// const GET_CHAPTER_DATA = gql``;
-
 const WritingPage = async ({ params, searchParams }: WritingPageProps) => {
   const session = await getServerSession(authOptions);
   const chapterId = searchParams.episode;
@@ -31,7 +26,6 @@ const WritingPage = async ({ params, searchParams }: WritingPageProps) => {
     redirect('/work-space');
   }
 
-  // TODO: chapterId 가 없을 경우 list로 리다이렉트
   if (!chapterId) {
     redirect(`/work-space/detail/${roomId}/info`);
   }

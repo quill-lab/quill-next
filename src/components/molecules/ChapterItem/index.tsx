@@ -5,7 +5,7 @@ import callApi from '@/shared/utils/fetchWrapper';
 import { useWriting } from '@/stores/useWriting';
 import { useSession } from 'next-auth/react';
 import { useParams, useSearchParams } from 'next/navigation';
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 interface ChapterItemProps {
   text?: string;
