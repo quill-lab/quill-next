@@ -93,20 +93,26 @@ const RecruitDetailTemplate = ({ recruitData }: RecruitDetailTemplateProps) => {
     );
 
     if (result?.code === 'A110') {
-      toast.error('이미 참여한 공방에는 신청할 수 없습니다.');
+      toast.error('이미 참여한 공방에는 신청할 수 없습니다');
+      return;
     }
 
     if (result?.code === 'A111') {
-      toast.error('이미 신청한 공방에는 신청할 수 없습니다.');
+      toast.error('이미 신청한 공방에는 신청할 수 없습니다');
+      return;
     }
 
     if (result?.code === 'A112') {
-      toast.error('자신의 모집 공고에는 참가를 할 수 없습니다.');
+      toast.error('자신의 모집 공고에는 참가를 할 수 없습니다');
+      return;
     }
 
     if (result?.code === 'A113') {
-      toast.error('정원이 가득찬 공방입니다.');
+      toast.error('정원이 가득찬 공방입니다');
+      return;
     }
+
+    toast.success('참여신청이 완료되었습니다');
   };
 
   return (
@@ -211,27 +217,6 @@ const RecruitDetailTemplate = ({ recruitData }: RecruitDetailTemplateProps) => {
                 </DialogContent>
               </DialogOverlay>
             </Dialog>
-
-            {/* <Dialog>
-              <DialogTrigger className="bg-[#059EAF] rounded-[100px] py-[16px] px-[72px] text-[#fff] text-[14px] font-[500] font-spoqa">
-                참여신청
-              </DialogTrigger>
-              <DialogContent className="bg-[#fff] opacity-1 rounded-[10px]">
-                <DialogHeader>
-                  <DialogTitle>Are you absolutely sure?</DialogTitle>
-                  <DialogDescription>
-                    This action cannot be undone. This will permanently delete your account and
-                    remove your data from our servers.
-                  </DialogDescription>
-                </DialogHeader>
-              </DialogContent>
-            </Dialog> */}
-            {/* <button
-              onClick={handleSubmitJoinRecruitment}
-              className="bg-[#059EAF] rounded-[100px] py-[16px] px-[72px] text-[#fff] text-[14px] font-[500] font-spoqa"
-            >
-              참여신청
-            </button> */}
           </div>
         </div>
       </div>
