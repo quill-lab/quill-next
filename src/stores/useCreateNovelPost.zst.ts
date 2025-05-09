@@ -97,7 +97,7 @@ const novelChecking: NovelChecking = {
   },
   summaryCheck: {
     key: 'summary',
-    essential: false,
+    essential: true,
     errorMsg: '줄거리를 입력해주세요',
     isError: false,
   },

@@ -64,14 +64,17 @@ export default function WorkSpace() {
           isError={props.titleCheck.isError}
         />
       </div>
-      <div className={'mt-8'}>
-        <OneLineInput
-          onChange={handleChangeDescription}
-          compulsory={props.subTitleCheck.essential}
-          categoryText="한줄 소개"
-          placeholder="소설의 내용을 한줄로 간단하게 작성해 주세요."
-          errorText={props.subTitleCheck.errorMsg}
-          isError={props.subTitleCheck.isError}
+      <div className={'mt-5'}>
+        <MultilineInput
+          onChange={value => {
+            setNovel({ summary: value });
+          }}
+          compulsory={props.summaryCheck.essential}
+          categoryText="줄거리"
+          tooltipText={`소설의 줄거리를 기승전결에\n따라 입력해주세요.`}
+          placeholder={`(예시)\n기 :로미오와 줄리엣이 만나 첫눈에 사랑에 빠진다.\n승 :로미오와 줄리엣은 부모 몰래 결혼식을 올린다.\n전 :우연히 로미오가 줄리엣의 사촌을 죽이면서 도시 베로나에서 추방 당한다.\n결 :재회하지 못한 둘은 결국 자살한다.`}
+          errorText={props.summaryCheck.errorMsg}
+          isError={props.summaryCheck.isError}
         />
       </div>
       <div className={'mt-8'}>
@@ -88,19 +91,6 @@ export default function WorkSpace() {
           compulsory={props.novelTagCheck.essential}
           errorText={props.novelTagCheck.errorMsg}
           isError={props.novelTagCheck.isError}
-        />
-      </div>
-      <div className={'mt-5'}>
-        <MultilineInput
-          onChange={value => {
-            setNovel({ summary: value });
-          }}
-          compulsory={props.summaryCheck.essential}
-          categoryText="줄거리"
-          tooltipText={`소설의 줄거리를 기승전결에\n따라 입력해주세요.`}
-          placeholder={`(예시)\n기 :로미오와 줄리엣이 만나 첫눈에 사랑에 빠진다.\n승 :로미오와 줄리엣은 부모 몰래 결혼식을 올린다.\n전 :우연히 로미오가 줄리엣의 사촌을 죽이면서 도시 베로나에서 추방 당한다.\n결 :재회하지 못한 둘은 결국 자살한다.`}
-          errorText={props.summaryCheck.errorMsg}
-          isError={props.summaryCheck.isError}
         />
       </div>
       <BookCoverSelector />
