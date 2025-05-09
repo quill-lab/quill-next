@@ -7,9 +7,10 @@ import { useSession } from 'next-auth/react';
 interface ChapterItemListProps {
   chapter: ChapterText[];
   draftText: DraftText;
+  currentAuthor: { id: string; name: string; accountId: string };
 }
 
-const ChapterItemList = ({ chapter, draftText }: ChapterItemListProps) => {
+const ChapterItemList = ({ chapter, draftText, currentAuthor }: ChapterItemListProps) => {
   const { data: session } = useSession();
 
   return (
@@ -21,7 +22,7 @@ const ChapterItemList = ({ chapter, draftText }: ChapterItemListProps) => {
               key={item.id}
               text={item.content}
               mine={item.authorName === session?.user?.name}
-              isEdited={item.authorName === session?.user?.name && index === chapter.length - 1}
+              isEdited={currentAuthor.id === session?.user?.id}
             />
           );
         })

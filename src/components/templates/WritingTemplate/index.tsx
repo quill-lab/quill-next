@@ -18,9 +18,15 @@ interface WritingTemplateProps {
   chapter: { title: string; chapterTitle: string; chapterNumber: number; chapters: ChapterText[] };
   draftText: DraftText;
   adminAccount: Member;
+  currentAuthor: { id: string; name: string; accountId: string };
 }
 
-const WritingTemplate = ({ chapter, draftText, adminAccount }: WritingTemplateProps) => {
+const WritingTemplate = ({
+  chapter,
+  draftText,
+  adminAccount,
+  currentAuthor,
+}: WritingTemplateProps) => {
   const { data: session } = useSession();
   const router = useRouter();
   const params = useParams();
@@ -95,37 +101,42 @@ const WritingTemplate = ({ chapter, draftText, adminAccount }: WritingTemplatePr
                 {chapter.chapterNumber}화 {chapter.chapterTitle}
               </h2>
             </div>
-            {isSaving || isPendingSaveContent ? (
-              <Image src={'/images/isSaving.svg'} width={40} height={40} alt="is saving" />
-            ) : (
-              <button className="relative group">
-                <Image
-                  className="cursor-pointer"
-                  onClick={handleSaveDraftContent}
-                  src={'/images/save.svg'}
-                  width={40}
-                  height={40}
-                  alt="save"
-                />
-                <div className="hidden group-hover:flex absolute left-1/2 transform -translate-x-1/2 flex-col items-center">
-                  <Image src={'/images/triangle.svg'} width={12} height={10} alt="point" />
-                  <div className="mt-[-1px] bottom-[-1px] left-[5px] px-[12px] py-[8px] rounded-[10px] bg-[#41B4C0]">
-                    <p className="text-[#fff] text-[14px] font-spoqa font-[400]">
-                      {dayjs(new Date()).format('HH:mm:ss')}
-                    </p>
+            {currentAuthor.accountId === session?.user?.id &&
+              (isSaving || isPendingSaveContent ? (
+                <Image src="/images/isSaving.svg" width={40} height={40} alt="is saving" />
+              ) : (
+                <button className="relative group">
+                  <Image
+                    className="cursor-pointer"
+                    onClick={handleSaveDraftContent}
+                    src="/images/save.svg"
+                    width={40}
+                    height={40}
+                    alt="save"
+                  />
+                  <div className="hidden group-hover:flex absolute left-1/2 transform -translate-x-1/2 flex-col items-center">
+                    <Image src="/images/triangle.svg" width={12} height={10} alt="point" />
+                    <div className="mt-[-1px] bottom-[-1px] left-[5px] px-[12px] py-[8px] rounded-[10px] bg-[#41B4C0]">
+                      <p className="text-[#fff] text-[14px] font-spoqa font-[400]">
+                        {dayjs(new Date()).format('HH:mm:ss')}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </button>
-            )}
+                </button>
+              ))}
           </div>
           <div className="w-full h-[16px] rounded-bl-[10px] rounded-br-[10px] bg-[#077D8A] shadow-[0px 4px 4px 0px rgba(0, 0, 0, 0.25)]" />
         </div>
         <div className="px-[24px] pb-[28px]">
-          <ChapterItemList chapter={chapter.chapters} draftText={draftText} />
+          <ChapterItemList
+            chapter={chapter.chapters}
+            draftText={draftText}
+            currentAuthor={currentAuthor}
+          />
         </div>
       </div>
       <div className="w-full mt-[18px] flex gap-[36px] items-center justify-center">
-        {chapter.chapters[chapter.chapters.length - 1].authorName === session?.user?.name && (
+        {currentAuthor.id === session?.user?.id && (
           <button
             onClick={handleFinalizeText}
             className="rounded-[62px] bg-[#059EAF] py-[16px] px-[68px] text-[#e7f6f8] text-center text-[14px] font-[500] text-spoqa"

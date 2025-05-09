@@ -15,7 +15,7 @@ interface Actions {
 export const useWriting = create<State & Actions>()(set => ({
   isSaving: false,
   draftContent: '',
-  setIsSaving: (arg: boolean) =>
+  setIsSaving: arg =>
     set({
       isSaving: arg,
     }),
