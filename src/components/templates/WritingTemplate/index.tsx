@@ -95,7 +95,7 @@ const WritingTemplate = ({
       {(isPendingFinalizeContent || isPendingPublish) && <LoadingBar />}
       <div className="w-full bg-[#E7F6F880]">
         <div className="w-full">
-          <div className="w-full mt-[8px] rounded-tl-[10px] rounded-tr-[10px] bg-[white] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] flex justify-between items-center py-[18px] px-[32px]">
+          <div className="w-full rounded-tl-[10px] rounded-tr-[10px] bg-[white] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] flex justify-between items-center py-[18px] px-[32px]">
             <div className="flex items-center gap-[]">
               <h2 className="text-[#2D2D2D] font-spoqa text-[16px] font-[500]">
                 {chapter.chapterNumber}화 {chapter.chapterTitle}
