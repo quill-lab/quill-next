@@ -45,7 +45,6 @@ interface Checks<T> {
 
 interface NovelChecking {
   titleCheck: Checks<Novel>;
-  subTitleCheck: Checks<Novel>;
   categoryCheck: Checks<Novel>;
   novelTagCheck: Checks<Novel>;
   actorCheck: Checks<Novel>;
@@ -69,12 +68,6 @@ const novelChecking: NovelChecking = {
     key: 'title',
     essential: true,
     errorMsg: '제목을 입력해주세요.',
-    isError: false,
-  },
-  subTitleCheck: {
-    key: 'subTitle',
-    essential: true,
-    errorMsg: '한줄 소개를 입력해주세요.',
     isError: false,
   },
   categoryCheck: {

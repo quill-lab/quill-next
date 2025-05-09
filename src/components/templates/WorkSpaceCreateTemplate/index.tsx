@@ -90,6 +90,10 @@ export default function WorkSpaceCreateTemplate() {
     }
   };
 
+  const replaceHastTag = (tags: string[]) => {
+    return tags.map(tag => tag.replaceAll('#', ''));
+  };
+
   const handleClickModalConfirm = async () => {
     setModalOpen(false);
     startTransition(async () => {
@@ -99,22 +103,13 @@ export default function WorkSpaceCreateTemplate() {
           maxContributors: type,
           category: category,
           description: subTitle,
-          tags: novelTag,
+          tags: replaceHastTag(novelTag),
           synopsis: summary || null,
           coverImage: bookCover || null,
         },
         token: session?.user?.token!,
       });
 
-      // const createdRecruitment = await createRecruitmentsByRoomId({
-      //   roomId: createdRoom.id,
-      //   body: {
-      //     title: postTitle,
-      //     content: postContent,
-      //     link: openLink,
-      //   },
-      //   token: session?.user?.token!,
-      // });
       await createRecruimentAction({
         title: postTitle,
         content: postContent,
@@ -123,7 +118,7 @@ export default function WorkSpaceCreateTemplate() {
         authorId: session?.user?.id || '',
       });
 
-      route.replace('/work-space/create/complete');
+      route.replace(`/work-space/create/complete?room=${createdRoom.id}`);
     });
   };
 

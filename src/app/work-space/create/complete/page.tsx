@@ -8,11 +8,12 @@ import { CompletedLogoTextHeader } from '@/components/CompletedLogoTextHeader/Co
 import styles from './complete.module.scss';
 import { useRouter } from 'next/navigation';
 
-const CompleteWorkSpaceCreation = () => {
+const CompleteWorkSpaceCreation = ({ searchParams }: { searchParams: { room: string } }) => {
   const router = useRouter();
+  const roomId = searchParams?.room;
 
   const handleLeftButton = (): void => {
-    // router.push('/work-space/')
+    router.push(`/work-space/detail/${roomId}/info`);
   };
 
   const handleRightButton = (): void => {
