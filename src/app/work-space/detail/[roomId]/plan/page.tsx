@@ -28,11 +28,5 @@ export default async function PlanPage({ params }: { params: { roomId: string } 
     redirect('/');
   }
 
-  // const phaseOrder = ['INTRODUCTION', 'DEVELOPMENT', 'CRISIS', 'CLIMAX', 'RESOLUTION'];
-
-  // const sortedStoryArcs = storyArcs.sort(
-  //   (a, b) => phaseOrder.indexOf(a.phase) - phaseOrder.indexOf(b.phase)
-  // );
-
   return <PlanTemplate storyArcs={storyArcs} />;
 }

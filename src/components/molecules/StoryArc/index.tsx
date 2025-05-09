@@ -82,9 +82,9 @@ export default function StoryArc({
           onChange={e => onChangeDescription(e.target.value)}
         />
       ) : (
-        <p className="py-[8px] font-spoqa text-[#2D2D2D] text-[14px] font-[400] leading-[22px]">
+        <div className="whitespace-pre-line py-[8px] font-spoqa text-[#2D2D2D] text-[14px] font-[400] leading-[22px]">
           {arc.description || storyArcWrapper[arc.phase].tip}
-        </p>
+        </div>
       )}
     </div>
   );
