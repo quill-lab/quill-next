@@ -80,12 +80,12 @@ export const PageHeader = ({ bg = 'transparent' }: PageHeaderProps) => {
           </div>
         </div>
         <div className="w-full flex items-center justify-end gap-[44px]">
-          <Notice
+          {/* <Notice
             visible={visibleAlarm}
             handleVisible={handleVisibleAralm}
             handleAlarmItem={handleAlarmItem}
-          />
-          <div onClick={() => router.push('/')}>내정보</div>
+          /> */}
+          {/* <div onClick={() => router.push('/')}>내정보</div> */}
           <div className="cursor-pointer" onClick={handleClickLogout}>
             로그아웃
           </div>
