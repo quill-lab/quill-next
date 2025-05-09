@@ -74,7 +74,6 @@ const NovelPage = async ({ params, searchParams }: Novel) => {
         query: GET_EPISODES,
         variables: {
           contributorGroupId: roomId,
-          status: 'APPROVED',
         },
       }),
       await callApi<NovelItem & callApiResponse>({
@@ -89,18 +88,20 @@ const NovelPage = async ({ params, searchParams }: Novel) => {
       redirect('/');
     }
 
-    const formattedEpisodes = episodes.data.chaptersConnection.nodes.map((episode: Chapter) => {
-      return {
-        id: episode.id,
-        episode: episode.episode,
-        title: episode.title,
-        editedAt: episode.editedAt ?? new Date(),
-        status: episode.status,
-        approvedAt: episode.approvedAt ?? new Date(),
-        currentAuthor: episode.currentAuthor ?? null,
-        metadata: episode.metadata,
-      };
-    });
+    const formattedEpisodes = episodes.data.chaptersConnection.nodes
+      .filter((chapter: Chapter) => chapter.status === 'APPROVED')
+      .map((episode: Chapter) => {
+        return {
+          id: episode.id,
+          episode: episode.episode,
+          title: episode.title,
+          editedAt: episode.editedAt ?? new Date(),
+          status: episode.status,
+          approvedAt: episode.approvedAt ?? new Date(),
+          currentAuthor: episode.currentAuthor ?? null,
+          metadata: episode.metadata,
+        };
+      });
 
     return (
       <NovelTemplate
@@ -110,6 +111,7 @@ const NovelPage = async ({ params, searchParams }: Novel) => {
       />
     );
   } catch (e) {
+    console.log('graphQL Error: ' + e);
     redirect('/');
   }
 };
