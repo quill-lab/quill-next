@@ -196,7 +196,6 @@ model novels {
   updated_at         DateTime?            @db.Timestamp(6)
   deleted_at         DateTime?            @db.Timestamp(6)
   title              String               @db.VarChar(255)
-  description        String?
   cover_image        String?              @db.VarChar(255)
   synopsis           String?
   category           String               @db.VarChar(255)

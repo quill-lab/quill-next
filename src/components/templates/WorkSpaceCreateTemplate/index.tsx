@@ -16,6 +16,7 @@ import { CreateRecruitments, CreateRoomArg } from '@/shared';
 import { useSession } from 'next-auth/react';
 import LoadingBar from '@/components/atoms/LoadingBar';
 import { createRecruimentAction } from './action';
+import { toast } from 'react-toastify';
 
 const pageComponentsMap: Record<number, React.ReactNode> = {
   0: <WorkSpace />,
@@ -109,6 +110,12 @@ export default function WorkSpaceCreateTemplate() {
         },
         token: session?.user?.token!,
       });
+
+      if (!createdRoom.id) {
+        toast.error('공방 생성에 실패했습니다.');
+        route.push('/work-space');
+        return;
+      }
 
       await createRecruimentAction({
         title: postTitle,
