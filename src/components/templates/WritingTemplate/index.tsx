@@ -13,9 +13,16 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
 import { notififyDiscordRequestPublication } from './action';
 import './custom-scrollbar.scss';
+import ExpandableDescription from '@/components/organisms/ExpandableDescription';
 
 interface WritingTemplateProps {
-  chapter: { title: string; chapterTitle: string; chapterNumber: number; chapters: ChapterText[] };
+  chapter: {
+    title: string;
+    chapterTitle: string;
+    chapterNumber: number;
+    description: string;
+    chapters: ChapterText[];
+  };
   draftText: DraftText;
   adminAccount: Member;
   currentAuthor: { id: string; name: string; accountId: string };
@@ -37,7 +44,7 @@ const WritingTemplate = ({
   const [isPendingPublish, startPublish] = useTransition();
   const roomId = params?.roomId;
   const chapterId = searchParams?.get('episode');
-  const { isSaving, draftContent } = useWriting();
+  const { isSaving, draftContent, description } = useWriting();
 
   const handleFinalizeText = async () => {
     startFinalizeContent(async () => {
@@ -64,6 +71,13 @@ const WritingTemplate = ({
         token: session?.user.token,
         body: { content: draftContent },
       });
+    });
+
+    await callApi({
+      url: `/api/v1/novel-rooms/${roomId}/chapters/${chapterId}`,
+      method: 'PATCH',
+      token: session?.user?.token,
+      body: { title: chapter.chapterTitle, description },
     });
   };
 
@@ -125,7 +139,19 @@ const WritingTemplate = ({
                 </button>
               ))}
           </div>
-          <div className="w-full h-[16px] rounded-bl-[10px] rounded-br-[10px] bg-[#077D8A] shadow-[0px 4px 4px 0px rgba(0, 0, 0, 0.25)]" />
+          {/* <div className="flex py-[4px] justify-center items-center w-full h-[16px] rounded-bl-[10px] rounded-br-[10px] bg-[#077D8A] shadow-[0px 4px 4px 0px rgba(0, 0, 0, 0.25)]">
+            <Image
+              src={'/images/white-bottom-polygon.svg'}
+              width={16}
+              height={8}
+              alt="show description"
+            />
+          </div> */}
+          <ExpandableDescription
+            description={chapter.description}
+            adminAccount={adminAccount}
+            title={chapter.chapterTitle}
+          />
         </div>
         <div className="px-[24px] pb-[28px]">
           <ChapterItemList

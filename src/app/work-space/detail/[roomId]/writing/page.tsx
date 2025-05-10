@@ -106,6 +106,7 @@ const WritingPage = async ({ params, searchParams }: WritingPageProps) => {
     title: chapterInfo?.novels.title || '',
     chapterTitle: chapterInfo?.title || '',
     chapterNumber: chapterInfo?.chapter_number || 0,
+    description: chapterInfo?.description || '',
     chapters: chapterText.map(chapter => ({
       id: chapter.id,
       content: chapter.content,

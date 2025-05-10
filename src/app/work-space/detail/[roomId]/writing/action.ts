@@ -8,6 +8,7 @@ export const getChapter = async (chapterId: string) => {
     select: {
       title: true,
       status: true,
+      description: true,
       chapter_number: true,
       novels: {
         select: {
