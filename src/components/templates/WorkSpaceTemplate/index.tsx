@@ -121,7 +121,7 @@ const WorkSpace = ({ items, totalCount, size, page }: WordSpaceProps) => {
               {items.length > 0 ? (
                 items.map(item => (
                   <div
-                    className="flex cursor-pointer justify-center items-center rounded-[10px] border border-[0.6px] border-[#D9D9D9]"
+                    className="flex cursor-pointer justify-center items-center rounded-[10px] border border-[0.6px] border-[#D9D9D9] overflow-hidden"
                     style={{ boxShadow: '0px 4px 6px 0px rgba(63, 63, 63, 0.25)' }}
                     onClick={() => router.push(`/work-space/detail/${item.id}/info`)}
                   >
