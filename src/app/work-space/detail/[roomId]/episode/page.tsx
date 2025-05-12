@@ -1,7 +1,7 @@
 import { authOptions } from '@/authOptions';
 import EpisodeTemplate from '@/components/templates/EpisodeTemplate';
 import { Chapter, ChapterFormatted } from '@/shared/interface/chapter';
-import { ApolloClient, gql, HttpLink, InMemoryCache, useQuery } from '@apollo/client';
+import { ApolloClient, gql, HttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { getServerSession } from 'next-auth';
 

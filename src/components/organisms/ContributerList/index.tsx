@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Member } from '@/shared';
 import { useSession } from 'next-auth/react';
@@ -86,9 +86,9 @@ const ContributerList = ({ members }: ContributerListProps) => {
         ))}
       </div>
 
-      <button className="w-full sticky bottom-0 left-0 bg-[#F8F8F8] py-[20px] text-center text-[#059EAF] text-[14px] font-[500] font-spoqa rounded-bl-[20px] rounded-br-[20px]">
+      {/* <button className="w-full sticky bottom-0 left-0 bg-[#F8F8F8] py-[20px] text-center text-[#059EAF] text-[14px] font-[500] font-spoqa rounded-bl-[20px] rounded-br-[20px]">
         작가 순서 관리
-      </button>
+      </button> */}
     </div>
   );
 };

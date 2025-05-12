@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -43,7 +43,7 @@ const MobileContributerList = ({ members }: MobileContributerListProps) => {
       transition={{ duration: 0.3 }} // 애니메이션 속도
       onClick={handleClick}
     >
-      <div className="w-full flex items-center justify-between px-[24px] py-[8px]">
+      {/* <div className="w-full flex items-center justify-between px-[24px] py-[8px]">
         <div />
         <div
           className="text-[#059EAF] text-[14px] font-[500] font-spoqa cursor-pointer"
@@ -57,7 +57,7 @@ const MobileContributerList = ({ members }: MobileContributerListProps) => {
           width={12}
           height={10}
         />
-      </div>
+      </div> */}
 
       <div className="w-full flex flex-col items-center justify-center">
         <div className={`w-full text-[#2d2d2d] text-center text-[16px] py-[16px] font-[400]`}>
