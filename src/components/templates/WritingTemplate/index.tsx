@@ -162,7 +162,7 @@ const WritingTemplate = ({
         </div>
       </div>
       <div className="w-full mt-[18px] flex gap-[36px] items-center justify-center">
-        {currentAuthor.id === session?.user?.id && (
+        {currentAuthor.accountId === session?.user?.id && (
           <button
             onClick={handleFinalizeText}
             className="rounded-[62px] bg-[#059EAF] py-[16px] px-[68px] text-[#e7f6f8] text-center text-[14px] font-[500] text-spoqa"

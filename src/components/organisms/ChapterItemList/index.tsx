@@ -22,7 +22,7 @@ const ChapterItemList = ({ chapter, draftText, currentAuthor }: ChapterItemListP
               key={item.id}
               text={item.content}
               mine={item.authorName === session?.user?.name}
-              isEdited={currentAuthor.id === session?.user?.id}
+              isEdited={currentAuthor.accountId === session?.user?.id}
             />
           );
         })
