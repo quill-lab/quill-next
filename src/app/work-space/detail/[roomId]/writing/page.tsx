@@ -115,8 +115,6 @@ const WritingPage = async ({ params, searchParams }: WritingPageProps) => {
     })),
   };
 
-  console.log({ currentAuthor: currentAuthor.data.chapter.currentAuthor });
-
   const formattedCurrentAuthor = {
     id: currentAuthor.data.chapter.currentAuthor.id,
     name: currentAuthor.data.chapter.currentAuthor.name,

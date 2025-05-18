@@ -1,13 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
-import useWheelState from '@/stores/useWheelState';
-
-import { Notice } from '../Notice/Notice';
-import { storageKey } from '@/constants';
 import { useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 
@@ -49,7 +44,7 @@ export const PageHeader = ({ bg = 'transparent' }: PageHeaderProps) => {
   };
 
   const handleClickLogo = () => {
-    router.push('/work-space');
+    router.push('/main');
   };
 
   return (

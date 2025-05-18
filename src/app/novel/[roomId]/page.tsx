@@ -8,7 +8,6 @@ import { ApolloClient, gql, HttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import React from 'react';
 import { getNovelAuthorList } from './action';
 
 interface Novel {
@@ -122,7 +121,7 @@ const NovelPage = async ({ params, searchParams }: Novel) => {
     );
   } catch (e) {
     console.log('graphQL Error: ' + e);
-    redirect('/');
+    // redirect('/');
   }
 };
 

@@ -834,12 +834,6 @@
         "title": {
           "type": "string"
         },
-        "description": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
         "cover_image": {
           "type": [
             "string",
