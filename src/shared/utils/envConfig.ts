@@ -7,7 +7,7 @@ export const envWsConfig = () => {
 };
 
 export const apiConfig = () => {
-  return 'https://gow-jvm-api-dev.cd80.run';
+  return 'http://ec2-15-165-72-124.ap-northeast-2.compute.amazonaws.com:8080';
 };
 
-export const apiUrl = 'https://gow-jvm-api-dev.cd80.run';
+export const apiUrl = 'http://ec2-15-165-72-124.ap-northeast-2.compute.amazonaws.com:8080';
