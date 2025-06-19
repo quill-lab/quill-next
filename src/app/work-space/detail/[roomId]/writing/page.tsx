@@ -54,7 +54,7 @@ const WritingPage = async ({ params, searchParams }: WritingPageProps) => {
   });
 
   const httpLink = new HttpLink({
-    uri: 'https://gow-jvm-graphql-dev.cd80.run/graphql',
+    uri: 'http://ec2-15-165-72-124.ap-northeast-2.compute.amazonaws.com:8081/graphiql',
   });
 
   const client = new ApolloClient({
