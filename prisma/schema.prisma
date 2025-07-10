@@ -16,6 +16,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum ChapterStatus {
+  APPROVED
+  REQUESTED
+}
+
 model accounts {
   id                             String                           @id(map: "pk_accounts") @db.Uuid
   created_at                     DateTime?                        @default(now()) @db.Timestamp(6)
@@ -68,7 +73,7 @@ model chapters {
   novel_id        String            @db.Uuid
   approved_at     DateTime?         @db.Timestamp(6)
   chapter_number  Int?
-  status          String?           @db.VarChar(255)
+  status          ChapterStatus?    
   persisted_at    DateTime?         @db.Timestamp(6)
   chapter_authors chapter_authors[]
   chapter_texts   chapter_texts[]
