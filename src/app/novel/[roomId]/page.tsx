@@ -60,7 +60,7 @@ const NovelPage = async ({ params, searchParams }: Novel) => {
   });
 
   const httpLink = new HttpLink({
-    uri: 'https://graphql.writergarden.co.kr',
+    uri: 'https://graphql.writergarden.co.kr/graphql',
   });
 
   const client = new ApolloClient({

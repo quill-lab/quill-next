@@ -113,12 +113,12 @@ export default function EpisodeTemplate({ episodes }: EpisodeTemplateInterface) 
         <div className="px-[24px] pt-[24px] pb-[16px] flex justify-between items-center">
           <DropDownBox />
 
-          {/* <button
+          <button
             onClick={handleMoveViewer}
             className="bg-[white] bg-opacity-50 rounded-[100px] px-[16px] py-[8px] text-[#059eaf] text-[12px] font-[500] font-[spoqa] flex gap-[4px]"
           >
             작품 보러 가기
-          </button> */}
+          </button>
         </div>
         <div className="w-full">
           <EpisodeList episodes={episodes} />

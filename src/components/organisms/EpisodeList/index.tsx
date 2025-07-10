@@ -20,6 +20,7 @@ const EpisodeList = ({ episodes }: EpisodeListProps) => {
     CANCELLED: '연재취소',
     DRAFT: '작성중',
   };
+  console.log({ episodes });
 
   return (
     <table className="w-full">
