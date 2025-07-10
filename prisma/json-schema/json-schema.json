@@ -52,6 +52,30 @@
             "null"
           ],
           "format": "date-time"
+        },
+        "contributor_group_recruitments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/contributor_group_recruitments"
+          }
+        },
+        "contributor_requests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/contributor_requests"
+          }
+        },
+        "recruitment_user_likes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/recruitment_user_like"
+          }
+        },
+        "contributors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/contributors"
+          }
         }
       },
       "required": [
@@ -326,13 +350,19 @@
           "format": "date-time"
         },
         "novels": {
-          "$ref": "#/definitions/novels"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/novels"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [
         "id",
-        "name",
-        "novel_id"
+        "name"
       ]
     },
     "contributor_group_recruitments": {
@@ -380,18 +410,6 @@
             "null"
           ]
         },
-        "contributor_group_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "author_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
         "persisted_at": {
           "type": [
             "string",
@@ -399,14 +417,77 @@
           ],
           "format": "date-time"
         },
+        "like": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "view": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
         "status": {
           "type": [
             "string",
             "null"
           ]
+        },
+        "author": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/accounts"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "contributor_group": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/contributor_groups"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "recruitment_user_likes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/recruitment_user_like"
+          }
         }
       },
       "required": []
+    },
+    "recruitment_user_like": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "recruitment": {
+          "$ref": "#/definitions/contributor_group_recruitments"
+        },
+        "user": {
+          "$ref": "#/definitions/accounts"
+        }
+      },
+      "required": [
+        "user_id",
+        "recruitment_id"
+      ]
     },
     "contributor_groups": {
       "type": "object",
@@ -453,9 +534,6 @@
             "null"
           ]
         },
-        "novel_id": {
-          "type": "string"
-        },
         "completed_at": {
           "type": [
             "string",
@@ -469,6 +547,15 @@
             "null"
           ],
           "format": "date-time"
+        },
+        "recruitments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/contributor_group_recruitments"
+          }
+        },
+        "novels": {
+          "$ref": "#/definitions/novels"
         },
         "contributor_requests": {
           "type": "array",
@@ -515,9 +602,6 @@
           ],
           "format": "date-time"
         },
-        "account_id": {
-          "type": "string"
-        },
         "status": {
           "type": [
             "string",
@@ -547,6 +631,9 @@
         },
         "contributor_groups": {
           "$ref": "#/definitions/contributor_groups"
+        },
+        "account": {
+          "$ref": "#/definitions/accounts"
         }
       },
       "required": [
@@ -581,9 +668,6 @@
           ],
           "format": "date-time"
         },
-        "account_id": {
-          "type": "string"
-        },
         "role": {
           "type": [
             "string",
@@ -602,6 +686,9 @@
             "null"
           ],
           "format": "date-time"
+        },
+        "account": {
+          "$ref": "#/definitions/accounts"
         },
         "contributor_groups": {
           "$ref": "#/definitions/contributor_groups"
@@ -702,13 +789,19 @@
           "format": "date-time"
         },
         "novels": {
-          "$ref": "#/definitions/novels"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/novels"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [
         "id",
-        "name",
-        "novel_id"
+        "name"
       ]
     },
     "novels": {
@@ -773,6 +866,12 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/characters"
+          }
+        },
+        "contributor_groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/contributor_groups"
           }
         },
         "novel_tags": {
@@ -1010,6 +1109,9 @@
     },
     "contributor_group_recruitments": {
       "$ref": "#/definitions/contributor_group_recruitments"
+    },
+    "recruitment_user_like": {
+      "$ref": "#/definitions/recruitment_user_like"
     },
     "contributor_groups": {
       "$ref": "#/definitions/contributor_groups"

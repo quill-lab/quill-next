@@ -33,9 +33,9 @@ const WorkSpace = ({ items, totalCount, size, page }: WordSpaceProps) => {
   const { data: session } = useSession();
 
   const handleClickTab = (tab: string) => {
-    // if (currentTab === tab) return;
-    // setCurrentTab(tab);
-    // setRoomStatus(tab === TAB_NAMES[0] ? 'attending' : 'apptendApply');
+    if (currentTab === tab) return;
+    setCurrentTab(tab);
+    setRoomStatus(tab === TAB_NAMES[0] ? 'attending' : 'apptendApply');
     // setPage(1);
   };
 
