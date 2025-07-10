@@ -19,6 +19,7 @@ datasource db {
 enum ChapterStatus {
   APPROVED
   REQUESTED
+  DRAFT
 }
 
 model accounts {
