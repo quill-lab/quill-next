@@ -11,6 +11,9 @@ interface Novel {
   actor: string;
   summary: string;
   bookCover: BookCover;
+  description: string;
+  planningIntent: string;
+  background: string;
 }
 
 const novel: Novel = {
@@ -22,6 +25,9 @@ const novel: Novel = {
   actor: '',
   summary: '',
   bookCover: '/images/book-cover-1.png',
+  description: '',
+  planningIntent: '',
+  background: '',
 };
 
 interface Post {
@@ -46,9 +52,12 @@ interface Checks<T> {
 interface NovelChecking {
   titleCheck: Checks<Novel>;
   categoryCheck: Checks<Novel>;
-  novelTagCheck: Checks<Novel>;
   actorCheck: Checks<Novel>;
+  novelTagCheck: Checks<Novel>;
   summaryCheck: Checks<Novel>;
+  descriptionCheck: Checks<Novel>;
+  planningIntentCheck: Checks<Novel>;
+  backgroundCheck: Checks<Novel>;
 }
 interface PostChecking {
   postTitleCheck: Checks<Post>;
@@ -79,19 +88,37 @@ const novelChecking: NovelChecking = {
   novelTagCheck: {
     key: 'novelTag',
     essential: true,
-    errorMsg: '태그를 한가지 이상 만들어주세요.',
+    errorMsg: '키워드를 한가지 이상 만들어 주세요.',
     isError: false,
   },
   actorCheck: {
     key: 'actor',
     essential: false,
-    errorMsg: '등장인물을 입력해주세요',
+    errorMsg: '등장인물을 입력해 주세요',
     isError: false,
   },
   summaryCheck: {
     key: 'summary',
+    essential: false,
+    errorMsg: '줄거리를 입력해 주세요',
+    isError: false,
+  },
+  descriptionCheck: {
+    key: 'description',
     essential: true,
-    errorMsg: '줄거리를 입력해주세요',
+    errorMsg: '한줄 소개를 입력해 주세요.',
+    isError: false,
+  },
+  planningIntentCheck: {
+    key: 'planningIntent',
+    essential: true,
+    errorMsg: '기획의도를 입력해 주세요.',
+    isError: false,
+  },
+  backgroundCheck: {
+    key: 'background',
+    essential: false,
+    errorMsg: '',
     isError: false,
   },
 };
@@ -119,9 +146,7 @@ const postChecking: PostChecking = {
 export const useCreateNovelPost = create<Novel & Post & NovelChecking & PostChecking & Actions>()(
   (set, get) => ({
     ...novel,
-
     ...post,
-
     ...novelChecking,
     ...postChecking,
     setNovel: data => {
@@ -146,23 +171,29 @@ export const useCreateNovelPost = create<Novel & Post & NovelChecking & PostChec
     },
     novelChecking() {
       let isErr = false;
+
       (Object.keys(novelChecking) as Array<keyof NovelChecking>).forEach(item => {
         const check = get()[item];
         const nowData = get()[check.key];
 
-        if (check.essential && nowData === novel[check.key]) {
+        // ✅ novelTagCheck만 예외 처리
+        const isEmptyNovelTag =
+          check.key === 'novelTag' && Array.isArray(nowData) && nowData.length === 0;
+
+        if (check.essential && (nowData === novel[check.key] || isEmptyNovelTag)) {
           set({
             ...get(),
             [item]: { ...get()[item], isError: true },
           });
           isErr = true;
-        } else if (check.essential && nowData !== novel[check.key]) {
+        } else if (check.essential) {
           set({
             ...get(),
             [item]: { ...get()[item], isError: false },
           });
         }
       });
+
       return isErr;
     },
     postChecking() {

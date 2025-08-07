@@ -34,7 +34,7 @@ export const OneLineInput = ({
           onChange(event.target.value);
         }}
       />
-      {isError && <p>{errorText}</p>}
+      {isError && <p className="mt-1">{errorText}</p>}
     </div>
   </TooltipTextField>
 );

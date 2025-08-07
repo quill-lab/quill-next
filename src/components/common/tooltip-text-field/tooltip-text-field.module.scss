@@ -25,7 +25,6 @@
         .speechBubbleContainer {
             text-align: center;
             width: $s256px;
-            min-height: $s40px;
             border: solid $s05px $back-1;
             border-radius: $s20px $s20px 0px $s20px;
             background-color: $white-2;
@@ -33,7 +32,7 @@
             color: $blue-2;
             font-size: $s12px;
             font-weight: 500;
-            padding: $s16px;
+            padding: $s8px;
             position: absolute;
             bottom: 90%;
             right: 10%;

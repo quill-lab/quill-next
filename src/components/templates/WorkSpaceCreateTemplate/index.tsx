@@ -42,6 +42,8 @@ export default function WorkSpaceCreateTemplate() {
     postTitle,
     postContent,
     openLink,
+    background,
+    planningIntent,
     novelChecking,
     postChecking,
   } = useCreateNovelPost();
@@ -107,6 +109,9 @@ export default function WorkSpaceCreateTemplate() {
           tags: replaceHastTag(novelTag),
           synopsis: summary || null,
           coverImage: bookCover || null,
+          background,
+          summary,
+          intention: planningIntent,
         },
         token: session?.user?.token!,
       });

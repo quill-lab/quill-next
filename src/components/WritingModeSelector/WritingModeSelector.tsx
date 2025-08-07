@@ -17,8 +17,11 @@ export const WritingModeSelector = ({
   handleChangePeopleCount,
 }: WritingModeSelectorProps) => (
   <>
-    <TooltipTextField compulsory={true} categoryText="작가 정원" tooltipText={`소설을 함께 쓸 인원을 지정해 보세요.
-선택 후 수정이 불가능합니다.`}>
+    <TooltipTextField
+      compulsory={true}
+      categoryText="작가 정원"
+      tooltipText="몇 명의 작가와 함께 글을 쓰고 싶나요?"
+    >
       <div className={st.container}>
         <label className={st.inputBox}>
           <input

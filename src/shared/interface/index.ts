@@ -177,6 +177,9 @@ export interface CreateRoomArg {
   character?: string;
   synopsis?: string | null;
   coverImage?: BookCover | null;
+  background: string;
+  summary: string;
+  intention: string;
 }
 
 export interface CreateRecruitments {

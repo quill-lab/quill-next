@@ -86,7 +86,7 @@ export default function HashTagInput({
             onKeyDown={handleKeyDown}
             onInput={handleInputChange}
             className={`${st.tagContainer_input} border-none outline-none`}
-            placeholder="#카테고리"
+            placeholder="#키워드"
           />
         </div>
         {isError && <p className={st.tagArea_errorText}>{errorText}</p>}
