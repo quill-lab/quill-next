@@ -44,6 +44,7 @@ export default function WorkSpaceCreateTemplate() {
     openLink,
     background,
     planningIntent,
+    description,
     novelChecking,
     postChecking,
   } = useCreateNovelPost();
@@ -110,7 +111,7 @@ export default function WorkSpaceCreateTemplate() {
           synopsis: summary || null,
           coverImage: bookCover || null,
           background,
-          summary,
+          summary: description,
           intention: planningIntent,
         },
         token: session?.user?.token!,
