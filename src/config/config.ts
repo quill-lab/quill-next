@@ -15,7 +15,7 @@ export const config = {
     login: '/api/v1/auth/signin',
 
     // 임시비밀번호
-    tempPassword: '/auth/temp-password',
+    tempPassword: '/api/v1/auth/password/temporary',
 
     // 유저 정보
     getUser: '/auth/user',
