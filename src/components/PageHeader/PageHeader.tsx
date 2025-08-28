@@ -40,7 +40,6 @@ export const PageHeader = ({ bg = 'transparent' }: PageHeaderProps) => {
 
   const handleClickLogout = () => {
     signOut();
-    router.push('/');
   };
 
   const handleClickLogo = () => {
