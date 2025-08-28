@@ -109,35 +109,38 @@ const WritingTemplate = ({
       {(isPendingFinalizeContent || isPendingPublish) && <LoadingBar />}
       <div className="w-full bg-[#E7F6F880] rounded-tl-[10px] rounded-tr-[10px]">
         <div className="w-full">
-          <div className="w-full rounded-tl-[10px] rounded-tr-[10px] bg-[white] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] flex justify-between items-center py-[18px] px-[32px]">
-            <div className="flex items-center gap-[]">
-              <h2 className="text-[#2D2D2D] font-spoqa text-[16px] font-[500]">
-                {chapter.chapterNumber}화 {chapter.chapterTitle}
-              </h2>
-            </div>
-            {currentAuthor.accountId === session?.user?.id &&
-              (isSaving || isPendingSaveContent ? (
-                <Image src="/images/isSaving.svg" width={40} height={40} alt="is saving" />
-              ) : (
-                <button className="relative group">
-                  <Image
-                    className="cursor-pointer"
-                    onClick={handleSaveDraftContent}
-                    src="/images/save.svg"
-                    width={40}
-                    height={40}
-                    alt="save"
-                  />
-                  <div className="hidden group-hover:flex absolute left-1/2 transform -translate-x-1/2 flex-col items-center">
-                    <Image src="/images/triangle.svg" width={12} height={10} alt="point" />
-                    <div className="mt-[-1px] bottom-[-1px] left-[5px] px-[12px] py-[8px] rounded-[10px] bg-[#41B4C0]">
-                      <p className="text-[#fff] text-[14px] font-spoqa font-[400]">
-                        {dayjs(new Date()).format('HH:mm:ss')}
-                      </p>
+          <div className="w-full rounded-tl-[10px] rounded-tr-[10px] bg-[white] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] py-[18px] px-[32px]">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-[]">
+                <h2 className="text-[#2D2D2D] font-spoqa text-[16px] font-[500]">
+                  {chapter.chapterNumber}화 {chapter.chapterTitle}
+                </h2>
+              </div>
+              {currentAuthor.accountId === session?.user?.id &&
+                (isSaving || isPendingSaveContent ? (
+                  <Image src="/images/isSaving.svg" width={40} height={40} alt="is saving" />
+                ) : (
+                  <button className="relative group">
+                    <Image
+                      className="cursor-pointer"
+                      onClick={handleSaveDraftContent}
+                      src="/images/save.svg"
+                      width={40}
+                      height={40}
+                      alt="save"
+                    />
+                    <div className="hidden group-hover:flex absolute left-1/2 transform -translate-x-1/2 flex-col items-center">
+                      <Image src="/images/triangle.svg" width={12} height={10} alt="point" />
+                      <div className="mt-[-1px] bottom-[-1px] left-[5px] px-[12px] py-[8px] rounded-[10px] bg-[#41B4C0]">
+                        <p className="text-[#fff] text-[14px] font-spoqa font-[400]">
+                          {dayjs(new Date()).format('HH:mm:ss')}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </button>
-              ))}
+                  </button>
+                ))}
+            </div>
+            <h3 className="text-[#077D8A] text-[16px] font-[500]">회차 요약</h3>
           </div>
           {/* <div className="flex py-[4px] justify-center items-center w-full h-[16px] rounded-bl-[10px] rounded-br-[10px] bg-[#077D8A] shadow-[0px 4px 4px 0px rgba(0, 0, 0, 0.25)]">
             <Image
@@ -147,6 +150,7 @@ const WritingTemplate = ({
               alt="show description"
             />
           </div> */}
+
           <ExpandableDescription
             description={chapter.description}
             adminAccount={adminAccount}
